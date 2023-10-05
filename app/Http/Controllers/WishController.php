@@ -20,6 +20,7 @@ class WishController extends Controller
     {
         $wishlist->wishes()->create($request->validate([
             'name' => ['required', 'string', 'max:255'],
+            'url' => ['nullable', 'url:http,https', 'max:255'],
             'description' => ['nullable', 'string', 'max:1000'],
         ]));
 
@@ -39,6 +40,7 @@ class WishController extends Controller
     {
         $wish->update($request->validate([
             'name' => ['required', 'string', 'max:255'],
+            'url' => ['nullable', 'url:http,https', 'max:255'],
             'description' => ['nullable', 'string', 'max:1000'],
         ]));
 

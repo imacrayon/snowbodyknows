@@ -9,7 +9,12 @@
         @foreach($wishes as $wish)
             <li class="flex gap-6 px-4 py-3">
                 <div class="flex-1">
-                    <div>{{ $wish->name }}</div>
+                    <div>
+                        {{ $wish->name }}
+                        @if ($wish->url)
+                            <span class="text-gray-600">[<a href="{{ $wish->url }}" class="underline">{{ parse_url($wish->url, PHP_URL_HOST) }}</a>]</span>
+                        @endif
+                    </div>
                     <div class="text-sm text-gray-600">{{ $wish->description }}</div>
                 </div>
                 <div class="flex gap-2">
