@@ -10,23 +10,21 @@
     </header>
 
     <x-form method="put" action="{{ route('password.update') }}" class="mt-6 space-y-6">
-        <div>
+        <x-field>
             <x-label for="current_password" :value="__('Current Password')" />
             <x-error for="current_password" bag="updatePassword" />
-            <x-input id="current_password" name="current_password" type="password" class="mt-1 block w-full" autocomplete="current-password" />
-        </div>
-
-        <div>
+            <x-input name="current_password" type="password" autocomplete="current-password" />
+        </x-field>
+        <x-field>
             <x-label for="password" :value="__('New Password')" />
             <x-error for="password" bag="updatePassword" />
-            <x-input id="password" name="password" type="password" class="mt-1 block w-full" autocomplete="new-password" />
-        </div>
-
-        <div>
+            <x-input name="password" type="password" autocomplete="new-password" />
+        </x-field>
+        <x-field>
             <x-label for="password_confirmation" :value="__('Confirm Password')" />
             <x-error for="password_confirmation" bag="updatePassword" />
-            <x-input id="password_confirmation" name="password_confirmation" type="password" class="mt-1 block w-full" autocomplete="new-password" />
-        </div>
+            <x-input name="password_confirmation" type="password" autocomplete="new-password" />
+        </x-field>
 
         <div class="flex items-center gap-4">
             <x-button-primary>{{ __('Save') }}</x-button-primary>

@@ -12,16 +12,15 @@
     <x-form id="send-verification" method="post" action="{{ route('verification.send') }}"></x-form>
 
     <x-form method="patch" action="{{ route('profile.update') }}" class="mt-6 space-y-6">
-        <div>
+        <x-field>
             <x-label for="name" :value="__('Name')" />
             <x-error for="name" />
-            <x-input id="name" name="name" type="text" class="mt-1 block w-full" :value="$user->name" required autofocus autocomplete="name" />
-        </div>
-
-        <div>
+            <x-input name="name" :value="$user->name" required autofocus autocomplete="name" />
+        </x-field>
+        <x-field>
             <x-label for="email" :value="__('Email')" />
             <x-error for="email" />
-            <x-input id="email" name="email" type="email" class="mt-1 block w-full" :value="$user->email" required autocomplete="username" />
+            <x-input name="email" type="email" :value="$user->email" required autocomplete="username" />
 
             @if ($user instanceof \Illuminate\Contracts\Auth\MustVerifyEmail && ! $user->hasVerifiedEmail())
                 <div>
@@ -40,7 +39,7 @@
                     @endif
                 </div>
             @endif
-        </div>
+        </x-field>
 
         <div class="flex items-center gap-4">
             <x-button-primary>{{ __('Save') }}</x-button-primary>

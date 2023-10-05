@@ -42,4 +42,11 @@ class WishController extends Controller
 
         return to_route('wishlists.show', $wishlist);
     }
+
+    public function destroy(Wishlist $wishlist, Wish $wish)
+    {
+        $wish->delete();
+
+        return to_route('wishlists.show', $wishlist);
+    }
 }

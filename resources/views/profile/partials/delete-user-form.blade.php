@@ -24,18 +24,11 @@
                 {{ __('Once your account is deleted, all of its resources and data will be permanently deleted. Please enter your password to confirm you would like to permanently delete your account.') }}
             </p>
 
-            <div class="mt-6">
+            <x-field class="mt-6">
                 <x-label for="password" value="{{ __('Password') }}" class="sr-only" />
                 <x-error for="password" bag="userDeletion" />
-                <x-input
-                    id="password"
-                    name="password"
-                    type="password"
-                    class="mt-1 block w-3/4"
-                    placeholder="{{ __('Password') }}"
-                />
-
-            </div>
+                <x-input type="password" name="password" class="mt-1 block w-3/4" placeholder="{{ __('Password') }}" />
+            </x-field>
 
             <div class="mt-6 flex justify-end">
                 <x-button-secondary x-on:click="$dispatch('close')">

@@ -6,11 +6,11 @@
     <x-auth-session-status class="mb-4" :status="session('status')" />
 
     <x-form method="post" action="{{ route('password.email') }}">
-        <div>
+        <x-field>
             <x-label for="email" :value="__('Email')" />
             <x-error for="email" />
-            <x-input id="email" class="block mt-1 w-full" type="email" name="email" required autofocus />
-        </div>
+            <x-input type="email" name="email" required autofocus />
+        </x-field>
 
         <div class="flex items-center justify-end mt-4">
             <x-button-primary>
