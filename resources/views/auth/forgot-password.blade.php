@@ -12,7 +12,7 @@
             <x-input type="email" name="email" required autofocus />
         </x-field>
 
-        <div class="flex items-center justify-end mt-4">
+        <div class="flex items-center justify-end mt-6">
             <x-button-primary>
                 {{ __('Email Password Reset Link') }}
             </x-button-primary>
