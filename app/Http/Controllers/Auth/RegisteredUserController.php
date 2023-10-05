@@ -10,6 +10,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 use Illuminate\Validation\Rules;
 use Illuminate\View\View;
 
@@ -43,7 +44,7 @@ class RegisteredUserController extends Controller
         ]);
 
         $user->wishlists()->create([
-            'name' => __(':user’s Wishlist', ['user' => $user->name]),
+            'name' => __(':user’s Wishlist', ['user' => Str::before($user->name, ' ')]),
         ]);
 
         event(new Registered($user));
