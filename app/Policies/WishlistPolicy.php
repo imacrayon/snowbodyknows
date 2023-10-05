@@ -17,6 +17,11 @@ class WishlistPolicy
         return $wishlist->user->is($user) || $wishlist->members->contains($user);
     }
 
+    public function fulfill(User $user, Wishlist $wishlist): bool
+    {
+        return $wishlist->members->contains($user);
+    }
+
     public function create(User $user): bool
     {
         return true;

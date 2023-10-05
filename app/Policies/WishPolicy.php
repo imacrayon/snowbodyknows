@@ -19,7 +19,7 @@ class WishPolicy
 
     public function grant(User $user, Wish $wish): bool
     {
-        return $this->view($user, $wish);
+        return $user->can('fulfill', $wish->wishlist);
     }
 
     public function create(User $user): bool
