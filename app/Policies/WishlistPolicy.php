@@ -34,7 +34,7 @@ class WishlistPolicy
 
     public function delete(User $user, Wishlist $wishlist): bool
     {
-        return $this->update($user, $wishlist);
+        return $this->update($user, $wishlist) && $user->wishlists->count() > 1;
     }
 
     public function restore(User $user, Wishlist $wishlist): bool
