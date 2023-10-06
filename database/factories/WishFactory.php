@@ -2,22 +2,18 @@
 
 namespace Database\Factories;
 
+use App\Models\Wishlist;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-/**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Wish>
- */
 class WishFactory extends Factory
 {
-    /**
-     * Define the model's default state.
-     *
-     * @return array<string, mixed>
-     */
     public function definition(): array
     {
         return [
-            //
+            'wishlist_id' => Wishlist::factory(),
+            'name' => $this->faker->catchPhrase(),
+            'url' => $this->faker->url(),
+            'description' => $this->faker->sentence(),
         ];
     }
 }
