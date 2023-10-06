@@ -31,9 +31,7 @@ test('users cannot view others’ wishlists', function () {
     $wishlist = Wishlist::factory()->create();
 
     $this->actingAs(User::factory()->create());
-    $response = $this->get(route('wishlists.show', $wishlist));
-
-    $response->assertForbidden();
+    $this->get(route('wishlists.show', $wishlist))->assertForbidden();
 });
 
 test('users can create wishlists', function () {
@@ -67,29 +65,21 @@ test('users cannot change others’ wishlists', function () {
     $wishlist = Wishlist::factory()->create();
 
     $this->actingAs(User::factory()->create());
-    $response = $this->patch(route('wishlists.update', $wishlist), [
-        'name' => 'New Name',
-    ]);
-
-    $response->assertForbidden();
+    $this->patch(route('wishlists.update', $wishlist))->assertForbidden();
 });
 
 test('users cannot delete their default wishlist', function () {
     $wishlist = Wishlist::factory()->create();
 
     $this->actingAs($wishlist->user);
-    $response = $this->delete(route('wishlists.destroy', $wishlist));
-
-    $response->assertForbidden();
+    $this->delete(route('wishlists.destroy', $wishlist))->assertForbidden();
 });
 
 test('users cannot delete their others’ wishlist', function () {
     $wishlist = Wishlist::factory()->create();
 
     $this->actingAs(User::factory()->create());
-    $response = $this->delete(route('wishlists.destroy', $wishlist));
-
-    $response->assertForbidden();
+    $this->delete(route('wishlists.destroy', $wishlist))->assertForbidden();
 });
 
 test('users can delete their wishlist', function () {
