@@ -13,8 +13,8 @@ test('default wishlist is created when user registers', function () {
 
     $response->assertRedirect();
     $user = User::first();
-    expect($user->wishlists)->not->toBeEmpty();
-    expect($user->wishlists->first()->name)->toBe('Test’s Wishlist');
+    expect($user->wishlists)->not->toBeEmpty()
+        ->first()->name->toBe('Test’s Wishlist');
 });
 
 test('users can view their wishlists', function () {
