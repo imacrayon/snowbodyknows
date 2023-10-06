@@ -27,7 +27,7 @@ test('users can view their wishlists', function () {
     $response->assertSee($wishlist->name);
 });
 
-test('users cannot view others’ wishlists ', function () {
+test('users cannot view others’ wishlists', function () {
     $wishlist = Wishlist::factory()->create();
 
     $this->actingAs(User::factory()->create());
@@ -63,10 +63,30 @@ test('users can change their wishlist name', function () {
     expect($wishlist->fresh()->name)->toBe('New Name');
 });
 
+test('users cannot change others’ wishlists', function () {
+    $wishlist = Wishlist::factory()->create();
+
+    $this->actingAs(User::factory()->create());
+    $response = $this->patch(route('wishlists.update', $wishlist), [
+        'name' => 'New Name',
+    ]);
+
+    $response->assertForbidden();
+});
+
 test('users cannot delete their default wishlist', function () {
     $wishlist = Wishlist::factory()->create();
 
     $this->actingAs($wishlist->user);
+    $response = $this->delete(route('wishlists.destroy', $wishlist));
+
+    $response->assertForbidden();
+});
+
+test('users cannot delete their others’ wishlist', function () {
+    $wishlist = Wishlist::factory()->create();
+
+    $this->actingAs(User::factory()->create());
     $response = $this->delete(route('wishlists.destroy', $wishlist));
 
     $response->assertForbidden();
@@ -81,14 +101,4 @@ test('users can delete their wishlist', function () {
 
     $response->assertRedirectToRoute('wishlists.index');
     $this->assertSoftDeleted($wishlist);
-});
-
-test('users can add to their wishlists', function () {
-    $wishlist = Wishlist::factory()->create();
-
-    $this->actingAs($wishlist->user);
-    $response = $this->get(route('wishlists.show', $wishlist));
-
-    $response->assertOk();
-    $response->assertSee($wishlist->name);
 });
