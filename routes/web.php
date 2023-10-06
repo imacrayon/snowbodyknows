@@ -4,6 +4,7 @@ use App\Http\Controllers\AppController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\WishController;
 use App\Http\Controllers\WishlistController;
+use App\Models\Wishlist;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -17,12 +18,12 @@ Route::middleware('auth')->prefix('/app')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     Route::get('/wishlists', [WishlistController::class, 'index'])->name('wishlists.index');
-    Route::get('/wishlists/create', [WishlistController::class, 'create'])->name('wishlists.create');
-    Route::post('/wishlists', [WishlistController::class, 'store'])->name('wishlists.store');
-    Route::get('/wishlists/{wishlist}', [WishlistController::class, 'show'])->name('wishlists.show');
-    Route::get('/wishlists/{wishlist}/edit', [WishlistController::class, 'edit'])->name('wishlists.edit');
-    Route::patch('/wishlists/{wishlist}', [WishlistController::class, 'update'])->name('wishlists.update');
-    Route::delete('/wishlists/{wishlist}', [WishlistController::class, 'destroy'])->name('wishlists.destroy');
+    Route::get('/wishlists/create', [WishlistController::class, 'create'])->name('wishlists.create')->can('create', Wishlist::class);
+    Route::post('/wishlists', [WishlistController::class, 'store'])->name('wishlists.store')->can('create', Wishlist::class);
+    Route::get('/wishlists/{wishlist}', [WishlistController::class, 'show'])->name('wishlists.show')->can('view', 'wishlist');
+    Route::get('/wishlists/{wishlist}/edit', [WishlistController::class, 'edit'])->name('wishlists.edit')->can('update', 'wishlist');
+    Route::patch('/wishlists/{wishlist}', [WishlistController::class, 'update'])->name('wishlists.update')->can('create', 'wishlist');
+    Route::delete('/wishlists/{wishlist}', [WishlistController::class, 'destroy'])->name('wishlists.destroy')->can('delete', 'wishlist');
 
     Route::get('/wishlists/{wishlist}/wish', [WishController::class, 'create'])->name('wishes.create');
     Route::post('/wishlists/{wishlist}/wish', [WishController::class, 'store'])->name('wishes.store');
