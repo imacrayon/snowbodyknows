@@ -15,9 +15,11 @@ class AuthenticatedSessionController extends Controller
     /**
      * Display the login view.
      */
-    public function create(): View
+    public function create(Request $request): View
     {
-        return view('auth.login');
+        return view('auth.login', [
+            'wishlist' => $request->query('wishlist'),
+        ]);
     }
 
     /**
@@ -28,6 +30,10 @@ class AuthenticatedSessionController extends Controller
         $request->authenticate();
 
         $request->session()->regenerate();
+
+        if ($wishlist = $request->query('wishlist')) {
+            return to_route('wishlists.viewers.create', $wishlist);
+        }
 
         return redirect()->intended(RouteServiceProvider::HOME);
     }

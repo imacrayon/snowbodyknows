@@ -19,9 +19,11 @@ class RegisteredUserController extends Controller
     /**
      * Display the registration view.
      */
-    public function create(): View
+    public function create(Request $request): View
     {
-        return view('auth.register');
+        return view('auth.register', [
+            'wishlist' => $request->query('wishlist'),
+        ]);
     }
 
     /**
@@ -50,6 +52,10 @@ class RegisteredUserController extends Controller
         event(new Registered($user));
 
         Auth::login($user);
+
+        if ($wishlist = $request->query('wishlist')) {
+            return to_route('wishlists.viewers.create', $wishlist);
+        }
 
         return redirect(RouteServiceProvider::HOME);
     }

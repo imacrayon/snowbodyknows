@@ -10,7 +10,7 @@
             <span class="text-gray-600">(optional)</span>
         </x-label>
         <x-error for="url" />
-        <x-input name="url" :value="$wish->url" placeholder="https://..." />
+        <x-input type="url" name="url" :value="$wish->url" placeholder="https://..." />
     </x-field>
     <x-field>
         <x-label for="url">

@@ -11,6 +11,7 @@ class WishlistController extends Controller
     {
         return view('wishlists.index', [
             'wishlists' => $request->user()->wishlists,
+            'joinedWishlists' => $request->user()->joinedWishlists,
         ]);
     }
 
@@ -59,6 +60,6 @@ class WishlistController extends Controller
     {
         $wishlist->delete();
 
-        return to_route('wishlists.index');
+        return to_route('app');
     }
 }

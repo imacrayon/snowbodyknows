@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained('users');
             $table->string('name');
-            $table->uuid('invite_code')->index();
+            $table->uuid('invite_code')->unique();
             $table->timestamps();
             $table->softDeletes();
         });

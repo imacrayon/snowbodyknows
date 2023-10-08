@@ -1,5 +1,13 @@
 <x-guest-layout>
-    <x-form method="post" action="{{ route('register') }}">
+    <header>
+        <h1 class="text-lg font-medium text-gray-90">Create an account</h1>
+        <p class="mt-1 text-sm text-gray-600">
+            <strong>{{ __('Already have an account?') }}</strong>
+            <a class="underline" href="{{ route('login',  ['wishlist' => $wishlist]) }}">{{ __('Continue to login') }}</a>.
+        </p>
+    </header>
+
+    <x-form class="mt-6" method="post" action="{{ route('register', ['wishlist' => $wishlist]) }}">
         <div class="space-y-6">
             <x-field>
                 <x-label for="name" :value="__('Name')" />
@@ -23,10 +31,6 @@
             </x-field>
         </div>
         <div class="flex items-center justify-end mt-6">
-            <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500" href="{{ route('login') }}">
-                {{ __('Already registered?') }}
-            </a>
-
             <x-button-primary class="ml-4">
                 {{ __('Register') }}
             </x-button-primary>

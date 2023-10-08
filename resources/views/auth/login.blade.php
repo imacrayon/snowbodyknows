@@ -1,7 +1,15 @@
 <x-guest-layout>
-    <x-auth-session-status class="mb-4" :status="session('status')" />
+    <header>
+        <h1 class="text-lg font-medium text-gray-90">Log in</h1>
+        <p class="mt-1 text-sm text-gray-600">
+            <strong>{{ __('New here?') }}</strong>
+            <a class="underline" href="{{ route('register', ['wishlist' => $wishlist]) }}">{{ __('Create an account') }}</a>.
+        </p>
+    </header>
 
-    <x-form method="post" action="{{ route('login') }}">
+    <x-auth-session-status class="mt-6" :status="session('status')" />
+
+    <x-form class="mt-6" method="post" action="{{ route('login', ['wishlist' => $wishlist]) }}">
         <div class="space-y-6">
             <x-field>
                 <x-label for="email" :value="__('Email')" />

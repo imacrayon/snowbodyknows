@@ -3,7 +3,7 @@
         <div class="flex items-center justify-between h-16">
             <div class="flex space-x-8 sm:-my-px sm:ml-10">
                 <x-nav-link :href="route('app')" :active="request()->routeIs('app')">
-                    {{ __('Home') }}
+                    {{ __('Wishlists') }}
                 </x-nav-link>
             </div>
 

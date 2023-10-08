@@ -89,6 +89,6 @@ test('users can delete their wishlist', function () {
     $this->actingAs($wishlist->user);
     $response = $this->delete(route('wishlists.destroy', $wishlist));
 
-    $response->assertRedirectToRoute('wishlists.index');
+    $response->assertRedirectToRoute('app');
     $this->assertSoftDeleted($wishlist);
 });

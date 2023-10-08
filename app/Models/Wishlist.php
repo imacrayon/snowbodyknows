@@ -30,7 +30,7 @@ class Wishlist extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function members()
+    public function viewers()
     {
         return $this->belongsToMany(User::class);
     }

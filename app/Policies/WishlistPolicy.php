@@ -14,12 +14,12 @@ class WishlistPolicy
 
     public function view(User $user, Wishlist $wishlist): bool
     {
-        return $wishlist->user->is($user) || $wishlist->members->contains($user);
+        return $wishlist->user->is($user) || $wishlist->viewers->contains($user);
     }
 
     public function fulfill(User $user, Wishlist $wishlist): bool
     {
-        return $wishlist->members->contains($user);
+        return $wishlist->viewers->contains($user);
     }
 
     public function create(User $user): bool
@@ -30,6 +30,11 @@ class WishlistPolicy
     public function update(User $user, Wishlist $wishlist): bool
     {
         return $wishlist->user->is($user);
+    }
+
+    public function kick(User $user, Wishlist $wishlist, User $viewer)
+    {
+        return $this->update($user, $wishlist) || $user->is($viewer);
     }
 
     public function delete(User $user, Wishlist $wishlist): bool
