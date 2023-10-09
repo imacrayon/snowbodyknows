@@ -21,7 +21,9 @@ class WishlistViewerController extends Controller
 
     public function store(Request $request, Wishlist $wishlist)
     {
-        $wishlist->viewers()->sync($request->user());
+        if ($wishlist->user->isNot($request->user())) {
+            $wishlist->viewers()->sync($request->user());
+        }
 
         return to_route('wishlists.show', $wishlist);
     }
