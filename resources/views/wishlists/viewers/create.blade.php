@@ -1,4 +1,4 @@
-<x-guest-layout>
+<x-guest-layout title="{{ __('Join :wishlist', ['wishlist' => $wishlist->name]) }}">
     <header>
         <h1 class="text-lg font-medium text-gray-90">{{ __('Join wishlist') }}</h1>
         <p class="mt-1 text-sm text-gray-600">
