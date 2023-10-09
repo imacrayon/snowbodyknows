@@ -32,6 +32,6 @@ class Wishlist extends Model
 
     public function viewers()
     {
-        return $this->belongsToMany(User::class);
+        return $this->belongsToMany(User::class)->withTimestamps();
     }
 }

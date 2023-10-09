@@ -34,6 +34,6 @@ class User extends Authenticatable
 
     public function joinedWishlists()
     {
-        return $this->belongsToMany(Wishlist::class);
+        return $this->belongsToMany(Wishlist::class)->withTimestamps();
     }
 }
