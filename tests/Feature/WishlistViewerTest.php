@@ -14,6 +14,18 @@ test('users can join wishlists via invite link', function () {
     expect($wishlist->viewers->contains($user))->toBeTrue();
 });
 
+test('users can join multiple wishlists', function () {
+    $wishlistA = Wishlist::factory()->create();
+    $wishlistB = Wishlist::factory()->create();
+
+    $this->actingAs($user = User::factory()->create());
+
+    $this->post(route('wishlists.viewers.store', $wishlistA));
+    $this->post(route('wishlists.viewers.store', $wishlistB));
+
+    expect($user->joinedWishlists)->toHaveCount(2);
+});
+
 test('users can leave wishlists', function () {
     $user = User::factory()->create();
     $wishlist = Wishlist::factory()->create();
