@@ -22,7 +22,7 @@ class WishlistViewerController extends Controller
     public function store(Request $request, Wishlist $wishlist)
     {
         if ($wishlist->user->isNot($request->user())) {
-            $wishlist->viewers()->sync($request->user());
+            $wishlist->viewers()->syncWithoutDetaching($request->user());
         }
 
         return to_route('wishlists.show', $wishlist);
