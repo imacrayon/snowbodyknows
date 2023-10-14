@@ -13,9 +13,10 @@
                         <li class="flex gap-6 px-4 py-3 sm:px-8 sm:py-4">
                             <div class="flex-1">
                                 <div>
-                                    {{ $wish->name }}
-                                    @if ($wish->url)
-                                        <span class="text-gray-600">[<a href="{{ $wish->url }}" class="underline">{{ parse_url($wish->url, PHP_URL_HOST) }}</a>]</span>
+                                    @if($wish->url)
+                                        <a class="underline" href="{{ $wish->url }}">{{ $wish->name }}</a>
+                                    @else
+                                        <span>{{ $wish->name }}</span>
                                     @endif
                                 </div>
                                 <div class="text-sm text-gray-600">{{ $wish->description }}</div>
