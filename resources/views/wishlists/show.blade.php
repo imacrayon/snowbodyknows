@@ -8,7 +8,7 @@
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
         <div class="bg-white divide-y shadow overflow-hidden sm:rounded-lg">
             @if($wishes->isNotEmpty())
-                <ul class="bg-white divide-y">
+                <ul role="list" class="bg-white divide-y">
                     @foreach($wishes as $wish)
                         <li class="flex gap-6 px-4 py-3 sm:px-8 sm:py-4">
                             <div class="flex-1">
