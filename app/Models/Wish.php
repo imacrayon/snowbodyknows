@@ -19,6 +19,23 @@ class Wish extends Model
 
     public function granter()
     {
-        return $this->belongsTo(User::class, 'granter_id');
+        return $this->belongsTo(User::class, 'granter_id')->withDefault();
+    }
+
+    public function granted()
+    {
+        return ! is_null($this->granter_id);
+    }
+
+    public function grant($user)
+    {
+        $this->granter()->associate($user);
+
+        return $this;
+    }
+
+    public function ungrant()
+    {
+        return $this->granter()->dissociate();
     }
 }

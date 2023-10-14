@@ -19,7 +19,12 @@ class WishPolicy
 
     public function grant(User $user, Wish $wish): bool
     {
-        return $user->can('fulfill', $wish->wishlist);
+        return ! $wish->granter->exists && $user->can('fulfill', $wish->wishlist);
+    }
+
+    public function ungrant(User $user, Wish $wish): bool
+    {
+        return $user->is($wish->granter);
     }
 
     public function create(User $user): bool
