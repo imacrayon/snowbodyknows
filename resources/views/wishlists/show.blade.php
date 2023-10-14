@@ -19,7 +19,9 @@
                                         <span>{{ $wish->name }}</span>
                                     @endif
                                 </div>
-                                <div class="text-sm text-gray-600">{{ $wish->description }}</div>
+                                @if($wish->description)
+                                    <div class="text-sm text-gray-600">{{ $wish->description }}</div>
+                                @endif
                             </div>
                             <div class="flex gap-2">
                                 <a href="{{ route('wishes.edit', [$wishlist, $wish]) }}" class="underline text-gray-600 text-sm">Edit <span class="sr-only">{{ $wish->name }}</span></a>
