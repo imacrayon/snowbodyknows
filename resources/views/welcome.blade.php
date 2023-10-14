@@ -4,6 +4,8 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
+    @vite(['resources/css/app.css'])
+
     <style>
 
     html, body {
@@ -76,13 +78,20 @@
     </style>
 </head>
 <body>
-<div class="wrapper">
+<div class="absolute wrapper">
      <div class="snow layer1 a"></div>
      <div class="snow layer1"></div>
      <div class="snow layer2 a"></div>
      <div class="snow layer2"></div>
      <div class="snow layer3 a"></div>
      <div class="snow layer3"></div>
+</div>
+<div class="relative min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0">
+    <div class="text-center w-full sm:max-w-md mt-6 px-6 py-4 bg-white shadow-md overflow-hidden sm:rounded-lg">
+        <x-button-primary href="{{ route('register') }}">Get Started</x-button-primary>
+        <x-button-secondary href="{{ route('login') }}">Login</x-button-secondary>
+    </div>
+</div>
 </div>
 </body>
 </html>
