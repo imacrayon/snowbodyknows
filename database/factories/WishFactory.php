@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\User;
 use App\Models\Wishlist;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -15,5 +16,12 @@ class WishFactory extends Factory
             'url' => $this->faker->url(),
             'description' => $this->faker->sentence(),
         ];
+    }
+
+    public function granted(): static
+    {
+        return $this->state([
+            'granter_id' => User::factory(),
+        ]);
     }
 }

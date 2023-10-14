@@ -31,8 +31,15 @@ class WishlistController extends Controller
         return to_route('wishlists.show', $wishlist);
     }
 
-    public function show(Wishlist $wishlist)
+    public function show(Request $request, Wishlist $wishlist)
     {
+        if ($request->user()->can('fulfill', $wishlist)) {
+            return view('wishlists.fulfill', [
+                'wishlist' => $wishlist,
+                'wishes' => $wishlist->wishes()->with('granter')->get(),
+            ]);
+        }
+
         return view('wishlists.show', [
             'wishlist' => $wishlist,
             'wishes' => $wishlist->wishes,
