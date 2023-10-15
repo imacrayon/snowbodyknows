@@ -13,7 +13,7 @@ git clone https://github.com/imacrayon/snowbodyknows
 cd snowbodyknows
 ```
 
-If you're looking to get started quickly we recommend using our [Docker setup](#docker-setup). If you already have PHP (>= 7.2.0), PHP Composer, SQLite3, and NPM on your machine you can follow our [basic setup](#basic-setup) steps.
+If you're looking to get started quickly we recommend using our [Docker setup](#docker-setup). If you'r using something like Herd or Valet on your machine you can follow our [basic setup](#basic-setup) steps.
 
 ### Docker Setup
 
