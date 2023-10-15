@@ -4,6 +4,10 @@ A secret santa wishlist builder.
 
 I’m building a secret Santa app for my family to during the holidays. A user can build a wishlist and everybody else can check things off of it without the user being able to see.
 
+## Contributing
+
+There are some issues to get started with, but I'm open to any ideas! I'd recommend you create an issue first, before starting work, just to get confirmation that I'm not wasting your time.
+
 ## Installation
 
 Step one is to clone this repo:
