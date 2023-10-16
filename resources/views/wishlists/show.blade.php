@@ -2,6 +2,7 @@
 <x-slot name="header">
     <h1 class="font-semibold text-xl text-gray-800 leading-tight">
         {{ $wishlist->name }}
+        
     </h1>
 </x-slot>
 <div class="py-12">
