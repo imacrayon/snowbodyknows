@@ -1,4 +1,7 @@
 <x-app-layout>
+<x-slot name="title">
+    Add to wishlist
+</x-slot>
 <x-slot name="header">
     <h1 class="font-semibold text-xl text-gray-800 leading-tight">
         Add to {{ $wishlist->name }}
