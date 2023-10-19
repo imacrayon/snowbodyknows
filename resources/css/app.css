@@ -10,7 +10,3 @@
 .sortable-ghost [data-handle] {
     opacity: 0;
 }
-
-.sortable-drag {
-    transform: rotate(2deg) !important;
-}

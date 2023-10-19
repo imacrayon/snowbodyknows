@@ -7,7 +7,7 @@ export default function (endpoint) {
                 handle: '[data-handle]',
                 dragClass: 'sortable-drag',
                 ghostClass: 'sortable-ghost',
-                animate: 150,
+                animation: 150,
                 onEnd() {
                     let body = new FormData()
                     this.toArray().forEach(id => body.append('sort[]', id))
