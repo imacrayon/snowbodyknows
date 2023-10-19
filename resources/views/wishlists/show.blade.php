@@ -13,9 +13,9 @@
             @if($wishes->isNotEmpty())
                 <ul x-data="sortable('{{ route('wishlists.sort', $wishlist) }}')" role="list" class="bg-white divide-y">
                     @foreach($wishes as $wish)
-                        <li data-id="{{ $wish->id }}" class="bg-white flex gap-6 px-4 pl-2 py-3 sm:px-8 sm:pl-4 sm:py-4">
-                            <div class="flex-1 flex gap-2 sm:gap-4">
-                                <button type="button" data-handle class="flex items-center cursor-move">
+                        <li data-id="{{ $wish->id }}" class="bg-white flex gap-6 px-4 pl-0 py-3 sm:px-8 sm:py-4">
+                            <div class="flex-1 flex sm:gap-4">
+                                <button type="button" data-handle class="flex items-center cursor-move pl-4 pr-2 sm:pr-4">
                                     <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" class="text-gray-300" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                                         <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
                                         <path d="M9 5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" />
