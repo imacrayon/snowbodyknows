@@ -42,7 +42,7 @@ class WishlistController extends Controller
 
         return view('wishlists.show', [
             'wishlist' => $wishlist,
-            'wishes' => $wishlist->wishes,
+            'wishes' => $wishlist->wishes()->orderBy('order')->get(),
         ]);
     }
 
