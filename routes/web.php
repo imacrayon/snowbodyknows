@@ -1,11 +1,12 @@
 <?php
 
 use App\Http\Controllers\AppController;
+use App\Http\Controllers\GrantedWishController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SortWishlistController;
 use App\Http\Controllers\WishController;
 use App\Http\Controllers\WishlistController;
 use App\Http\Controllers\WishlistViewerController;
-use App\Http\Controllers\GrantedWishController;
 use App\Models\Wishlist;
 use Illuminate\Support\Facades\Route;
 
@@ -31,6 +32,8 @@ Route::middleware('auth')->prefix('/app')->group(function () {
     Route::delete('/wishlists/{wishlist}', [WishlistController::class, 'destroy'])->name('wishlists.destroy')->can('delete', 'wishlist');
 
     Route::delete('/wishlists/{wishlist}/users/{user}', [WishlistViewerController::class, 'destroy'])->name('wishlists.viewers.destroy')->can('kick', ['wishlist', 'user']);
+
+    Route::post('/wishlists/{wishlist}/sort', SortWishlistController::class)->name('wishlists.sort')->can('update', 'wishlist');
 
     Route::get('/wishlists/{wishlist}/wish', [WishController::class, 'create'])->name('wishes.create')->can('update', 'wishlist');
     Route::post('/wishlists/{wishlist}/wish', [WishController::class, 'store'])->name('wishes.store')->can('update', 'wishlist');

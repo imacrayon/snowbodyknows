@@ -36,7 +36,7 @@ class WishlistController extends Controller
         if ($request->user()->can('fulfill', $wishlist)) {
             return view('wishlists.fulfill', [
                 'wishlist' => $wishlist,
-                'wishes' => $wishlist->wishes()->with('granter')->get(),
+                'wishes' => $wishlist->wishes()->with('granter')->orderBy('order')->get(),
             ]);
         }
 
