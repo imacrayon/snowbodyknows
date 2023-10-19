@@ -1,8 +1,13 @@
 import Alpine from 'alpinejs';
 import ajax from '@imacrayon/alpine-ajax';
 
-window.Alpine = Alpine;
+let components = Array.from(['sortable']).filter(name => {
+    return document.querySelector(`[x-data^="${name}"]`)
+}).map(async name => {
+    Alpine.data(name, (await import(`./components/${name}.js`)).default)
+})
 
-Alpine.plugin(ajax);
-
-Alpine.start();
+Promise.all(components).then(() => {
+    Alpine.start()
+    window.Alpine = Alpine
+})

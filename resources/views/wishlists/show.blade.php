@@ -5,27 +5,40 @@
 <x-slot name="header">
     <h1 class="font-semibold text-xl text-gray-800 leading-tight">
         {{ $wishlist->name }}
-        
     </h1>
 </x-slot>
 <div class="py-12">
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
         <div class="bg-white divide-y shadow overflow-hidden sm:rounded-lg">
             @if($wishes->isNotEmpty())
-                <ul role="list" class="bg-white divide-y">
+                <ul x-data="sortable('{{ route('wishlists.sort', $wishlist) }}')" role="list" class="bg-white divide-y">
                     @foreach($wishes as $wish)
-                        <li class="flex gap-6 px-4 py-3 sm:px-8 sm:py-4">
-                            <div class="flex-1">
+                        <li data-id="{{ $wish->id }}" class="bg-white flex gap-6 px-4 pl-2 py-3 sm:px-8 sm:pl-4 sm:py-4">
+                            <div class="flex-1 flex gap-2 sm:gap-4">
+                                <button type="button" data-handle class="flex items-center cursor-move">
+                                    <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" class="text-gray-300" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                        <path d="M9 5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" />
+                                        <path d="M9 12m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" />
+                                        <path d="M9 19m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" />
+                                        <path d="M15 5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" />
+                                        <path d="M15 12m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" />
+                                        <path d="M15 19m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" />
+                                    </svg>
+                                    <span class="sr-only">Reorder</span>
+                                </button>
                                 <div>
-                                    @if($wish->url)
-                                        <a class="underline" href="{{ $wish->url }}">{{ $wish->name }}</a>
-                                    @else
-                                        <span>{{ $wish->name }}</span>
+                                    <div>
+                                        @if($wish->url)
+                                            <a class="underline" href="{{ $wish->url }}">{{ $wish->name }}</a>
+                                        @else
+                                            <span>{{ $wish->name }}</span>
+                                        @endif
+                                    </div>
+                                    @if($wish->description)
+                                        <div class="text-sm text-gray-600">{{ $wish->description }}</div>
                                     @endif
                                 </div>
-                                @if($wish->description)
-                                    <div class="text-sm text-gray-600">{{ $wish->description }}</div>
-                                @endif
                             </div>
                             <div class="flex gap-2">
                                 <a href="{{ route('wishes.edit', [$wishlist, $wish]) }}" class="underline text-gray-600 text-sm">Edit <span class="sr-only">{{ $wish->name }}</span></a>

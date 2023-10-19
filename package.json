@@ -12,6 +12,7 @@
         "autoprefixer": "^10.4.2",
         "laravel-vite-plugin": "^0.8.0",
         "postcss": "^8.4.6",
+        "sortablejs": "^1.15.0",
         "tailwindcss": "^3.1.0",
         "vite": "^4.0.0"
     }
