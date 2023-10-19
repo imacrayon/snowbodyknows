@@ -7,6 +7,7 @@
 
         <title>{{ isset($title) ? $title . ' | ' : '' }} Snowbody Knows</title>
 
+        <style>[x-cloak] { display: none; }</style>
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
     <body class="font-sans antialiased">
