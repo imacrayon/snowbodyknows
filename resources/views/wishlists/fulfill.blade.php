@@ -76,6 +76,15 @@
                 <p class="px-4 py-3 text-center text-gray-600 sm:px-8 sm:py-4">{{ __('Nothing has been added to this wishlist (yet).') }}
             @endif
         </div>
+
+        <section class="pt-4 sm:pt-8 text-center">
+            <h2 class="sr-only text-lg font-medium text-gray-900">
+                {{ __('Leave :wishlist Wishlist', ['wishlist' => $wishlist->name]) }}
+            </h2>
+            <x-form x-target="viewers" method="delete" action="{{ route('wishlists.viewers.destroy', [$wishlist, Auth::user()]) }}" onsubmit="return confirm(`{{ __('Once you leave you will no longer be able to see :wishlist.', ['wishlist' => $wishlist->name]) }}`)">
+                <button class="underline text-gray-600 text-sm">{{ __('Leave this wishlist') }}</button>
+            </x-form>
+        </section>
     </div>
 </div>
 </x-app-layout>
