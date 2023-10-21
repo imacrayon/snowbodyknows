@@ -112,27 +112,29 @@
             </div>
         </section>
 
-        <section class="bg-white pt-4 sm:pt-8 divide-y shadow overflow-hidden sm:rounded-lg">
-            <div class="px-4 sm:px-8">
-                <header>
-                    <h2 class="text-lg font-medium text-gray-900">
-                        {{ __('Viewers') }}
-                    </h2>
-                    <p class="mt-1 text-sm text-gray-600">
-                        {{ __('These are the people who can view your wishlist.') }}
-                    </p>
-                </header>
-            </div>
-            <div class="mt-6">
-                <ul class="bg-white divide-y">
-                    @foreach($wishlist->viewers as $viewer)
-                        <li class="flex gap-6 px-4 py-3 sm:px-8 sm:py-4">
-                            {{ $viewer->name }}
-                        </li>
-                    @endforeach
-                </ul>
-            </div>
-        </section>
+        @if ($wishlist->viewers->isNotEmpty())
+            <section class="bg-white pt-4 sm:pt-8 divide-y shadow overflow-hidden sm:rounded-lg">
+                <div class="px-4 sm:px-8">
+                    <header>
+                        <h2 class="text-lg font-medium text-gray-900">
+                            {{ __('Viewers') }}
+                        </h2>
+                        <p class="mt-1 text-sm text-gray-600">
+                            {{ __('These are the people who can view your wishlist.') }}
+                        </p>
+                    </header>
+                </div>
+                <div class="mt-6">
+                    <ul class="bg-white divide-y">
+                        @foreach($wishlist->viewers as $viewer)
+                            <li class="flex gap-6 px-4 py-3 sm:px-8 sm:py-4">
+                                {{ $viewer->name }}
+                            </li>
+                        @endforeach
+                    </ul>
+                </div>
+            </section>
+        @endif
     </div>
 </div>
 </x-app-layout>
