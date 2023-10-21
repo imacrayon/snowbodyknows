@@ -1,6 +1,8 @@
 import Alpine from 'alpinejs';
 import ajax from '@imacrayon/alpine-ajax';
 
+Alpine.plugin(ajax)
+
 let components = Array.from(['sortable']).filter(name => {
     return document.querySelector(`[x-data^="${name}"]`)
 }).map(async name => {
