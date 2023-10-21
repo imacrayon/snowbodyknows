@@ -125,10 +125,13 @@
                     </header>
                 </div>
                 <div class="mt-6">
-                    <ul class="bg-white divide-y">
+                    <ul id="viewers" x-init class="bg-white divide-y">
                         @foreach($wishlist->viewers as $viewer)
                             <li class="flex gap-6 px-4 py-3 sm:px-8 sm:py-4">
-                                {{ $viewer->name }}
+                                <div class="flex-1">{{ $viewer->name }}</div>
+                                <x-form x-target="viewers" method="delete" action="{{ route('wishlists.viewers.destroy', [$wishlist, $viewer]) }}" x-on:ajax:before="confirm(`{{ __(':viewer will no longer be able to see your wishlist.', ['viewer' => $viewer->name]) }}`) || $event.preventDefault()">
+                                    <button class="underline text-gray-600 text-sm">Remove</button>
+                                </x-form>
                             </li>
                         @endforeach
                     </ul>
