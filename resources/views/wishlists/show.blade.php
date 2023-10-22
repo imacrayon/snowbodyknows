@@ -11,17 +11,17 @@
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
         <div class="bg-white divide-y shadow overflow-hidden sm:rounded-lg">
             @if($wishes->isNotEmpty())
-                <div id="announcer" aria-live="assertive" class="sr-only"></div>
-                <div id="sortable_description" class="sr-only">Press spacebar to grab and re-order</div>
-                <ul x-data="sortable('{{ route('wishlists.sort', $wishlist) }}')" role="list" class="bg-white divide-y">
-                    @foreach($wishes as $wish)
-                        <li data-id="{{ $wish->id }}" class="bg-white flex gap-6 px-4 pl-0 py-3 sm:px-8 sm:py-4">
-                            <div class="flex-1 flex sm:gap-4">
+                <div>
+                    <div id="announcer" aria-live="assertive" class="sr-only"></div>
+                    <div id="sortable_description" class="sr-only">Press spacebar to grab and re-order</div>
+                    <ul x-data="sortable('{{ route('wishlists.sort', $wishlist) }}')" role="list" class="bg-white">
+                        @foreach($wishes as $wish)
+                            <li data-id="{{ $wish->id }}" class="group bg-white flex">
                                 <button type="button" data-handle
                                     aria-describedby="sortable_description"
                                     x-on:click.prevent.stop=""
                                     x-on:keydown.space.prevent="toggle"
-                                    class="flex items-center cursor-move pl-4 pr-2 sm:pr-4"
+                                    class="flex items-center px-4 cursor-move"
                                 >
                                     <svg x-show="selected !== '{{ $wish->id }}'" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" class="text-gray-300" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                                         <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
@@ -39,28 +39,30 @@
                                     </svg>
                                     <span class="sr-only">Re-order</span>
                                 </button>
-                                <div>
-                                    <div>
-                                        @if($wish->url)
-                                            <a id="wish_{{ $wish->id }}_name" class="underline" href="{{ $wish->url }}">{{ $wish->name }}</a>
-                                        @else
-                                            <span id="wish_{{ $wish->id }}_name">{{ $wish->name }}</span>
+                                <div class="flex-1 flex gap-6 pr-4 py-3 sm:pr-8 sm:py-4 border-t group-first:border-t-0">
+                                    <div class="flex-1">
+                                        <div>
+                                            @if($wish->url)
+                                                <a id="wish_{{ $wish->id }}_name" class="underline" href="{{ $wish->url }}">{{ $wish->name }}</a>
+                                            @else
+                                                <span id="wish_{{ $wish->id }}_name">{{ $wish->name }}</span>
+                                            @endif
+                                        </div>
+                                        @if($wish->description)
+                                            <div class="text-sm text-gray-600">{{ $wish->description }}</div>
                                         @endif
                                     </div>
-                                    @if($wish->description)
-                                        <div class="text-sm text-gray-600">{{ $wish->description }}</div>
-                                    @endif
+                                    <div class="flex gap-2">
+                                        <a href="{{ route('wishes.edit', [$wishlist, $wish]) }}" class="underline text-gray-600 text-sm" aria-describedby="wish_{{ $wish->id }}_name">Edit</a>
+                                        <x-form method="delete" action="{{ route('wishes.destroy', [$wishlist, $wish]) }}" class="text-gray-600 text-sm">
+                                            <button class="underline" aria-describedby="wish_{{ $wish->id }}_name">Delete</button>
+                                        </x-form>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="flex gap-2">
-                                <a href="{{ route('wishes.edit', [$wishlist, $wish]) }}" class="underline text-gray-600 text-sm" aria-describedby="wish_{{ $wish->id }}_name">Edit</a>
-                                <x-form method="delete" action="{{ route('wishes.destroy', [$wishlist, $wish]) }}" class="text-gray-600 text-sm">
-                                    <button class="underline" aria-describedby="wish_{{ $wish->id }}_name">Delete</button>
-                                </x-form>
-                            </div>
-                        </li>
-                    @endforeach
-                </ul>
+                            </li>
+                        @endforeach
+                    </ul>
+                </div>
             @else
                 <p class="px-4 py-3 text-center text-gray-600 sm:px-8 sm:py-4">{{ __('Nothing has been added to this wishlist (yet).') }}
             @endif

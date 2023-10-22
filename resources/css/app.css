@@ -7,6 +7,10 @@
     box-shadow: inset 0 0 0 1px theme('colors.blue.300');
 }
 
+.sortable-ghost>.border-t {
+    border-color: transparent;
+}
+
 .sortable-ghost [data-handle] {
     opacity: 0;
 }
