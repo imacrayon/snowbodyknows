@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Wish;
 use App\Models\Wishlist;
+use App\Notifications\WishCreatedNotification;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Notification;
 
 class WishController extends Controller
 {
@@ -18,11 +20,13 @@ class WishController extends Controller
 
     public function store(Request $request, Wishlist $wishlist)
     {
-        $wishlist->wishes()->create($request->validate([
+        $wish = $wishlist->wishes()->create($request->validate([
             'name' => ['required', 'string', 'max:255'],
             'url' => ['nullable', 'url:http,https', 'max:2000'],
             'description' => ['nullable', 'string', 'max:2000'],
         ]));
+
+        Notification::send($wishlist->viewers, new WishCreatedNotification($wish));
 
         return to_route('wishlists.show', $wishlist);
     }
