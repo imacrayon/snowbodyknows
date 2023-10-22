@@ -1,3 +1,4 @@
+import colors from 'tailwindcss/colors'
 import defaultTheme from 'tailwindcss/defaultTheme';
 import forms from '@tailwindcss/forms';
 
@@ -11,6 +12,9 @@ export default {
 
     theme: {
         extend: {
+            colors: {
+                gray: colors.slate
+            },
             fontFamily: {
                 sans: ['Figtree', ...defaultTheme.fontFamily.sans],
             },
