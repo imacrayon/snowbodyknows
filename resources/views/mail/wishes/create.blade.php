@@ -7,8 +7,9 @@
 
 <x-mail::panel>
 **{{ $wish->name }}**
+
 @if($wish->description)
-{{ $wish->decription }}
+{{ $wish->description }}
 @endif
 </x-mail::panel>
 
