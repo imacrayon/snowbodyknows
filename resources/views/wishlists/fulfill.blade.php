@@ -50,20 +50,25 @@
                                     @endcan
                                 @endif
                             </div>
-                            <div class="flex-1 flex gap-6 pr-4 py-3 sm:pr-8 sm:py-4 border-t group-first:border-t-0">
-                                <div class="flex-1">
-                                    <div class="{{ $wish->granted() ? 'text-gray-600 line-through' : '' }}">
-                                        <span id="wish_{{ $wish->id }}_name">{{ $wish->name }}</a>
-                                    </div>
-                                    @if($wish->description)
-                                        <div class="text-sm text-gray-600">{{ $wish->description }}</div>
+                            <div class="flex-1 pr-4 py-3 sm:pr-8 sm:py-4 border-t group-first:border-t-0">
+                                <div class="flex items-center justify-between gap-x-4">
+                                    <span class="{{ $wish->granted() ? 'text-gray-600 line-through' : '' }}">
+                                        @if($wish->url)
+                                            <a href="{{ $wish->url }}" class="underline" aria-describedby="wish_{{ $wish->id }}_name">View</a>
+                                        @else
+                                            <span id="wish_{{ $wish->id }}_name">{{ $wish->name }}</span>
+                                        @endif
+                                    </span>
+                                    @if($wish->granted())
+                                        <div>
+                                            <span class="sr-only">Granted by</span>
+                                            <img width="20" height="20" class="rounded-full" title="Granted by {{ $wish->granter->name }}" src="{{ $wish->granter->avatar_url }}" alt="{{ $wish->granter->name }}">
+                                        </div>
                                     @endif
                                 </div>
-                                <div class="flex gap-2">
-                                    @if($wish->url)
-                                        <a href="{{ $wish->url }}" class="underline text-gray-600 text-sm" aria-describedby="wish_{{ $wish->id }}_name">View</a>
-                                    @endif
-                                </div>
+                                @if($wish->description)
+                                    <div class="text-sm text-gray-600">{{ $wish->description }}</div>
+                                @endif
                             </div>
                         </li>
                     @endforeach
