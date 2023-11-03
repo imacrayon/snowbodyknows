@@ -12,21 +12,21 @@
     </head>
     <body class="font-sans antialiased">
         <div class="min-h-screen bg-gray-100">
-            @include('layouts.navigation')
-
-            <!-- Page Heading -->
             @if (isset($header))
-                <header class="bg-white shadow">
-                    <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                        {{ $header }}
-                    </div>
-                </header>
+                <div class="max-w-7xl mx-auto pt-8 pb-6 px-4 sm:px-6 lg:px-8">
+                    {{ $header }}
+                </div>
             @endif
 
-            <!-- Page Content -->
             <main>
                 {{ $slot }}
             </main>
+
+            <header class="fixed bottom-8 w-full flex justify-center">
+                <div class="bg-white shadow-xl rounded-3xl ring-1 ring-black ring-opacity-5 mx-auto">
+                    @include('layouts.navigation')
+                </div>
+            </header>
         </div>
     </body>
 </html>
