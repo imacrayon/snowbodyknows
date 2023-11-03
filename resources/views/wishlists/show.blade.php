@@ -32,7 +32,7 @@
                                         <path d="M15 12m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" />
                                         <path d="M15 19m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" />
                                     </svg>
-                                    <svg x-cloak x-show="selected === '{{ $wish->id }}'" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" class="text-gray-300" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                    <svg x-cloak x-show="selected === '{{ $wish->id }}'" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" class="text-gray-400" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                                         <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
                                         <path d="M8 9l4 -4l4 4" />
                                         <path d="M16 15l-4 4l-4 -4" />
@@ -55,8 +55,8 @@
                                 </div>
                                 <x-dropdown align="right" width="48" class="px-2 pt-1 sm:pt-2">
                                     <x-slot name="trigger">
-                                        <button class="block p-2 -mb-2 rounded-full">
-                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" width="24" height="24" class="text-gray-300 hover:text-gray-400">
+                                        <button type="button" class="block p-2 -mb-2 rounded-full">
+                                            <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" width="24" height="24" class="text-gray-400 hover:text-gray-400">
                                                 <path stroke-linecap="round" stroke-linejoin="round" d="M8.625 12a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H8.25m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H12m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0h-.375M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                                             </svg>
                                             <span class="sr-only">Actions</span>
@@ -144,7 +144,7 @@
                         </div>
                         <x-form class="flex items-center" x-target="viewers" method="delete" action="{{ route('wishlists.viewers.destroy', [$wishlist, $viewer]) }}" x-on:ajax:before="confirm(`{{ __(':viewer will no longer be able to see your wishlist.', ['viewer' => $viewer->name]) }}`) || $event.preventDefault()">
                             <button class="rounded-full">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" width="24" height="24" class="text-gray-300 hover:text-red-500">
+                                <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" width="24" height="24" class="text-gray-400 hover:text-red-500">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M9.75 9.75l4.5 4.5m0-4.5l-4.5 4.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                                 </svg>
                                 <span class="sr-only">Remove</span>
