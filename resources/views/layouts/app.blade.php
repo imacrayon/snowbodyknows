@@ -10,8 +10,8 @@
         <style>[x-cloak] { display: none; }</style>
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
-    <body class="font-sans antialiased bg-sky-200">
-        <div class="min-h-screen border-t-2 border-sky-500 bg-gray-100 pb-32">
+    <body class="font-sans antialiased">
+        <div class="min-h-screen bg-gray-100 pb-32">
             @if (isset($header))
                 <div class="max-w-7xl mx-auto pt-8 pb-6 px-4 sm:px-6 lg:px-8">
                     {{ $header }}
