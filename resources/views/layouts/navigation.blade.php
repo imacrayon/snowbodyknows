@@ -1,4 +1,9 @@
 <nav class="flex divide-x">
+    <div class="p-2">
+        <div class="relative w-16 h-full">
+            <img src="/img/snowman.svg" width="64" height="auto" class="absolute left-0 bottom-0" alt="SnowbodyKnows">
+        </div>
+    </div>
     <ul class="flex">
         <li class="p-1">
             <x-nav-link :href="route('app')" :active="request()->routeIs('wishlists.index')">
