@@ -1,10 +1,10 @@
 <x-app-layout>
 <x-slot name="title">
-    New  wishlist
+    {{ __('New wishlist') }}
 </x-slot>
 <x-slot name="header">
     <h1 class="font-semibold text-xl text-gray-800 leading-tight">
-        New wishlist
+        {{ __('New wishlist') }}
     </h1>
 </x-slot>
 <div class="py-12">

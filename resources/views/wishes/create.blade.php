@@ -1,10 +1,10 @@
 <x-app-layout>
 <x-slot name="title">
-    Add to wishlist
+    {{ __('Add to :wishlist', ['wishlist' => $wishlist->name]) }}
 </x-slot>
 <x-slot name="header">
     <h1 class="font-semibold text-xl text-gray-800 leading-tight">
-        Add to {{ $wishlist->name }}
+        {{ __('Add to :wishlist', ['wishlist' => $wishlist->name]) }}
     </h1>
 </x-slot>
 <div class="py-12">
