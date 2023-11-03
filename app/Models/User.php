@@ -42,7 +42,7 @@ class User extends Authenticatable
     {
         return Attribute::make(
             get: fn ($value, $attributes) => "https://unavatar.io/{$attributes['email']}?".http_build_query([
-                'fallback' => "https://ui-avatars.com/api/{$attributes['name']}/48/dbeafe/1e40af",
+                'fallback' => "https://ui-avatars.com/api/{$attributes['name']}/32/bae6fd/0c4a6e",
             ])
         )->shouldCache();
     }
