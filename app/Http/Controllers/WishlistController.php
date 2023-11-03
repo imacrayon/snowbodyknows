@@ -10,8 +10,8 @@ class WishlistController extends Controller
     public function index(Request $request)
     {
         return view('wishlists.index', [
-            'wishlists' => $request->user()->wishlists()->withCount('wishes')->get(),
-            'joinedWishlists' => $request->user()->joinedWishlists()->withCount('wishes')->get(),
+            'wishlists' => $request->user()->wishlists()->withCount('wishes', 'viewers')->get(),
+            'joinedWishlists' => $request->user()->joinedWishlists()->withCount('wishes', 'viewers')->get(),
         ]);
     }
 

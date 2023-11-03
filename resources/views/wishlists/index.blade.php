@@ -26,10 +26,14 @@
                         <a class="flex items-center justify-between gap-6 px-4 py-3 sm:px-8 sm:py-4" href="{{ route('wishlists.show', $wishlist) }}">
                             <div>
                                 {{ $wishlist->name }}
-                                <span class="block text-sm text-gray-600">{{ $wishlist->wishes_count }} {{ trans_choice('wish|wishes', $wishlist->wishes_count) }}</span>
+                                <div class="flex items-center gap-x-2 text-xs leading-5 text-gray-500">
+                                    {{ $wishlist->wishes_count }} {{ trans_choice('wish|wishes', $wishlist->wishes_count) }}
+                                    <svg viewBox="0 0 2 2" class="h-0.5 w-0.5 fill-current"><circle cx="1" cy="1" r="1"></circle></svg>
+                                    {{ $wishlist->viewers_count }} {{ trans_choice('viewer|viewers', $wishlist->viewers_count) }}
+                                </div>
                             </div>
 
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" class="text-gray-600" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" class="text-gray-400" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                                 <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
                                 <path d="M9 6l6 6l-6 6" />
                             </svg>
@@ -57,10 +61,14 @@
                             <a class="flex items-center justify-between gap-6 px-4 py-3 sm:px-8 sm:py-4" href="{{ route('wishlists.show', $wishlist) }}">
                                 <div>
                                     {{ $wishlist->name }}
-                                    <span class="block text-sm text-gray-600">{{ $wishlist->wishes_count }} {{ trans_choice('wish|wishes', $wishlist->wishes_count) }}</span>
+                                    <div class="flex items-center gap-x-2 text-xs leading-5 text-gray-500">
+                                        {{ $wishlist->wishes_count }} {{ trans_choice('wish|wishes', $wishlist->wishes_count) }}
+                                        <svg viewBox="0 0 2 2" class="h-0.5 w-0.5 fill-current"><circle cx="1" cy="1" r="1"></circle></svg>
+                                        {{ $wishlist->viewers_count }} {{ trans_choice('viewer|viewers', $wishlist->viewers_count) }}
+                                    </div>
                                 </div>
 
-                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" class="text-gray-600" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" class="text-gray-400" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                                     <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
                                     <path d="M9 6l6 6l-6 6" />
                                 </svg>

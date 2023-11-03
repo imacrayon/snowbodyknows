@@ -129,8 +129,11 @@
                 <div class="mt-6">
                     <ul id="viewers" x-init class="bg-white divide-y">
                         @foreach($wishlist->viewers as $viewer)
-                            <li class="flex gap-6 px-4 py-3 sm:px-8 sm:py-4">
-                                <div class="flex-1">{{ $viewer->name }}</div>
+                            <li class="flex gap-6 px-4 py-2 sm:px-8 sm:py-3">
+                                <div class="flex-1 flex items-center space-x-2">
+                                    <img src="{{ $viewer->avatar_url }}" width="32" height="32" class="rounded-full" alt="">
+                                    <div class="flex-1">{{ $viewer->name }}</div>
+                                </div>
                                 <x-form x-target="viewers" method="delete" action="{{ route('wishlists.viewers.destroy', [$wishlist, $viewer]) }}" x-on:ajax:before="confirm(`{{ __(':viewer will no longer be able to see your wishlist.', ['viewer' => $viewer->name]) }}`) || $event.preventDefault()">
                                     <button class="underline text-gray-600 text-sm">Remove</button>
                                 </x-form>
