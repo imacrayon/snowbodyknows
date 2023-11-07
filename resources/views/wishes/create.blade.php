@@ -3,6 +3,7 @@
     {{ __('Add to :wishlist', ['wishlist' => $wishlist->name]) }}
 </x-slot>
 <x-slot name="header">
+    <x-back href="{{ route('wishlists.show', $wishlist) }}">{{ $wishlist->name }}</x-back>
     <h1 class="font-semibold text-xl text-gray-800 leading-tight">
         {{ __('Add to :wishlist', ['wishlist' => $wishlist->name]) }}
     </h1>

@@ -12,13 +12,12 @@
     </head>
     <body class="font-sans antialiased">
         <div class="min-h-screen bg-gray-100 pb-32">
-            @if (isset($header))
-                <div class="max-w-7xl mx-auto pt-8 pb-6 px-4 sm:px-6 lg:px-8">
-                    {{ $header }}
-                </div>
-            @endif
-
             <main>
+                @if (isset($header))
+                    <div class="relative max-w-7xl mx-auto pt-12 pb-6 px-4 sm:px-6 lg:px-8">
+                        {{ $header }}
+                    </div>
+                @endif
                 {{ $slot }}
             </main>
 

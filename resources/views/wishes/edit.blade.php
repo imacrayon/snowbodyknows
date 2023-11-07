@@ -3,11 +3,8 @@
     {{ __('Edit wish') }}
 </x-slot>
 <x-slot name="header">
+    <x-back href="{{ route('wishlists.show', $wish->wishlist) }}">{{ $wishlist->name }}</x-back>
     <h1 class="font-semibold text-xl text-gray-800 leading-tight inline-flex items-center">
-        <a class="pr-2" href="{{ route('wishlists.show', $wish->wishlist) }}">
-            <x-phosphor-arrow-left aria-hidden="true" width="20" height="20" class="text-gray-400 hover:text-gray-500" />
-            <span class="sr-only">Back to wishlist</span>
-        </a>
         {{ __('Edit wish') }}
     </h1>
 </x-slot>
