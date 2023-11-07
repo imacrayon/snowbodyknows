@@ -12,14 +12,11 @@
         </li>
     </ul>
     <x-dropdown align="bottom" width="48" class="flex items-center p-1 pl-2">
-        <x-slot name="trigger">
-            <button class="rounded-3xl py-1 px-2 flex items-center bg-transparent">
-                <img src="{{ Auth::user()->avatar_url }}" width="32" height="32" class="rounded-full" alt="">
-                <span class="sr-only">Settings</span>
-                <x-phosphor-caret-down aria-hidden="true" class="ml-1 text-gray-400" width="16" height="16" />
-            </button>
+        <x-slot name="button" class="rounded-3xl py-1 px-2 flex items-center bg-transparent">
+            <img src="{{ Auth::user()->avatar_url }}" width="32" height="32" class="rounded-full" alt="">
+            <span class="sr-only">Settings</span>
+            <x-phosphor-caret-down aria-hidden="true" class="ml-1 text-gray-400" width="16" height="16" />
         </x-slot>
-
         <x-slot name="content">
             <x-dropdown-link :href="route('profile.edit')">
                 {{ __('Profile') }}

@@ -47,11 +47,9 @@
                                     @endif
                                 </div>
                                 <x-dropdown align="right" width="48" class="px-2 pt-1 sm:pt-2">
-                                    <x-slot name="trigger">
-                                        <button type="button" class="block p-2 -mb-2 rounded-full">
-                                            <x-phosphor-dots-three-circle aria-hidden="true" width="24" height="24" class="text-gray-400 hover:text-gray-500" />
-                                            <span class="sr-only">Actions</span>
-                                        </button>
+                                    <x-slot name="button" class="block p-2 -mb-2 rounded-full">
+                                        <x-phosphor-dots-three-circle aria-hidden="true" width="24" height="24" class="text-gray-400 hover:text-gray-500" />
+                                        <span class="sr-only">Actions</span>
                                     </x-slot>
                                     <x-slot name="content">
                                         <x-dropdown-link href="{{ route('wishes.edit', [$wishlist, $wish]) }}">
