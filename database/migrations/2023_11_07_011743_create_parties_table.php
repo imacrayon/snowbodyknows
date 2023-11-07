@@ -22,6 +22,8 @@ return new class extends Migration
             $table->dateTime('start_datetime')->nullable();
             $table->dateTime('end_datetime')->nullable();
             $table->uuid('invite_code')->unique();
+            $table->string('image_name')->nullable(); // Maybe a background image located at public/images/parties/d/4/d/d4d359e1-70bf-4e0a-9fb9-0f3ed30d4132.jpg
+            $table->integer('file_id')->nullable(); // future files table with blob content to auto-generate a hardcopy for consumption with compression!?
             $table->timestamps();
             $table->softDeletes();
         });
