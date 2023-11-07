@@ -14,10 +14,8 @@ return new class extends Migration
         Schema::dropIfExists('parties_users'); // debug
         Schema::create('parties_users', function (Blueprint $table) {
             $table->id();
-            // $table->foreignId('party_id')->constrained('parties');
-            $table->integer('party_id');
-            // $table->foreignId('user_id')->constrained('users');
-            $table->integer('user_id');
+            $table->foreignId('party_id')->constrained('parties');
+            $table->foreignId('user_id')->constrained('users');
             $table->timestamps();
         });
     }

@@ -14,10 +14,8 @@ return new class extends Migration
         Schema::dropIfExists('parties_wishlists'); // debug
         Schema::create('parties_wishlists', function (Blueprint $table) {
             $table->id();
-            // $table->foreignId('party_id')->constrained('parties');
-            $table->integer('party_id');
-            // $table->foreignId('wishlist_id')->constrained('wishlists');
-            $table->integer('wishlist_id');
+            $table->foreignId('party_id')->constrained('parties');
+            $table->foreignId('wishlist_id')->constrained('wishlists');
             $table->timestamps();
         });
     }

@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::dropIfExists('parties'); // debug
         Schema::create('parties', function (Blueprint $table) {
+            $table->id();
             $table->foreignId('user_id_created_by')->constrained('users');
             $table->string('name');
             $table->text('description', 65535)->nullable();
