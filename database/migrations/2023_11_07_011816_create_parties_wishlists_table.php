@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::dropIfExists('parties_wishlists');
+        Schema::dropIfExists('parties_wishlists'); // debug
         Schema::create('parties_wishlists', function (Blueprint $table) {
             $table->id();
             // $table->foreignId('party_id')->constrained('parties');

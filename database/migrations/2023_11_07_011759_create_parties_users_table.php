@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::dropIfExists('parties_users');
+        Schema::dropIfExists('parties_users'); // debug
         Schema::create('parties_users', function (Blueprint $table) {
             $table->id();
             // $table->foreignId('party_id')->constrained('parties');

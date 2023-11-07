@@ -11,10 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
+        Schema::dropIfExists('parties'); // debug
         Schema::create('parties', function (Blueprint $table) {
             $table->foreignId('user_id_created_by')->constrained('users');
             $table->string('name');
             $table->text('description', 65535)->nullable();
+            $table->string('address', 255)->nullable();
+            $table->float('lat', 10, 6)->nullable();
+            $table->float('lng', 10, 6)->nullable();
             $table->dateTime('start_datetime')->nullable();
             $table->dateTime('end_datetime')->nullable();
             $table->uuid('invite_code')->unique();
