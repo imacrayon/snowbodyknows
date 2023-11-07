@@ -18,21 +18,15 @@
                                 @can('ungrant', $wish)
                                     <x-form class="h-6 flex items-center" x-target="wishlist_{{ $wishlist->id }}" method="delete" action="{{ route('wishes.grants.destroy', $wish) }}">
                                         <button class="w-5 h-5 flex items-center justify-center text-sky-900 bg-sky-200 rounded" aria-pressed="true" aria-describedby="wish_{{ $wish->id }}_name">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                                                <path d="M5 12l5 5l10 -10" />
-                                            </svg>
-                                            <span class="sr-only">Grant</span>
+                                            <x-phosphor-check-bold aria-hidden="true" width="16" height="16" />
+                                            <span class="sr-only">Un-grant</span>
                                         </button>
                                     </x-form>
                                 @else
                                     <div class="h-6 flex items-center">
                                         <button class="w-5 h-5 flex items-center justify-center text-sky-900 bg-sky-200 rounded" aria-disabled="true" aria-pressed="true"  aria-describedby="wish_{{ $wish->id }}_name">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                                                <path d="M5 12l5 5l10 -10" />
-                                            </svg>
-                                            <span class="sr-only">Grant</span>
+                                            <x-phosphor-check-bold aria-hidden="true" width="16" height="16" />
+                                            <span class="sr-only">Un-grant</span>
                                         </button>
                                     </div>
                                 @endcan
