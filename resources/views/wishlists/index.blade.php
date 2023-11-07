@@ -36,6 +36,9 @@
                 </li>
             @endforeach
         </ul>
+        <div class="bg-white px-4 py-5 sm:py-6 border-t">
+            <x-button-primary class="w-full" href="{{ route('wishlists.create') }}">Add a wishlist</x-button-primary>
+        </div>
     </x-section>
 
     @if($joinedWishlists->isNotEmpty())
