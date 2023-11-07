@@ -1,7 +1,10 @@
 <x-app-layout>
+    <x-slot name="title">
+        {{ __('Edit wishlist') }}
+    </x-slot>
     <x-slot name="header">
         <h1 class="font-semibold text-xl text-gray-800 leading-tight">
-            Edit wishlist
+            {{ __('Edit wishlist') }}
         </h1>
     </x-slot>
     <div class="max-w-7xl mx-auto px-4 space-y-6 sm:px-6 lg:px-8">
