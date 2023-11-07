@@ -5,15 +5,12 @@
 <x-slot name="header">
     <h1 class="font-semibold text-xl text-gray-800 leading-tight inline-flex items-center">
         <a class="pr-2" href="{{ route('wishlists.index') }}">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" width="18" height="18" class="text-gray-400 hover:text-gray-400">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
-            </svg>
+            <x-phosphor-arrow-left aria-hidden="true" width="20" height="20" class="text-gray-400 hover:text-gray-500" />
+            <span class="sr-only">Back to wishlists</span>
         </a>
         {{ $wishlist->name }}
-        <a class="pl-2" href="{{ route('wishlists.edit', [$wishlist]) }}">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" width="18" height="18" class="text-gray-400 hover:text-gray-400">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L6.832 19.82a4.5 4.5 0 01-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 011.13-1.897L16.863 4.487zm0 0L19.5 7.125" />
-            </svg>
+        <a class="pl-2" href="{{ route('wishlists.edit', $wishlist) }}">
+            <x-phosphor-pencil aria-hidden="true" width="24" height="24"  class="text-gray-400 hover:text-gray-500" />
         </a>
     </h1>
 </x-slot>
@@ -33,20 +30,8 @@
                                     x-on:keydown.space.prevent="toggle"
                                     class="flex items-center px-1 h-full cursor-move rounded-lg"
                                 >
-                                    <svg x-show="selected !== '{{ $wish->id }}'" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" class="text-gray-300" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                                        <path d="M9 5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" />
-                                        <path d="M9 12m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" />
-                                        <path d="M9 19m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" />
-                                        <path d="M15 5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" />
-                                        <path d="M15 12m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" />
-                                        <path d="M15 19m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" />
-                                    </svg>
-                                    <svg x-cloak x-show="selected === '{{ $wish->id }}'" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" class="text-gray-400" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                                        <path d="M8 9l4 -4l4 4" />
-                                        <path d="M16 15l-4 4l-4 -4" />
-                                    </svg>
+                                    <x-phosphor-dots-six-vertical x-show="selected !== '{{ $wish->id }}'" aria-hidden="true" width="24" height="24"  class="text-gray-400 hover:text-gray-300" />
+                                    <x-phosphor-caret-up-down x-cloak x-show="selected === '{{ $wish->id }}'" aria-hidden="true" width="24" height="24" class="text-gray-400" />
                                     <span class="sr-only">Re-order</span>
                                 </button>
                             </div>
@@ -66,9 +51,7 @@
                                 <x-dropdown align="right" width="48" class="px-2 pt-1 sm:pt-2">
                                     <x-slot name="trigger">
                                         <button type="button" class="block p-2 -mb-2 rounded-full">
-                                            <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" width="24" height="24" class="text-gray-400 hover:text-gray-400">
-                                                <path stroke-linecap="round" stroke-linejoin="round" d="M8.625 12a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H8.25m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H12m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0h-.375M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                            </svg>
+                                            <x-phosphor-dots-three-circle aria-hidden="true" width="24" height="24" class="text-gray-400 hover:text-gray-500" />
                                             <span class="sr-only">Actions</span>
                                         </button>
                                     </x-slot>
@@ -119,18 +102,11 @@
             </div>
             <button type="button" x-show="canCopy" x-on:click="copy" class="bg-sky-50 relative -ml-px inline-flex items-center gap-x-1.5 rounded-md px-3 py-2 text-sm font-semibold text-sky-800 hover:bg-sky-200 hover:text-sky-900">
                 <span x-show="!copied" class="flex items-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" class="-ml-1 mr-2" viewBox="0 0 24 24" stroke-width="1.5" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
-                        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                        <path d="M8 8m0 2a2 2 0 0 1 2 -2h8a2 2 0 0 1 2 2v8a2 2 0 0 1 -2 2h-8a2 2 0 0 1 -2 -2z" />
-                        <path d="M16 8v-2a2 2 0 0 0 -2 -2h-8a2 2 0 0 0 -2 2v8a2 2 0 0 0 2 2h2" />
-                    </svg>
+                    <x-phosphor-copy aria-hidden="true" width="20" height="20" class="-ml-1 mr-2" />
                     Copy
                 </span>
                 <span x-show="copied" class="flex items-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" class="-ml-1 mr-2" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                        <path d="M5 12l5 5l10 -10" />
-                    </svg>
+                    <x-phosphor-check aria-hidden="true" width="20" height="20" class="-ml-1 mr-2" />
                     Copied
                 </span>
             </button>
@@ -154,9 +130,7 @@
                         </div>
                         <x-form class="flex items-center" x-target="viewers" method="delete" action="{{ route('wishlists.viewers.destroy', [$wishlist, $viewer]) }}" x-on:ajax:before="confirm(`{{ __(':viewer will no longer be able to see your wishlist.', ['viewer' => $viewer->name]) }}`) || $event.preventDefault()">
                             <button class="rounded-full">
-                                <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" width="24" height="24" class="text-gray-400 hover:text-red-500">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M9.75 9.75l4.5 4.5m0-4.5l-4.5 4.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                </svg>
+                                <x-phosphor-x-circle aria-hidden="true" width="24" height="24" class="text-gray-400 hover:text-red-500" />
                                 <span class="sr-only">Remove</span>
                             </button>
                         </x-form>
