@@ -3,6 +3,7 @@
     {{ $wishlist->name }}
 </x-slot>
 <x-slot name="header">
+    <x-back href="{{ route('wishlists.index') }}">{{ __('Wishlists') }}</x-back>
     <h1 class="font-semibold text-xl text-gray-800 leading-tight">
         {{ $wishlist->name }}
     </h1>
