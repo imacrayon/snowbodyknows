@@ -30,7 +30,7 @@ class User extends Authenticatable
 
     public function parties()
     {
-        return $this->hasMany(Party::class, 'user_id_created_by');
+        return $this->hasMany(Party::class);
     }
 
     public function joinedParties()

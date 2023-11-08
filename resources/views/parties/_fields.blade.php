@@ -5,15 +5,22 @@
         <x-input name="name" :value="$party->name" required autofocus />
     </x-field>
     <x-field>
-        <x-label for="description" :value="__('Event Description')" />
+        <x-label for="description">
+            {{ __('Event Description') }}
+            <span class="text-gray-600">(optional)</span>
+        </x-label>
         <x-error for="description" />
         <x-textarea name="description" :value="$party->description" />
     </x-field>
     <x-field>
-        <x-label for="address" :value="__('Event Address')" />
+        <x-label for="address">
+            {{ __('Event Address') }}
+            <span class="text-gray-600">(optional)</span>
+        </x-label>
         <x-error for="address" />
         <x-input name="address" :value="$party->address" />
     </x-field>
+    <!--
     <div>
         <code>@TODO Add component to search google maps for location to autopopulate the lat/lng below based off of address</code>
     </div>
@@ -27,27 +34,38 @@
         <x-error for="lng" />
         <x-input name="lng" :value="$party->lng" />
     </x-field>
-    <div>
-        <code>@TODO Possibly split start/end datetimes to separate columns for easier inputs?</code>
-    </div>
-    <x-field>
-        <x-label for="start_date" :value="__('Event Start Date')" />
+    -->
+    <x-field class="inline-block">
+        <x-label for="start_date">
+            {{ __('Event Start Date') }}
+            <span class="text-gray-600">(optional)</span>
+        </x-label>
         <x-error for="start_date" />
-        <x-input name="start_date" :value="$party->start_datetime" type="date" />
+        <x-input name="start_date" :value="$party->start_date" type="date" />
     </x-field>
-    <x-field>
-        <x-label for="start_time" :value="__('Event Start Time')" />
+    <x-field class="inline-block">
+        <x-label for="start_time">
+            {{ __('Event Start Time') }}
+            <span class="text-gray-600">(optional)</span>
+        </x-label>
         <x-error for="start_time" />
-        <x-input name="start_time" :value="$party->start_datetime" type="time" />
+        <x-input name="start_time" :value="$party->start_time" type="time" />
     </x-field>
-    <x-field>
-        <x-label for="end_date" :value="__('Event End Date')" />
+    <br />
+    <x-field class="inline-block">
+        <x-label for="end_date">
+            {{ __('Event End Date') }}
+            <span class="text-gray-600">(optional)</span>
+        </x-label>
         <x-error for="end_date" />
-        <x-input name="end_date" :value="$party->end_datetime" type="date" />
+        <x-input name="end_date" :value="$party->end_date" type="date" />
     </x-field>
-    <x-field>
-        <x-label for="end_time" :value="__('Event End Time')" />
+    <x-field class="inline-block">
+        <x-label for="end_time">
+            {{ __('Event End Time') }}
+            <span class="text-gray-600">(optional)</span>
+        </x-label>
         <x-error for="end_time" />
-        <x-input name="end_time" :value="$party->end_datetime" type="time" />
+        <x-input name="end_time" :value="$party->end_time" type="time" />
     </x-field>
 </div>

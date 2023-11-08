@@ -26,17 +26,30 @@ class PartyController extends Controller
     {
         $party = $request->user()->parties()->create($request->validate([
             'name' => ['required', 'string', 'max:255'],
+            'description' => ['string'],
+            'address' => ['string', 'max:255'],
+            'start_date' => ['date'],
+            'start_time' => ['date_format:H:i'],
+            'end_date' => ['date'],
+            'end_time' => ['date_format:H:i'],
         ]));
 
         return to_route('parties.show', $party);
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Party $party)
+    public function show(Request $request, Party $party)
     {
-        dd('show');
+        if ($request->user()->can('fulfill', $party)) {
+            return view('parties.fulfill', [
+                'party' => $party// ,
+                // 'wishes' => $wishlist->wishes()->with('granter')->orderBy('granter_id', 'asc')->orderBy('order')->get(),
+            ]);
+        }
+
+        return view('parties.show', [
+            'party' => $party// ,
+            // 'wishes' => $wishlist->wishes()->orderBy('order')->get(),
+        ]);
     }
 
     /**

@@ -14,7 +14,7 @@ class PartyPolicy
 
     public function view(User $user, Party $party): bool
     {
-        return $party->user_created_by->is($user) || $party->viewers->contains($user);
+        return $party->user->is($user) || $party->viewers->contains($user);
     }
 
     public function create(User $user): bool
@@ -24,7 +24,7 @@ class PartyPolicy
 
     public function update(User $user, Party $party): bool
     {
-        return $party->user_created_by->is($user);
+        return $party->user->is($user);
     }
 
     public function delete(User $user, Party $party): bool
