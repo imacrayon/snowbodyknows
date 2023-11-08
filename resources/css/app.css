@@ -14,3 +14,8 @@
 .sortable-ghost [data-handle] {
     opacity: 0;
 }
+
+code {
+    color: #800000;
+    background: #DDDDDD;
+}

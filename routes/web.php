@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AppController;
 use App\Http\Controllers\GrantedWishController;
+use App\Http\Controllers\PartyController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SortWishlistController;
 use App\Http\Controllers\WishController;
@@ -19,6 +20,12 @@ Route::post('/wishlists/{wishlist:invite_code}/join', [WishlistViewerController:
 
 Route::middleware('auth')->prefix('/app')->group(function () {
     Route::get('/', AppController::class)->name('app');
+    
+    Route::get('/parties', [PartyController::class, 'index'])->name('parties.index');
+    Route::get('/parties/create', [PartyController::class, 'create'])->name('parties.create');//->can('create', Party::class); // @TODO can't figure out why unauthorized
+    Route::post('/parties', [PartyController::class, 'store'])->name('parties.store')->can('create', Party::class);
+    Route::get('/parties/{party}', [PartyController::class, 'show'])->name('parties.show')->can('view', 'party');
+    
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
