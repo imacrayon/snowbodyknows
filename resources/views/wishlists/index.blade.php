@@ -12,6 +12,12 @@
         <x-slot:title>
             {{ __('Your Wishlists') }}
         </x-slot:title>
+        <x-slot:actions>
+            <a href="{{ route('wishlists.create') }}" class="group inline-flex items-center text-sm text-gray-600 font-medium hover:text-sky-600">
+                <x-phosphor-sparkle-fill aria-hidden="true" width="16" height="16" class="mr-1.5 text-gray-400 group-hover:text-sky-400" />
+                New wishlist
+            </a>
+        </x-slot:actions>
         <x-slot:description>
             {{ __('Wishlists that you own. You can add wishes and invite people to view these lists.') }}
         </x-slot:description>
@@ -32,9 +38,6 @@
                 </li>
             @endforeach
         </ul>
-        <div class="bg-white px-4 py-5 sm:py-6 border-t">
-            <x-button-primary class="w-full" href="{{ route('wishlists.create') }}">Add a wishlist</x-button-primary>
-        </div>
     </x-section>
 
     @if($joinedWishlists->isNotEmpty())
