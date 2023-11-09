@@ -63,8 +63,12 @@ class WishlistController extends Controller
         return to_route('wishlists.show', $wishlist);
     }
 
-    public function destroy(Wishlist $wishlist)
-    {
+    public function destroy(Request $request, Wishlist $wishlist)
+    {   
+        $request->validateWithBag('wishlistDeletion', [
+            'wishlist_name' => ['required', 'string', 'max:255', 'same:original_name'],
+        ]);
+
         $wishlist->delete();
 
         return to_route('app');
