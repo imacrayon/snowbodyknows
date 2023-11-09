@@ -14,8 +14,8 @@
         </x-slot:title>
         <x-slot:actions>
             <a href="{{ route('wishlists.create') }}" class="group inline-flex items-center text-sm text-gray-600 font-medium hover:text-sky-600">
-                New wishlist
                 <x-phosphor-plus-circle-fill aria-hidden="true" width="16" height="16" class="mr-1.5 text-gray-400 group-hover:text-sky-400" />
+                {{ __('New wishlist') }}
             </a>
         </x-slot:actions>
         <x-slot:description>
