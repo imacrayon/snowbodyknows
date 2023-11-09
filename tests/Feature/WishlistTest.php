@@ -107,5 +107,5 @@ test('users cannot delete their wishlist when enter wrong name', function () {
     ]);
 
     $response->assertSessionHasErrorsIn('wishlistDeletion', 'wishlist_name');
-    $this->assertNotNull($wishlist->fresh());
+    $this->assertModelExists($wishlist);
 });
