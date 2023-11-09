@@ -57,14 +57,21 @@
                                     @endif
                                 </span>
                                 @if($wish->granted())
-                                    <div>
+                                    <span>
                                         <span class="sr-only">Granted by</span>
                                         <img width="20" height="20" class="rounded-full" title="Granted by {{ $wish->granter->name }}" src="{{ $wish->granter->avatar_url }}" alt="{{ $wish->granter->name }}">
-                                    </div>
+                                    </span>
                                 @endif
                             </div>
                             @if($wish->description)
-                                <div class="text-sm text-gray-600">{{ $wish->description }}</div>
+                                <div class="text-sm text-gray-600">
+                                    @if($wish->url)
+                                        {{ parse_url($wish->url, PHP_URL_HOST) }} &middot;
+                                    @endif
+                                    {{ $wish->description }}
+                                </div>
+                            @elseif($wish->url)
+                                <div class="text-sm text-gray-600">{{ parse_url($wish->url, PHP_URL_HOST) }}</div>
                             @endif
                         </div>
                     </li>
