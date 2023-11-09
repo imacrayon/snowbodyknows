@@ -51,7 +51,7 @@
                             <div class="flex items-center justify-between gap-x-4">
                                 <span class="{{ $wish->granted() ? 'text-gray-600 line-through' : '' }}">
                                     @if($wish->url)
-                                        <a href="{{ $wish->url }}" class="underline" aria-describedby="wish_{{ $wish->id }}_name">{{ $wish->name }}</a>
+                                        <a id="wish_{{ $wish->id }}_name" href="{{ $wish->url }}" class="underline">{{ $wish->name }}</a>
                                     @else
                                         <span id="wish_{{ $wish->id }}_name">{{ $wish->name }}</span>
                                     @endif

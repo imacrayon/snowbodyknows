@@ -37,7 +37,7 @@
                                 <div class="flex-1 py-3 sm:py-4">
                                     <div>
                                         @if($wish->url)
-                                            <a id="wish_{{ $wish->id }}_name" class="underline" href="{{ $wish->url }}">{{ $wish->name }}</a>
+                                            <a id="wish_{{ $wish->id }}_name" href="{{ $wish->url }}" class="underline">{{ $wish->name }}</a>
                                         @else
                                             <span id="wish_{{ $wish->id }}_name">{{ $wish->name }}</span>
                                         @endif
