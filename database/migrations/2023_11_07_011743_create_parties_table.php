@@ -17,9 +17,11 @@ return new class extends Migration
             $table->foreignId('user_id')->comment('user_id created by')->constrained('users');
             $table->string('name');
             $table->text('description', 65535)->nullable();
+            $table->boolean('use_address_bool')->default(0);
             $table->string('address', 255)->nullable();
             $table->float('lat', 10, 6)->nullable();
             $table->float('lng', 10, 6)->nullable();
+            $table->boolean('use_dates_bool')->default(0);
             $table->date('start_date')->nullable();
             $table->time('start_time')->nullable();
             $table->date('end_date')->nullable();
