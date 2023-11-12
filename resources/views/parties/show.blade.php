@@ -6,32 +6,40 @@
     <x-back href="{{ route('parties.index') }}">{{ __('Parties') }}</x-back>
     <h1 class="flex items-center gap-2 font-semibold text-xl text-gray-800 leading-tight">
         {{ $party->name }}
+        <a class="pl-2" href="{{ route('parties.edit', $party) }}">
+            <x-phosphor-pencil aria-hidden="true" width="24" height="24"  class="text-gray-400 hover:text-gray-500" />
+            <span class="sr-only">Edit</span>
+        </a>
     </h1>
     @if($party->description)
     <p class="text-gray-700 leading-tight pt-3">
         {{ $party->description }}
     </p>
     @endif
-    @if($party->address)
-    <p class="text-gray-700 leading-tight pt-3">
-        <b>Address:</b> {{ $party->address }}
-    </p>
-    @endif
-    @if($party->start_date)
-    <p class="text-gray-700 leading-tight">
-        <b>Start:</b> {{ $party->start_date }} <!-- @TODO use Carbon?  or, is there something better now? -->
-        @if($party->start_time)
-            {{ $party->start_time }}
+    @if ($party->use_address_bool == 1)
+        @if($party->address)
+        <p class="text-gray-700 leading-tight pt-3">
+            <b>Address:</b> {{ $party->address }}
+        </p>
         @endif
-    </p>
     @endif
-    @if($party->end_date)
-    <p class="text-gray-700 leading-tight">
-        <b>End:</b> {{ $party->end_date }}
-        @if($party->end_time)
-            {{ $party->end_time }}
+    @if ($party->use_dates_bool == 1)
+        @if($party->start_date)
+        <p class="text-gray-700 leading-tight">
+            <b>Start:</b> {{ $party->start_date->format("F j, Y") }}
+            @if($party->start_time)
+                {{ $party->start_time->format("g:i a") }}
+            @endif
+        </p>
         @endif
-    </p>
+        @if($party->end_date)
+        <p class="text-gray-700 leading-tight">
+            <b>End:</b> {{ $party->end_date->format("F j, Y") }}
+            @if($party->end_time)
+                {{ $party->end_time->format("g:i a") }}
+            @endif
+        </p>
+        @endif
     @endif
 </x-slot>
 <div class="max-w-7xl mx-auto px-4 space-y-6 sm:px-6 lg:px-8">

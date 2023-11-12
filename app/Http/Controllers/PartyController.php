@@ -52,27 +52,37 @@ class PartyController extends Controller
         ]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(Party $party)
     {
-        //
+        return view('parties.edit', [
+            'party' => $party,
+        ]);
+
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, Party $party)
     {
-        //
+        $party->update($request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'description' => ['string'],
+            'address' => ['string', 'max:255'],
+            'start_date' => ['date'],
+            'start_time' => ['date_format:H:i'],
+            'end_date' => ['date'],
+            'end_time' => ['date_format:H:i'],
+        ]));
+
+        return to_route('parties.show', $party);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Party $party)
-    {
-        //
+    public function destroy(Request $request, Party $party)
+    {   
+        $request->validateWithBag('partyDeletion', [
+            'party_name' => ['required', 'string', 'max:255', 'same:original_name'],
+        ]);
+
+        $party->delete();
+
+        return to_route('app');
     }
 }

@@ -12,6 +12,7 @@
         <x-error for="description" />
         <x-textarea name="description" :value="$party->description" />
     </x-field>
+    @if ($party->use_address_bool == 1)
     <x-field>
         <x-label for="address">
             {{ __('Event Address') }}
@@ -20,10 +21,8 @@
         <x-error for="address" />
         <x-input name="address" :value="$party->address" />
     </x-field>
-    <!--
-    <div>
-        <code>@TODO Add component to search google maps for location to autopopulate the lat/lng below based off of address</code>
-    </div>
+    {{--
+    <!-- Add component to search google maps for location to autopopulate the lat/lng below based off of address -->
     <x-field>
         <x-label for="lat" :value="__('Event Latitude')" />
         <x-error for="lat" />
@@ -34,7 +33,9 @@
         <x-error for="lng" />
         <x-input name="lng" :value="$party->lng" />
     </x-field>
-    -->
+    --}}
+    @endif
+    @if ($party->use_dates_bool == 1)
     <x-field class="inline-block">
         <x-label for="start_date">
             {{ __('Event Start Date') }}
@@ -68,4 +69,5 @@
         <x-error for="end_time" />
         <x-input name="end_time" :value="$party->end_time" type="time" />
     </x-field>
+    @endif
 </div>

@@ -13,6 +13,13 @@ class Party extends Model
     
     protected static $unguarded = true;
     
+    protected $casts = [
+        'start_date' => 'date',
+        'start_time' => 'datetime:H:i',
+        'end_date' => 'date',
+        'end_time' => 'datetime:H:i'
+    ];
+    
     protected static function booted()
     {
         static::creating(function ($model) {

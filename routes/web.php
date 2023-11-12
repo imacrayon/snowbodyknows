@@ -31,7 +31,9 @@ Route::middleware('auth')->prefix('/app')->group(function () {
     Route::get('/parties/{party}', [PartyController::class, 'show'])->name('parties.show')->can('view', 'party');
     Route::post('/parties', [PartyController::class, 'store'])->name('parties.store')->can('create', Party::class);
     Route::get('/parties/{party}', [PartyController::class, 'show'])->name('parties.show')->can('view', 'party');
-    
+    Route::get('/parties/{party}/edit', [PartyController::class, 'edit'])->name('parties.edit')->can('update', 'party');
+    Route::patch('/parties/{party}', [PartyController::class, 'update'])->name('parties.update')->can('update', 'party');
+    Route::delete('/parties/{party}', [PartyController::class, 'destroy'])->name('parties.destroy')->can('delete', 'party');
     Route::delete('/parties/{party}/users/{user}', [PartyViewerController::class, 'destroy'])->name('parties.viewers.destroy');//->can('kick', ['party', 'user']);
     
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
