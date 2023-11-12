@@ -17,8 +17,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/parties/{party:invite_code}/join', [PartyViewerController::class, 'create'])->name('parties.viewers.create');
-Route::post('/parties/{party:invite_code}/join', [PartyViewerController::class, 'store'])->name('parties.viewers.store')->middleware('auth');
+Route::get('/parties/{party:invite_code}/join', [PartyParticipantController::class, 'create'])->name('parties.participants.create');
+Route::post('/parties/{party:invite_code}/join', [PartyParticipantController::class, 'store'])->name('parties.participants.store')->middleware('auth');
 
 Route::get('/wishlists/{wishlist:invite_code}/join', [WishlistViewerController::class, 'create'])->name('wishlists.viewers.create');
 Route::post('/wishlists/{wishlist:invite_code}/join', [WishlistViewerController::class, 'store'])->name('wishlists.viewers.store')->middleware('auth');
@@ -34,7 +34,7 @@ Route::middleware('auth')->prefix('/app')->group(function () {
     Route::get('/parties/{party}/edit', [PartyController::class, 'edit'])->name('parties.edit')->can('update', 'party');
     Route::patch('/parties/{party}', [PartyController::class, 'update'])->name('parties.update')->can('update', 'party');
     Route::delete('/parties/{party}', [PartyController::class, 'destroy'])->name('parties.destroy')->can('delete', 'party');
-    Route::delete('/parties/{party}/users/{user}', [PartyViewerController::class, 'destroy'])->name('parties.viewers.destroy');//->can('kick', ['party', 'user']);
+    Route::delete('/parties/{party}/users/{user}', [PartyViewerController::class, 'destroy'])->name('parties.participants.destroy');//->can('kick', ['party', 'user']);
     
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');

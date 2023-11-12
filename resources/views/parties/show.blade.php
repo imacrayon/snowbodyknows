@@ -65,7 +65,7 @@
         }" class="p-1 flex space-x-1 rounded-md sm:p-4">
             <div class="flex-1">
                 <label for="share_url" class="sr-only">{{ __('Share URL') }}</label>
-                <input type="url" id="share_url" x-ref="input" readonly x-on:focus="select" value="{{ route('parties.viewers.create', $party) }}" x-bind:class="canCopy ? '' : 'rounded-r-md'" class="block w-full rounded-md border-transparent py-1.5 text-gray-900 bg-gray-50 focus:ring-2 focus:ring-inset focus:ring-sky-600 sm:text-sm sm:leading-6">
+                <input type="url" id="share_url" x-ref="input" readonly x-on:focus="select" value="{{ route('parties.participants.create', $party) }}" x-bind:class="canCopy ? '' : 'rounded-r-md'" class="block w-full rounded-md border-transparent py-1.5 text-gray-900 bg-gray-50 focus:ring-2 focus:ring-inset focus:ring-sky-600 sm:text-sm sm:leading-6">
             </div>
             <button type="button" x-show="canCopy" x-on:click="copy" class="bg-sky-50 relative -ml-px inline-flex items-center gap-x-1.5 rounded-md px-3 py-2 text-sm font-semibold text-sky-800 hover:bg-sky-200 hover:text-sky-900">
                 <span x-show="!copied" class="flex items-center">
@@ -80,28 +80,46 @@
         </div>
     </x-section>
 
-    @if ($party->viewers->isNotEmpty())
+    @if ($party->participants->isNotEmpty())
         <x-section>
             <x-slot:title>
-                {{ __('Viewers') }}
+                {{ __('Participants') }}
             </x-slot:title>
             <x-slot:description>
                 {{ __('These are the people who can view your party.') }}
             </x-slot:descripti>
-            <ul id="viewers" x-init class="divide-y">
-                @foreach($party->viewers as $viewer)
+            <ul id="participants" x-init class="divide-y">
+                @foreach($party->participants as $participant)
                     <li class="flex gap-6 px-4 py-3 sm:py-4">
                         <div class="flex-1 flex items-center space-x-2">
-                            <img src="{{ $viewer->avatar_url }}" width="32" height="32" class="rounded-full" alt="">
-                            <div class="flex-1">{{ $viewer->name }}</div>
+                            <img src="{{ $participant->avatar_url }}" width="32" height="32" class="rounded-full" alt="">
+                            <div class="flex-1">{{ $participant->name }}
+                                @if ($participant->user == request()->user)
+                                (You)
+                                @endif
+                            </div>
                         </div>
-                        <x-form class="flex items-center" x-target="viewers" method="delete" action="{{ route('parties.viewers.destroy', [$party, $viewer]) }}" x-on:ajax:before="confirm(`{{ __(':viewer will no longer be able to see your party.', ['viewer' => $viewer->name]) }}`) || $event.preventDefault()">
+                        <x-form class="flex items-center" x-target="participants" method="delete" action="{{ route('parties.participants.destroy', [$party, $participant]) }}" x-on:ajax:before="confirm(`{{ __(':participant will no longer be able to see your party.', ['participant' => $participant->name]) }}`) || $event.preventDefault()">
                             <button class="rounded-full">
                                 <x-phosphor-x-circle aria-hidden="true" width="24" height="24" class="text-gray-400 hover:text-red-500" />
                                 <span class="sr-only">Remove</span>
                             </button>
                         </x-form>
                     </li>
+                    
+                    @foreach($party->wishlists as $wishlist)
+                        @if ($wishlist->user->id == $participant->id)
+                        <li class="flex gap-6 px-12 py-3 sm:py-4">
+                            <div class="flex-1 flex items-center space-x-2">
+                                <a href="{{ route('wishlists.show', $wishlist) }}">
+                                    {{ $wishlist->name }}
+                                    <span class="absolute inset-0" aria-hidden="true"></span>
+                                </a>
+                            </div>
+                            <x-phosphor-caret-right aria-hidden="true" width="20" height="20"  class="text-gray-400" />
+                        </li>
+                        @endif
+                    @endforeach
                 @endforeach
             </ul>
         </x-section>

@@ -6,7 +6,7 @@
         </p>
     </header>
 
-    <x-form class="mt-6" method="post" action="{{ route('parties.viewers.store', $party) }}">
+    <x-form class="mt-6" method="post" action="{{ route('parties.participants.store', $party) }}">
         <div class="flex items-center gap-4">
             <x-button-primary>
                 {{ __('Join') }}

@@ -11,7 +11,7 @@ class PartyController extends Controller
     {
         return view('parties.index', [
             'parties' => $request->user()->parties()->get(),
-            'joinedParties' => $request->user()->joinedParties()->withCount('viewers')->get(),
+            'joinedParties' => $request->user()->joinedParties()->withCount('participants')->get(),
         ]);
     }
 
@@ -83,6 +83,6 @@ class PartyController extends Controller
 
         $party->delete();
 
-        return to_route('app');
+        return to_route('parties.index');
     }
 }

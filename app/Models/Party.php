@@ -25,6 +25,20 @@ class Party extends Model
         static::creating(function ($model) {
             $model->invite_code = Str::uuid();
         });
+        
+        static::created(function ($model) {
+            // assign self to party
+            $model->participants()->syncWithoutDetaching($model->user);
+            
+            // auto create wishlist for self
+            $wishlist = new Wishlist;
+            $wishlist->name = $model->user->name."'s Wishlist for Party ".$model->name;
+            $wishlist->user_id = $model->user->id;
+            $wishlist->save();
+            
+            // assign wishlist to party
+            $model->wishlists()->syncWithoutDetaching($wishlist);
+        });
     }
 
     public function user()
@@ -32,8 +46,13 @@ class Party extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function viewers()
+    public function participants()
     {
         return $this->belongsToMany(User::class)->withTimestamps();
+    }
+    
+    public function wishlists()
+    {
+        return $this->belongsToMany(Wishlist::class)->withTimestamps();
     }
 }
