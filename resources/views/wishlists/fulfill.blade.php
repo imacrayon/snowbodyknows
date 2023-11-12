@@ -3,6 +3,7 @@
     {{ $wishlist->name }}
 </x-slot>
 <x-slot name="header">
+    <x-back href="{{ route('wishlists.index') }}">{{ __('Wishlists') }}</x-back>
     <h1 class="font-semibold text-xl text-gray-800 leading-tight">
         {{ $wishlist->name }}
     </h1>
@@ -50,20 +51,27 @@
                             <div class="flex items-center justify-between gap-x-4">
                                 <span class="{{ $wish->granted() ? 'text-gray-600 line-through' : '' }}">
                                     @if($wish->url)
-                                        <a href="{{ $wish->url }}" class="underline" aria-describedby="wish_{{ $wish->id }}_name">{{ $wish->name }}</a>
+                                        <a id="wish_{{ $wish->id }}_name" target="_blank" href="{{ $wish->url }}" class="underline">{{ $wish->name }}</a>
                                     @else
                                         <span id="wish_{{ $wish->id }}_name">{{ $wish->name }}</span>
                                     @endif
                                 </span>
                                 @if($wish->granted())
-                                    <div>
+                                    <span>
                                         <span class="sr-only">Granted by</span>
                                         <img width="20" height="20" class="rounded-full" title="Granted by {{ $wish->granter->name }}" src="{{ $wish->granter->avatar_url }}" alt="{{ $wish->granter->name }}">
-                                    </div>
+                                    </span>
                                 @endif
                             </div>
                             @if($wish->description)
-                                <div class="text-sm text-gray-600">{{ $wish->description }}</div>
+                                <div class="text-sm text-gray-600">
+                                    @if($wish->url)
+                                        {{ $wish->urlDomain() }} &middot;
+                                    @endif
+                                    {{ $wish->description }}
+                                </div>
+                            @elseif($wish->url)
+                                <div class="text-sm text-gray-600">{{ $wish->urlDomain() }}</div>
                             @endif
                         </div>
                     </li>

@@ -38,4 +38,11 @@ class Wish extends Model
     {
         return $this->granter()->dissociate();
     }
+
+    public function urlDomain()
+    {
+        $parts = explode('.', parse_url($this->url, PHP_URL_HOST) ?? '');
+
+        return implode('.', array_slice($parts, -2));
+    }
 }

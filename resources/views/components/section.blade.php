@@ -1,7 +1,10 @@
 <section>
-    <h2 class="text-base font-medium text-gray-900">
-        {{ $title }}
-    </h2>
+    <div class="flex items-center justify-between">
+        <h2 class="text-base font-medium text-gray-900">
+            {{ $title }}
+        </h2>
+        {{ $actions ?? '' }}
+    </div>
     <div class="mt-2 bg-white shadow overflow-hidden rounded-lg">
         {{ $slot }}
     </div>

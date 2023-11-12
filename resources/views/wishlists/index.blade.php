@@ -12,29 +12,33 @@
         <x-slot:title>
             {{ __('Your Wishlists') }}
         </x-slot:title>
+        <x-slot:actions>
+            <a href="{{ route('wishlists.create') }}" class="group inline-flex items-center text-sm text-gray-600 font-medium hover:text-sky-600">
+                <x-phosphor-plus-circle-fill aria-hidden="true" width="16" height="16" class="mr-1.5 text-gray-400 group-hover:text-sky-400" />
+                {{ __('New wishlist') }}
+            </a>
+        </x-slot:actions>
         <x-slot:description>
             {{ __('Wishlists that you own. You can add wishes and invite people to view these lists.') }}
         </x-slot:description>
         <ul class="divide-y">
             @foreach($wishlists as $wishlist)
-                <li class="block">
-                    <a class="flex items-center justify-between gap-6 px-4 py-3 sm:py-4" href="{{ route('wishlists.show', $wishlist) }}">
-                        <div>
+                <li class="relative flex items-center justify-between gap-6 px-4 py-3 sm:py-4">
+                    <div>
+                        <a href="{{ route('wishlists.show', $wishlist) }}">
                             {{ $wishlist->name }}
-                            <div class="flex items-center gap-x-2 text-xs leading-5 text-gray-500">
-                                {{ $wishlist->wishes_count }} {{ trans_choice('wish|wishes', $wishlist->wishes_count) }}
-                                <svg viewBox="0 0 2 2" aria-hidden="true" class="h-0.5 w-0.5 fill-current"><circle cx="1" cy="1" r="1"></circle></svg>
-                                {{ $wishlist->viewers_count }} {{ trans_choice('viewer|viewers', $wishlist->viewers_count) }}
-                            </div>
+                            <span class="absolute inset-0" aria-hidden="true"></span>
+                        </a>
+                        <div class="flex items-center gap-x-2 text-xs leading-5 text-gray-500">
+                            {{ $wishlist->wishes_count }} {{ trans_choice('wish|wishes', $wishlist->wishes_count) }}
+                            <svg viewBox="0 0 2 2" aria-hidden="true" class="h-0.5 w-0.5 fill-current"><circle cx="1" cy="1" r="1"></circle></svg>
+                            {{ $wishlist->viewers_count }} {{ trans_choice('viewer|viewers', $wishlist->viewers_count) }}
                         </div>
-                        <x-phosphor-caret-right aria-hidden="true" width="20" height="20"  class="text-gray-400" />
-                    </a>
+                    </div>
+                    <x-phosphor-caret-right aria-hidden="true" width="20" height="20"  class="text-gray-400" />
                 </li>
             @endforeach
         </ul>
-        <div class="bg-white px-4 py-5 sm:py-6 border-t">
-            <x-button-primary class="w-full" href="{{ route('wishlists.create') }}">Add a wishlist</x-button-primary>
-        </div>
     </x-section>
 
     @if($joinedWishlists->isNotEmpty())
@@ -47,18 +51,19 @@
             </x-slot:description>
             <ul class="divide-y">
                 @foreach($joinedWishlists as $wishlist)
-                    <li class="block">
-                        <a class="flex items-center justify-between gap-6 px-4 py-3 sm:py-4" href="{{ route('wishlists.show', $wishlist) }}">
-                            <div>
+                    <li class="relative flex items-center justify-between gap-6 px-4 py-3 sm:py-4">
+                        <div>
+                            <a href="{{ route('wishlists.show', $wishlist) }}">
                                 {{ $wishlist->name }}
-                                <div class="flex items-center gap-x-2 text-xs leading-5 text-gray-500">
-                                    {{ $wishlist->wishes_count }} {{ trans_choice('wish|wishes', $wishlist->wishes_count) }}
-                                    <svg viewBox="0 0 2 2" aria-hidden="true" class="h-0.5 w-0.5 fill-current"><circle cx="1" cy="1" r="1"></circle></svg>
-                                    {{ $wishlist->viewers_count }} {{ trans_choice('viewer|viewers', $wishlist->viewers_count) }}
-                                </div>
+                                <span class="absolute inset-0" aria-hidden="true"></span>
+                            </a>
+                            <div class="flex items-center gap-x-2 text-xs leading-5 text-gray-500">
+                                {{ $wishlist->wishes_count }} {{ trans_choice('wish|wishes', $wishlist->wishes_count) }}
+                                <svg viewBox="0 0 2 2" aria-hidden="true" class="h-0.5 w-0.5 fill-current"><circle cx="1" cy="1" r="1"></circle></svg>
+                                {{ $wishlist->viewers_count }} {{ trans_choice('viewer|viewers', $wishlist->viewers_count) }}
                             </div>
-                            <x-phosphor-caret-right aria-hidden="true" width="20" height="20"  class="text-gray-400" />
-                        </a>
+                        </div>
+                        <x-phosphor-caret-right aria-hidden="true" width="20" height="20"  class="text-gray-400" />
                     </li>
                 @endforeach
             </ul>

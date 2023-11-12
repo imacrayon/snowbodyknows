@@ -87,8 +87,25 @@ test('users can delete their wishlist', function () {
     Wishlist::factory()->for($wishlist->user)->create();
 
     $this->actingAs($wishlist->user);
-    $response = $this->delete(route('wishlists.destroy', $wishlist));
+    $response = $this->delete(route('wishlists.destroy', $wishlist), [
+        'original_name' => $wishlist->name,
+        'wishlist_name' => $wishlist->name,
+    ]);
 
     $response->assertRedirectToRoute('app');
     $this->assertSoftDeleted($wishlist);
+});
+
+test('users cannot delete their wishlist when enter wrong name', function () {
+    $wishlist = Wishlist::factory()->create();
+    Wishlist::factory()->for($wishlist->user)->create();
+
+    $this->actingAs($wishlist->user);
+    $response = $this->delete(route('wishlists.destroy', $wishlist), [
+        'original_name' => $wishlist->name,
+        'wishlist_name' => 'Incorrect name',
+    ]);
+
+    $response->assertSessionHasErrorsIn('wishlistDeletion', 'wishlist_name');
+    $this->assertModelExists($wishlist);
 });
