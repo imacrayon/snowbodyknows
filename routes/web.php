@@ -3,7 +3,7 @@
 use App\Http\Controllers\AppController;
 use App\Http\Controllers\GrantedWishController;
 use App\Http\Controllers\PartyController;
-use App\Http\Controllers\PartyViewerController;
+use App\Http\Controllers\PartyParticipantController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SortWishlistController;
 use App\Http\Controllers\WishController;
