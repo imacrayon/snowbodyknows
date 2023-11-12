@@ -87,41 +87,42 @@
             </x-slot:title>
             <x-slot:description>
                 {{ __('These are the people who can view your party.') }}
-            </x-slot:descripti>
-            <ul id="participants" x-init class="divide-y">
-                @foreach($party->participants as $participant)
-                    <li class="flex gap-6 px-4 py-3 sm:py-4">
-                        <div class="flex-1 flex items-center space-x-2">
-                            <img src="{{ $participant->avatar_url }}" width="32" height="32" class="rounded-full" alt="">
-                            <div class="flex-1">{{ $participant->name }}
-                                @if ($participant->user == request()->user)
-                                (You)
-                                @endif
-                            </div>
-                        </div>
-                        <x-form class="flex items-center" x-target="participants" method="delete" action="{{ route('parties.participants.destroy', [$party, $participant]) }}" x-on:ajax:before="confirm(`{{ __(':participant will no longer be able to see your party.', ['participant' => $participant->name]) }}`) || $event.preventDefault()">
-                            <button class="rounded-full">
-                                <x-phosphor-x-circle aria-hidden="true" width="24" height="24" class="text-gray-400 hover:text-red-500" />
-                                <span class="sr-only">Remove</span>
-                            </button>
-                        </x-form>
-                    </li>
-                    
-                    @foreach($party->wishlists as $wishlist)
-                        @if ($wishlist->user->id == $participant->id)
-                        <li class="flex gap-6 px-12 py-3 sm:py-4">
+            </x-slot:description>
+            <div>
+                <ul id="participants" x-init class="divide-y">
+                    @foreach($party->participants as $participant)
+                        <li class="flex gap-6 px-4 py-3 sm:py-4">
                             <div class="flex-1 flex items-center space-x-2">
-                                <a href="{{ route('wishlists.show', $wishlist) }}">
-                                    {{ $wishlist->name }}
-                                    <span class="absolute inset-0" aria-hidden="true"></span>
-                                </a>
+                                <img src="{{ $participant->avatar_url }}" width="32" height="32" class="rounded-full" alt="">
+                                <div class="flex-1">{{ $participant->name }}
+                                    @if ($participant->user == request()->user)
+                                    (You)
+                                    @endif
+                                </div>
                             </div>
-                            <x-phosphor-caret-right aria-hidden="true" width="20" height="20"  class="text-gray-400" />
+                            <x-form class="flex items-center" x-target="participants" method="delete" action="{{ route('parties.participants.destroy', [$party, $participant]) }}" x-on:ajax:before="confirm(`{{ __(':participant will no longer be able to see your party.', ['participant' => $participant->name]) }}`) || $event.preventDefault()">
+                                <button class="rounded-full">
+                                    <x-phosphor-x-circle aria-hidden="true" width="24" height="24" class="text-gray-400 hover:text-red-500" />
+                                    <span class="sr-only">Remove</span>
+                                </button>
+                            </x-form>
                         </li>
-                        @endif
+                        
+                        @foreach($party->wishlists as $wishlist)
+                            @if ($wishlist->user->id == $participant->id)
+                            <a href="{{ route('wishlists.show', $wishlist) }}">
+                                <li class="flex gap-6 px-12 py-3 sm:py-4">
+                                    <div class="flex-1 flex items-center space-x-2">
+                                        {{ $wishlist->name }}
+                                    </div>
+                                    <x-phosphor-caret-right aria-hidden="true" width="20" height="20"  class="text-gray-400" />
+                                </li>
+                            </a>
+                            @endif
+                        @endforeach
                     @endforeach
-                @endforeach
-            </ul>
+                </ul>
+            </div>
         </x-section>
     @endif
 </div>
