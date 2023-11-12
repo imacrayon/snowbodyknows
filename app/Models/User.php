@@ -35,7 +35,8 @@ class User extends Authenticatable
 
     public function joinedParties()
     {
-        return $this->belongsToMany(Party::class)->withTimestamps();
+        // don't show user in joinedParties if created by user
+        return $this->belongsToMany(Party::class)->where("parties.user_id", "!=", $this->id)->withTimestamps();
     }
 
     public function wishlists()
