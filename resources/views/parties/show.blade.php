@@ -95,7 +95,7 @@
                             <div class="flex-1 flex items-center space-x-2">
                                 <img src="{{ $participant->avatar_url }}" width="32" height="32" class="rounded-full" alt="">
                                 <div class="flex-1">{{ $participant->name }}
-                                    @if ($participant->user == request()->user)
+                                    @if ($participant->id == request()->user()->id)
                                     (You)
                                     @endif
                                 </div>

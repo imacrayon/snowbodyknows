@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Party;
 use App\Models\User;
+use App\Models\Wishlist;
 use Illuminate\Http\Request;
 
 class PartyParticipantController extends Controller
@@ -21,9 +22,17 @@ class PartyParticipantController extends Controller
     
     public function store(Request $request, Party $party)
     {
-        if ($party->user->isNot($request->user())) {
-            $party->participants()->syncWithoutDetaching($request->user());
-        }
+        // assign self to party
+        $party->participants()->syncWithoutDetaching($request->user());
+        
+        // auto create wishlist for self
+        $wishlist = new Wishlist;
+        $wishlist->name = $request->user()->name."'s Wishlist for Party ".$party->name;
+        $wishlist->user_id = $request->user()->id;
+        $wishlist->save();
+        
+        // assign wishlist to party
+        $party->wishlists()->syncWithoutDetaching($wishlist);
 
         return to_route('parties.show', $party);
     }
