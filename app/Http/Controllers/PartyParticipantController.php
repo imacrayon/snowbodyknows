@@ -37,13 +37,12 @@ class PartyParticipantController extends Controller
     
     public function destroy(Request $request, Party $party, User $user)
     {
-        dd('parties destroy');
-        // $party->participants()->detach($user);
+        $party->participants()->detach($user);
 
-        // if ($request->user()->is($user)) {
-        //     return to_route('app');
-        // }
+        if ($request->user()->is($user)) {
+            return to_route('app');
+        }
 
-        // return to_route('parties.show', $party);
+        return to_route('parties.show', $party);
     }
 }
