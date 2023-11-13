@@ -14,13 +14,12 @@ class WishlistPolicy
 
     public function view(User $user, Wishlist $wishlist): bool
     {
-        // TODO allow participants in same party to view all assigned wishlists
-        return $wishlist->user->is($user) || $wishlist->viewers->contains($user);
+        return $wishlist->user->is($user) || $wishlist->viewers->contains($user) || $wishlist->party->participants->contains($user);
     }
 
     public function fulfill(User $user, Wishlist $wishlist): bool
     {
-        return $wishlist->viewers->contains($user);
+        return $wishlist->viewers->contains($user) || ($wishlist->party->participants->contains($user) && !$wishlist->user->is($user));
     }
 
     public function create(User $user): bool

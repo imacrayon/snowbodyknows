@@ -29,10 +29,8 @@ class PartyParticipantController extends Controller
         $wishlist = new Wishlist;
         $wishlist->name = $request->user()->name."'s Wishlist for Party ".$party->name;
         $wishlist->user_id = $request->user()->id;
+        $wishlist->party_id = $party->id;
         $wishlist->save();
-        
-        // assign wishlist to party
-        $party->wishlists()->syncWithoutDetaching($wishlist);
 
         return to_route('parties.show', $party);
     }

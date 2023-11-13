@@ -34,10 +34,8 @@ class Party extends Model
             $wishlist = new Wishlist;
             $wishlist->name = $model->user->name."'s Wishlist for Party ".$model->name;
             $wishlist->user_id = $model->user->id;
+            $wishlist->party_id = $model->id;
             $wishlist->save();
-            
-            // assign wishlist to party
-            $model->wishlists()->syncWithoutDetaching($wishlist);
         });
     }
 
@@ -53,6 +51,6 @@ class Party extends Model
     
     public function wishlists()
     {
-        return $this->belongsToMany(Wishlist::class)->withTimestamps();
+        return $this->hasMany(Wishlist::class);
     }
 }
