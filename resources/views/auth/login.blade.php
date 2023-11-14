@@ -3,13 +3,13 @@
         <h1 class="text-lg font-medium text-gray-90">Log in</h1>
         <p class="mt-1 text-sm text-gray-600">
             <strong>{{ __('New here?') }}</strong>
-            <a class="underline" href="{{ route('register', ['wishlist' => $wishlist]) }}">{{ __('Create an account') }}</a>.
+            <a class="underline" href="{{ route('register', ['wishlist' => $wishlist, 'party' => $party]) }}">{{ __('Create an account') }}</a>.
         </p>
     </header>
 
     <x-auth-session-status class="mt-6" :status="session('status')" />
 
-    <x-form class="mt-6" method="post" action="{{ route('login', ['wishlist' => $wishlist]) }}">
+    <x-form class="mt-6" method="post" action="{{ route('login', ['wishlist' => $wishlist, 'party' => $party]) }}">
         <div class="space-y-6">
             <x-field>
                 <x-label for="email" :value="__('Email')" />
