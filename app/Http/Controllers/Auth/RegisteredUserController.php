@@ -24,7 +24,8 @@ class RegisteredUserController extends Controller
     {
         return view('auth.register', [
             'wishlist' => $request->query('wishlist'),
-            'party' => $request->query('party')
+            'party' => $request->query('party'),
+            'adventure' => $request->query('adventure')
         ]);
     }
 
@@ -47,6 +48,17 @@ class RegisteredUserController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
+        if ($request->query('adventure') && $request->query('adventure') == 'create_party') {
+            $p = new Party;
+            $p->name = $request->name."'s Party";
+            $p->user_id = $user->id;
+            $p->save();
+            $user->wishlists()->create([
+                'name' => __(':user’s Wishlist for :party', ['user' => Str::before($user->name, ' '), 'party' => $p->name]),
+                'party_id' => $p->id,
+            ]);
+        }
+
         if ($request->query('party')) {
             $p = Party::where('invite_code', $request->query('party'))->firstOrFail();
             $user->wishlists()->create([
@@ -63,6 +75,10 @@ class RegisteredUserController extends Controller
         event(new Registered($user));
 
         Auth::login($user);
+
+        if ($request->query('adventure') && $request->query('adventure') == 'create_party') {
+            return to_route('parties.index', $p);
+        }
 
         if ($wishlist = $request->query('wishlist')) {
             return to_route('wishlists.viewers.create', $wishlist);

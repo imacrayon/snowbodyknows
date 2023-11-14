@@ -17,6 +17,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/choose-adventure', function () {
+    return view('choose-adventure');
+})->name('choose-adventure');
+
 Route::get('/parties/{party:invite_code}/join', [PartyParticipantController::class, 'create'])->name('parties.participants.create');
 Route::post('/parties/{party:invite_code}/join', [PartyParticipantController::class, 'store'])->name('parties.participants.store')->middleware('auth');
 
