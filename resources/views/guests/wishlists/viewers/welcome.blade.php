@@ -1,8 +1,10 @@
 <!DOCTYPE html>
-<html>
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>{{ __('Join :wishlist on Snowbody Knows', ['wishlist' => $wishlist->name]) }}</title>
 
     @vite(['resources/css/app.css'])
 
@@ -40,6 +42,14 @@
          }
       }
     </style>
+
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Snowbody Knows">
+    <meta property="og:title" :content="{{ __('Join :wishlist on Snowbody Knows', ['wishlist' => $wishlist->name]) }}">
+    <meta property="og:url" content="{{ request()->url() }}" />
+    <meta property="og:locale" content="{{ str_replace('_', '-', app()->getLocale()) }}">
+    <meta property="og:image" content="{{ url('/img/social.png') }}" />
+    <meta name="twitter:card" content="summary_large_image">
 </head>
 <body>
     <div class="relative overflow-hidden w-full pt-[20vh] bg-gradient-to-b from-sky-300 to-sky-100">
