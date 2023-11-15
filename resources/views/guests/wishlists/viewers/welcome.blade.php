@@ -45,7 +45,7 @@
 
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Snowbody Knows">
-    <meta property="og:title" :content="{{ __('Join :wishlist on Snowbody Knows', ['wishlist' => $wishlist->name]) }}">
+    <meta property="og:title" content="{{ __('Join :wishlist on Snowbody Knows', ['wishlist' => $wishlist->name]) }}">
     <meta property="og:url" content="{{ request()->url() }}" />
     <meta property="og:locale" content="{{ str_replace('_', '-', app()->getLocale()) }}">
     <meta property="og:image" content="{{ url('/img/social.png') }}" />
