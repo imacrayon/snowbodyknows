@@ -12,6 +12,12 @@
         <x-slot:title>
             {{ __('Your Parties') }}
         </x-slot:title>
+        <x-slot:actions>
+            <a href="{{ route('parties.create') }}" class="group inline-flex items-center text-sm text-gray-600 font-medium hover:text-sky-600">
+                <x-phosphor-plus-circle-fill aria-hidden="true" width="16" height="16" class="mr-1.5 text-gray-400 group-hover:text-sky-400" />
+                {{ __('New party') }}
+            </a>
+        </x-slot:actions>
         <x-slot:description>
             {{ __('Parties that you own. You can invite people to view these.') }}
         </x-slot:description>
@@ -30,9 +36,6 @@
                 </li>
             @endforeach
         </ul>
-        <div class="bg-white px-4 py-5 sm:py-6 border-t">
-            <x-button-primary class="w-full" href="{{ route('parties.create') }}">Add a party</x-button-primary>
-        </div>
     </x-section>
 
     @if($joinedParties->isNotEmpty())
