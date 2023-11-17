@@ -51,16 +51,11 @@ class RegisteredUserController extends Controller
 
         if ($request->query('adventure') && $request->query('adventure') == 'create_party') {
             $p = new Party;
-            $p->name = $request->name."'s Party";
+            $p->name = __(':user Household Party', ['user' => Str::afterLast($user->name, ' ')]);
             $p->user_id = $user->id;
             $p->save();
-            $user->wishlists()->create([
-                'name' => __(':user’s Wishlist for :party', ['user' => Str::before($user->name, ' '), 'party' => $p->name]),
-                'party_id' => $p->id,
-            ]);
         }
-
-        if ($request->query('party')) {
+        elseif ($request->query('party')) {
             $p = Party::where('invite_code', $request->query('party'))->firstOrFail();
             $user->wishlists()->create([
                 'name' => __(':user’s Wishlist for :party', ['user' => Str::before($user->name, ' '), 'party' => $p->name]),
