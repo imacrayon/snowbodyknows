@@ -6,6 +6,9 @@
     <x-back href="{{ route('wishlists.index') }}">{{ __('Wishlists') }}</x-back>
     <h1 class="flex items-center gap-2 font-semibold text-xl text-gray-800 leading-tight">
         {{ $wishlist->name }}
+        @if ($wishlist->party)
+            (for {{ $wishlist->party->name }})
+        @endif
         <a class="pl-2" href="{{ route('wishlists.edit', $wishlist) }}">
             <x-phosphor-pencil aria-hidden="true" width="24" height="24"  class="text-gray-400 hover:text-gray-500" />
             <span class="sr-only">Edit</span>

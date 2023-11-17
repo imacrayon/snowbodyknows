@@ -19,6 +19,7 @@ class AuthenticatedSessionController extends Controller
     {
         return view('auth.login', [
             'wishlist' => $request->query('wishlist'),
+            'party' => $request->query('party')
         ]);
     }
 
@@ -33,6 +34,10 @@ class AuthenticatedSessionController extends Controller
 
         if ($wishlist = $request->query('wishlist')) {
             return to_route('wishlists.viewers.create', $wishlist);
+        }
+
+        if ($party = $request->query('party')) {
+            return to_route('parties.participants.create', $party);
         }
 
         return redirect()->intended(RouteServiceProvider::HOME);

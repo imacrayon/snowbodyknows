@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Party;
 use App\Models\User;
 use App\Models\Wishlist;
 use App\Providers\RouteServiceProvider;
@@ -24,6 +25,8 @@ class RegisteredUserController extends Controller
     {
         return view('auth.register', [
             'wishlist' => $request->query('wishlist'),
+            'party' => $request->query('party'),
+            'adventure' => $request->query('adventure')
         ]);
     }
 
@@ -46,18 +49,41 @@ class RegisteredUserController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
-        $user->wishlists()->create([
-            'name' => __(':user’s Wishlist', ['user' => Str::before($user->name, ' ')]),
-        ]);
+        if ($request->query('adventure') && $request->query('adventure') == 'create_party') {
+            $p = new Party;
+            $p->name = __(':user Household Party', ['user' => Str::afterLast($user->name, ' ')]);
+            $p->user_id = $user->id;
+            $p->save();
+        }
+        elseif ($request->query('party')) {
+            $p = Party::where('invite_code', $request->query('party'))->firstOrFail();
+            $user->wishlists()->create([
+                'name' => __(':user’s Wishlist', ['user' => Str::before($user->name, ' ')]),
+                'party_id' => $p->id,
+            ]);
+        }
+        else {
+            $user->wishlists()->create([
+                'name' => __(':user’s Wishlist', ['user' => Str::before($user->name, ' ')]),
+            ]);
+        }
 
         event(new Registered($user));
 
         Auth::login($user);
 
+        if ($request->query('adventure') && $request->query('adventure') == 'create_party') {
+            return to_route('parties.index', $p);
+        }
+
         $invitecode = $request->query('wishlist');
-        if($wishlist = Wishlist::findByInviteCode($invitecode)){  
+        if ($wishlist = Wishlist::findByInviteCode($invitecode)){  
             $wishlist->viewers()->syncWithoutDetaching($user);   
             return to_route('wishlists.show', $wishlist);
+        }
+
+        if ($party = $request->query('party')) {
+            return to_route('parties.participants.create', $party);
         }
 
         return redirect(RouteServiceProvider::HOME);

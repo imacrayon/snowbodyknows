@@ -6,6 +6,9 @@
     <x-back href="{{ route('wishlists.index') }}">{{ __('Wishlists') }}</x-back>
     <h1 class="font-semibold text-xl text-gray-800 leading-tight">
         {{ $wishlist->name }}
+        @if ($wishlist->party)
+            (for {{ $wishlist->party->name }})
+        @endif
     </h1>
 </x-slot>
 <div class="max-w-7xl mx-auto px-4 space-y-6 sm:px-6 lg:px-8">
@@ -82,6 +85,7 @@
         @endif
     </div>
 
+    @if (!$wishlist->party)
     <section class="pt-4 sm:pt-8 text-center">
         <h2 class="sr-only text-lg font-medium text-gray-900">
             {{ __('Leave :wishlist Wishlist', ['wishlist' => $wishlist->name]) }}
@@ -90,5 +94,6 @@
             <button class="underline text-gray-600 text-sm">{{ __('Leave this wishlist') }}</button>
         </x-form>
     </section>
+    @endif
 </div>
 </x-app-layout>

@@ -28,6 +28,16 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
+    public function parties()
+    {
+        return $this->hasMany(Party::class);
+    }
+
+    public function joinedParties()
+    {
+        return $this->belongsToMany(Party::class)->withTimestamps();
+    }
+
     public function wishlists()
     {
         return $this->hasMany(Wishlist::class);

@@ -4,7 +4,12 @@
             <img src="/img/snowman.svg" width="64" height="auto" class="absolute left-0 bottom-0" alt="SnowbodyKnows">
         </div>
     </div>
-    <ul class="flex">
+    <ul class="flex divide-x">
+        <li>
+            <x-nav-link :href="route('parties.index')" :active="request()->routeIs('parties.index')">
+                {{ __('Parties') }}
+            </x-nav-link>
+        </li>
         <li>
             <x-nav-link :href="route('app')" :active="request()->routeIs('wishlists.index')">
                 {{ __('Wishlists') }}

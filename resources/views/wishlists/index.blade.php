@@ -27,6 +27,9 @@
                     <div>
                         <a href="{{ route('wishlists.show', $wishlist) }}">
                             {{ $wishlist->name }}
+                            @if ($wishlist->party)
+                                (for {{ $wishlist->party->name }})
+                            @endif
                             <span class="absolute inset-0" aria-hidden="true"></span>
                         </a>
                         <div class="flex items-center gap-x-2 text-xs leading-5 text-gray-500">
@@ -41,7 +44,7 @@
         </ul>
     </x-section>
 
-    @if($joinedWishlists->isNotEmpty())
+    @if($joinedWishlists->isNotEmpty() || $joinedParties)
         <x-section>
             <x-slot:title>
                 {{ __('Joined Wishlists') }}
@@ -65,6 +68,29 @@
                         </div>
                         <x-phosphor-caret-right aria-hidden="true" width="20" height="20"  class="text-gray-400" />
                     </li>
+                @endforeach
+                @foreach($joinedParties as $party)
+                    @foreach($party->wishlists as $wishlist)
+                        @if ($wishlist->user_id != request()->user()->id)
+                        <li class="relative flex items-center justify-between gap-6 px-4 py-3 sm:py-4">
+                            <div>
+                                <a href="{{ route('wishlists.show', $wishlist) }}">
+                                    {{ $wishlist->name }}
+                                    @if ($wishlist->party)
+                                        (for {{ $wishlist->party->name }})
+                                    @endif
+                                    <span class="absolute inset-0" aria-hidden="true"></span>
+                                </a>
+                                <div class="flex items-center gap-x-2 text-xs leading-5 text-gray-500">
+                                    {{ $wishlist->wishes_count }} {{ trans_choice('wish|wishes', $wishlist->wishes_count) }}
+                                    <svg viewBox="0 0 2 2" aria-hidden="true" class="h-0.5 w-0.5 fill-current"><circle cx="1" cy="1" r="1"></circle></svg>
+                                    {{ $wishlist->participants_count }} {{ trans_choice('participant|participants', $wishlist->participants_count) }}
+                                </div>
+                            </div>
+                            <x-phosphor-caret-right aria-hidden="true" width="20" height="20"  class="text-gray-400" />
+                        </li>
+                        @endif
+                    @endforeach
                 @endforeach
             </ul>
         </x-section>

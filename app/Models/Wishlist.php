@@ -39,4 +39,9 @@ class Wishlist extends Model
     {
         return $this->belongsToMany(User::class)->withTimestamps();
     }
+
+    public function party()
+    {
+        return $this->belongsTo(Party::class);
+    }
 }
