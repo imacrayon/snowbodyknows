@@ -34,7 +34,7 @@ class WishlistPolicy
 
     public function kick(User $user, Wishlist $wishlist, User $viewer)
     {
-        return $this->update($user, $wishlist) || $user->is($viewer);
+        return !$wishlist->party && ($this->update($user, $wishlist) || $user->is($viewer));
     }
 
     public function delete(User $user, Wishlist $wishlist): bool
