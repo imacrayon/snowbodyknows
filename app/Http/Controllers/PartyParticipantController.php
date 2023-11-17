@@ -30,7 +30,6 @@ class PartyParticipantController extends Controller
         $wishlist_party = Wishlist::where('party_id', $party->id)->where('user_id', $request->user()->id)->first();
         if (!$wishlist_party) {
             $wishlist = new Wishlist;
-            // $wishlist->name = $request->user()->name."'s Wishlist for Party ".$party->name;
             $wishlist->name = __(':user’s Wishlist for :party', ['user' => Str::before($request->user()->name, ' '), 'party' => $party->name]);
             $wishlist->user_id = $request->user()->id;
             $wishlist->party_id = $party->id;
@@ -44,6 +43,13 @@ class PartyParticipantController extends Controller
     {
         $party->participants()->detach($user);
 
+        // cascade remove party_id from user's wishlists
+        $wishlists = Wishlist::where('user_id', $user->id)->where('party_id', $party->id)->get();
+        foreach ($wishlists as $wishlist) {
+            $wishlist->party_id = null;
+            $wishlist->save();
+        }
+        
         if ($request->user()->is($user)) {
             return to_route('app');
         }
