@@ -7,7 +7,7 @@
         </p>
     </header>
 
-    <x-form class="mt-6" method="post" action="{{ route('register', ['wishlist' => $wishlist, 'party' => $party, 'adventure' => $adventure, 'party' => $party]) }}">
+    <x-form class="mt-6" method="post" action="{{ route('register', ['wishlist' => $wishlist, 'party' => $party, 'adventure' => $adventure]) }}">
         <div class="space-y-6">
             <x-field>
                 <x-label for="name" :value="__('Name')" />
