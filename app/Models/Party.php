@@ -32,7 +32,7 @@ class Party extends Model
             
             // auto create wishlist for self
             $wishlist = new Wishlist;
-            $wishlist->name = __(':user’s Wishlist for :party', ['user' => Str::before($model->user->name, ' '), 'party' => $model->name]);
+            $wishlist->name = __(':user’s Wishlist', ['user' => Str::before($model->user->name, ' ')]);
             $wishlist->user_id = $model->user->id;
             $wishlist->party_id = $model->id;
             $wishlist->save();

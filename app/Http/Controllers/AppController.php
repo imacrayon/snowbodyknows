@@ -8,7 +8,7 @@ class AppController extends Controller
 {
     public function __invoke(Request $request)
     {
-        if ($request->user()->joinedWishlists->isNotEmpty() || $request->user()->wishlists->count() > 1) {
+        if ($request->user()->joinedParties->isNotEmpty() || $request->user()->joinedWishlists->isNotEmpty() || $request->user()->wishlists->count() > 1) {
             return to_route('wishlists.index');
         }
 

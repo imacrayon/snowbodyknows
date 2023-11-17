@@ -30,7 +30,7 @@ class PartyParticipantController extends Controller
         $wishlist_party = Wishlist::where('party_id', $party->id)->where('user_id', $request->user()->id)->first();
         if (!$wishlist_party) {
             $wishlist = new Wishlist;
-            $wishlist->name = __(':user’s Wishlist for :party', ['user' => Str::before($request->user()->name, ' '), 'party' => $party->name]);
+            $wishlist->name = __(':user’s Wishlist', ['user' => Str::before($request->user()->name, ' ')]);
             $wishlist->user_id = $request->user()->id;
             $wishlist->party_id = $party->id;
             $wishlist->save();

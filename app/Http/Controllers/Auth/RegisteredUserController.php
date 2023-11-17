@@ -58,7 +58,7 @@ class RegisteredUserController extends Controller
         elseif ($request->query('party')) {
             $p = Party::where('invite_code', $request->query('party'))->firstOrFail();
             $user->wishlists()->create([
-                'name' => __(':user’s Wishlist for :party', ['user' => Str::before($user->name, ' '), 'party' => $p->name]),
+                'name' => __(':user’s Wishlist', ['user' => Str::before($user->name, ' ')]),
                 'party_id' => $p->id,
             ]);
         }

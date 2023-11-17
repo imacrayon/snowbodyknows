@@ -12,6 +12,7 @@ class WishlistController extends Controller
         return view('wishlists.index', [
             'wishlists' => $request->user()->wishlists()->withCount('wishes', 'viewers')->get(),
             'joinedWishlists' => $request->user()->joinedWishlists()->withCount('wishes', 'viewers')->get(),
+            'joinedParties' => $request->user()->joinedParties()->get()//->withCount('wishes', 'participants')->get(),
         ]);
     }
 

@@ -48,6 +48,7 @@
             </x-slot:description>
             <ul class="divide-y">
                 @foreach($joinedParties as $party)
+                    @if ($party->user_id != request()->user()->id)
                     <li class="block">
                         <a class="flex items-center justify-between gap-6 px-4 py-3 sm:py-4" href="{{ route('parties.show', $party) }}">
                             <div>
@@ -61,6 +62,7 @@
                             <x-phosphor-caret-right aria-hidden="true" width="20" height="20"  class="text-gray-400" />
                         </a>
                     </li>
+                    @endif
                 @endforeach
             </ul>
         </x-section>
