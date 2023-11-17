@@ -100,12 +100,14 @@
                                     @endif
                                 </div>
                             </div>
+                            @if ($party->user == request()->user() OR $participant->id == request()->user()->id)
                             <x-form class="flex items-center" x-target="participants" method="delete" action="{{ route('parties.participants.destroy', [$party, $participant]) }}" x-on:ajax:before="confirm(`{{ __(':participant will no longer be able to see your party.', ['participant' => $participant->name]) }}`) || $event.preventDefault()">
                                 <button class="rounded-full">
                                     <x-phosphor-x-circle aria-hidden="true" width="24" height="24" class="text-gray-400 hover:text-red-500" />
                                     <span class="sr-only">Remove</span>
                                 </button>
                             </x-form>
+                            @endif
                         </li>
                         
                         @foreach($party->wishlists as $wishlist)

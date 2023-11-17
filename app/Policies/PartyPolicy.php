@@ -27,6 +27,11 @@ class PartyPolicy
         return $party->user->is($user);
     }
 
+    public function kick(User $user, Party $party, User $participant)
+    {
+        return $party->user->is($user) || $user->is($participant);
+    }
+
     public function delete(User $user, Party $party): bool
     {
         return $this->update($user, $party);
