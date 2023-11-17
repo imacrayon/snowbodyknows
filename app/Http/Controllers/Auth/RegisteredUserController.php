@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Models\Party;
 use App\Models\User;
+use App\Models\Wishlist;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
@@ -80,8 +81,10 @@ class RegisteredUserController extends Controller
             return to_route('parties.index', $p);
         }
 
-        if ($wishlist = $request->query('wishlist')) {
-            return to_route('wishlists.viewers.create', $wishlist);
+        $invitecode = $request->query('wishlist');
+        if ($wishlist = Wishlist::findByInviteCode($invitecode)){  
+            $wishlist->viewers()->syncWithoutDetaching($user);   
+            return to_route('wishlists.show', $wishlist);
         }
 
         if ($party = $request->query('party')) {

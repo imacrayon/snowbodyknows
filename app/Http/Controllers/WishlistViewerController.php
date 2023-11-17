@@ -11,7 +11,9 @@ class WishlistViewerController extends Controller
     public function create(Request $request, Wishlist $wishlist)
     {
         if (is_null($request->user())) {
-            return to_route('login', ['wishlist' => $wishlist->invite_code]);
+            return view('guests.wishlists.viewers.welcome', [
+                'wishlist' => $wishlist,
+            ]);    
         }
 
         return view('wishlists.viewers.create', [

@@ -20,6 +20,11 @@ class Wishlist extends Model
         });
     }
 
+    public static function findByInviteCode($invitecode)
+    {
+        return static::where('invite_code', $invitecode)->first();
+    }
+
     public function wishes()
     {
         return $this->hasMany(Wish::class);
