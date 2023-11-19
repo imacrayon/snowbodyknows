@@ -1,5 +1,6 @@
-import Alpine from 'alpinejs';
-import ajax from '@imacrayon/alpine-ajax';
+import '@github/relative-time-element'
+import Alpine from 'alpinejs'
+import ajax from '@imacrayon/alpine-ajax'
 
 Alpine.plugin(ajax)
 

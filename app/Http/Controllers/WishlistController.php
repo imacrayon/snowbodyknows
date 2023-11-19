@@ -37,12 +37,14 @@ class WishlistController extends Controller
             return view('wishlists.fulfill', [
                 'wishlist' => $wishlist,
                 'wishes' => $wishlist->wishes()->with('granter')->orderBy('granter_id', 'asc')->orderBy('order')->get(),
+                'comments' => $wishlist->comments()->with('user')->get(),
             ]);
         }
 
         return view('wishlists.show', [
             'wishlist' => $wishlist,
             'wishes' => $wishlist->wishes()->orderBy('order')->get(),
+            'comments' => $wishlist->comments()->with('user')->get(),
         ]);
     }
 
@@ -64,7 +66,7 @@ class WishlistController extends Controller
     }
 
     public function destroy(Request $request, Wishlist $wishlist)
-    {   
+    {
         $request->validateWithBag('wishlistDeletion', [
             'wishlist_name' => ['required', 'string', 'max:255', 'same:original_name'],
         ]);

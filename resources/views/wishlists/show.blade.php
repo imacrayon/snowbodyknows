@@ -116,6 +116,25 @@
         </div>
     </x-section>
 
+    <x-section>
+        <x-slot:title>
+            {{ __('Comments') }}
+        </x-slot:title>
+        <x-slot:description>
+            {{ __('Communicate with your wishlist viewers. Leave notes or respond to questions that others might leave here.') }}
+        </x-slot:description>
+        <div class="p-4" x-init id="comments">
+            @if ($comments->isNotEmpty())
+                <ul role="list" x-init>
+                    @foreach($comments as $comment)
+                        <x-comment :comment="$comment->setRelation('commentable', $wishlist)" :anonymous="$comment->user->isNot($wishlist->user)" />
+                    @endforeach
+                </ul>
+            @endif
+            <x-comment-form action="{{ route('wishlists.comments.store', $wishlist) }}" :anonymous="false" x-target="comments" x-focus="comment" />
+        </div>
+    </x-section>
+
     @if ($wishlist->viewers->isNotEmpty())
         <x-section>
             <x-slot:title>
