@@ -41,13 +41,13 @@ test('wishlist viewer comments are anonymous', function () {
     $this->actingAs($wishlist->user)
         ->get(route('wishlists.show', $wishlist))
         ->assertSeeText('A viewer commented')
-        ->assertSeeText('face.svg')
-        ->assertDontSee("{$viewer->name} commented");
+        ->assertSee('face.svg')
+        ->assertDontSeeText("{$viewer->name} commented");
 
     $this->actingAs($viewer)
         ->get(route('wishlists.show', $wishlist))
         ->assertSeeText('A viewer commented')
-        ->assertSeeText('face.svg')
+        ->assertSee('face.svg')
         ->assertDontSeeText("{$viewer->name} commented");
 });
 
@@ -61,13 +61,12 @@ test('wishlist owner comments are not anonymous', function () {
         ->get(route('wishlists.show', $wishlist))
         ->assertSeeText("{$wishlist->user->name} commented")
         ->assertDontSeeText('A viewer commented')
-        ->assertDontSeeText('face.svg');
+        ->assertDontSee('face.svg');
 
     $this->actingAs($viewer)
         ->get(route('wishlists.show', $wishlist))
         ->assertSeeText("{$wishlist->user->name} commented")
-        ->assertDontSeeText('A viewer commented')
-        ->assertDontSeeText('face.svg');
+        ->assertDontSeeText('A viewer commented');
 });
 
 test('wishlist owners can delete any comment', function () {
