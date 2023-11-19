@@ -5,6 +5,7 @@ use App\Http\Controllers\GrantedWishController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SortWishlistController;
 use App\Http\Controllers\WishController;
+use App\Http\Controllers\WishlistCommentController;
 use App\Http\Controllers\WishlistController;
 use App\Http\Controllers\WishlistViewerController;
 use App\Models\Wishlist;
@@ -34,6 +35,10 @@ Route::middleware('auth')->prefix('/app')->group(function () {
     Route::delete('/wishlists/{wishlist}/users/{user}', [WishlistViewerController::class, 'destroy'])->name('wishlists.viewers.destroy')->can('kick', ['wishlist', 'user']);
 
     Route::post('/wishlists/{wishlist}/sort', SortWishlistController::class)->name('wishlists.sort')->can('update', 'wishlist');
+
+    Route::post('/wishlists/{wishlist}/comments', [WishlistCommentController::class, 'store'])->name('wishlists.comments.store')->can('view', 'wishlist');
+    Route::patch('/wishlists/{wishlist}/comments/{comment}', [WishlistCommentController::class, 'update'])->name('wishlists.comments.update')->can('update', 'comment');
+    Route::delete('/wishlists/{wishlist}/comments/{comment}', [WishlistCommentController::class, 'destroy'])->name('wishlists.comments.destroy')->can('delete', 'comment');
 
     Route::get('/wishlists/{wishlist}/wish', [WishController::class, 'create'])->name('wishes.create')->can('update', 'wishlist');
     Route::post('/wishlists/{wishlist}/wish', [WishController::class, 'store'])->name('wishes.store')->can('update', 'wishlist');

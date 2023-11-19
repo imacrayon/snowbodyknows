@@ -9,7 +9,7 @@ use Illuminate\Support\Str;
 
 class Wishlist extends Model
 {
-    use HasFactory, SoftDeletes;
+    use Commentable, HasFactory, SoftDeletes;
 
     protected static $unguarded = true;
 
