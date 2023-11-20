@@ -51,7 +51,7 @@
         <p class="text-center text-gray-600 text-lg">Build a wishlist. Share it. Friends & family can purchase the things you want without you&nbsp;knowing.</p>
     </div>
     <div class="mt-12 text-center w-full">
-        <x-button-primary href="{{ route('register') }}">Get Started</x-button-primary>
+        <x-button-primary href="{{ route('guest.wishlists.show') }}">Get Started</x-button-primary>
         <x-button-secondary href="{{ route('login') }}">Login</x-button-secondary>
     </div>
 </div>

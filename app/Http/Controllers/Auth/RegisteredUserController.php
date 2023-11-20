@@ -45,9 +45,20 @@ class RegisteredUserController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
-        $user->wishlists()->create([
+        $newWishlist = $user->wishlists()->create([
             'name' => __(':user’s Wishlist', ['user' => Str::before($user->name, ' ')]),
         ]);
+
+        if (session('wishlist')) {
+            foreach (session('wishlist')['wishes'] as $wish) {
+                $newWishlist->wishes()->create([
+                    'name' => $wish['name'],
+                    'description' => $wish['description'],
+                    'url' => $wish['url']
+                ]);
+            }
+            session()->remove('wishlist');
+        }
 
         event(new Registered($user));
 
