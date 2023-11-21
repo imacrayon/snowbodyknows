@@ -14,3 +14,51 @@
 .sortable-ghost [data-handle] {
     opacity: 0;
 }
+
+.ribbon {
+    isolation: isolate;
+    position: relative;
+    --ends-shade: theme('colors.red.400');
+    --shadow-shade: theme('colors.red.500')
+}
+
+.ribbon::before,
+.ribbon::after,
+.ribbon>p::before,
+.ribbon>p::after {
+    content: '';
+    position: absolute;
+    display: block;
+}
+
+.ribbon::before {
+    z-index: -1;
+    bottom: -1em;
+    left: -2em;
+    border: 1.5em solid var(--ends-shade);
+    border-left-color: transparent;
+}
+
+.ribbon::after {
+    z-index: -1;
+    bottom: -1em;
+    right: -2em;
+    border: 1.5em solid var(--ends-shade);
+    border-right-color: transparent;
+}
+
+.ribbon>p::before {
+    bottom: -1em;
+    left: 0;
+    border-style: solid;
+    border-color: var(--shadow-shade) transparent transparent transparent;
+    border-width: 1em 0 0 1em;
+}
+
+.ribbon>p::after {
+    bottom: -1em;
+    right: 0;
+    border-style: solid;
+    border-color: var(--shadow-shade) transparent transparent transparent;
+    border-width: 1em 1em 0 0;
+}
