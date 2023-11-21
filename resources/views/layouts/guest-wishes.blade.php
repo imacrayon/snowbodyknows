@@ -13,7 +13,7 @@
     <body class="font-sans antialiased">
         <div class="min-h-screen bg-gray-100 pb-32">
             <main>
-                <div class="relative max-w-4xl mx-auto pt-6 mb-2 px-4 sm:px-6 lg:px-8">
+                <div class="relative max-w-4xl mx-auto pt-6 mb-2 px-8">
                     <div class="ribbon text-sm text-center">
                         <p class="bg-red-300 text-red-900 p-3 sm:px-6 ">
                             <a class="underline" href="{{ route('register') }}">Create an account</a> to save this wishlist & unlock more features.
