@@ -73,7 +73,7 @@
                 </ul>
             </div>
         @else
-            <p class="px-4 py-3 text-center text-gray-600 sm:py-4">{{ __('Nothing has been added to this wishlist (yet).') }}
+            <p class="px-4 py-3 text-center text-gray-600 sm:py-4">{{ __('Start by adding your first wish to this wishlist.') }}
         @endif
         <div class="bg-white px-4 py-5 sm:py-6 border-t">
             <x-button-primary class="w-full" href="{{ route('wishes.create', $wishlist) }}">Add a wish</x-button-primary>

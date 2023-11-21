@@ -3,6 +3,7 @@
     {{ $wishlist->name }}
 </x-slot>
 <x-slot name="header">
+    <x-back href="{{ route('welcome') }}">{{ __('Homepage') }}</x-back>
     <h1 class="flex items-center gap-2 font-semibold text-xl text-gray-800 leading-tight">
         {{ $wishlist->name }}
     </h1>
@@ -68,7 +69,7 @@
                 </ul>
             </div>
         @else
-            <p class="px-4 py-3 text-center text-gray-600 sm:py-4">{{ __('Nothing has been added to this wishlist (yet).') }}
+            <p class="px-4 py-3 text-center text-gray-600 sm:py-4">{{ __('Start by adding your first wish to this wishlist.') }}
         @endif
         <div class="bg-white px-4 py-5 sm:py-6 border-t">
             <x-button-primary class="w-full" href="{{ route('guest.wishes.create') }}">Add a wish</x-button-primary>

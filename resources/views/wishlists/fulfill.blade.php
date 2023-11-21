@@ -78,7 +78,7 @@
                 @endforeach
             </ul>
         @else
-            <p class="px-4 py-3 text-center text-gray-600 sm:py-4">{{ __('Nothing has been added to this wishlist (yet).') }}
+            <p class="px-4 py-3 text-center text-gray-600 sm:py-4">{{ __('Start by adding your first wish to this wishlist.') }}
         @endif
     </div>
 
