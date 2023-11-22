@@ -18,6 +18,8 @@ Route::get('/', function () {
     return view('welcome');
 })->name('welcome');
 
+Route::view('/affiliates', 'affiliates');
+
 Route::get('/wishlists/{wishlist:invite_code}/join', [WishlistViewerController::class, 'create'])->name('wishlists.viewers.create');
 Route::post('/wishlists/{wishlist:invite_code}/join', [WishlistViewerController::class, 'store'])->name('wishlists.viewers.store')->middleware('auth');
 Route::get('/guest/wishlists/', [GuestWishlistController::class, 'show'])->name('guest.wishlists.show');
