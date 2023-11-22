@@ -18,16 +18,22 @@ test('adds affiliate codes to a URL', function () {
     expect($wish->url)->toBe('https://example.com?code=TEST');
 });
 
-test('overwrites affiliate codes in a URL', function () {
-    $wish = Wish::factory()->create(['url' => 'https://example.com?code=CHANGE_ME']);
+test('preserves paths when changing a URL', function () {
+    $wish = Wish::factory()->create(['url' => 'https://example.com/a/url/path']);
 
-    expect($wish->url)->toBe('https://example.com?code=TEST');
+    expect($wish->url)->toBe('https://example.com/a/url/path?code=TEST');
 });
 
 test('preserves other parameters when changing a URL', function () {
     $wish = Wish::factory()->create(['url' => 'https://example.com?default=KEEP_ME']);
 
     expect($wish->url)->toBe('https://example.com?default=KEEP_ME&code=TEST');
+});
+
+test('overwrites affiliate codes in a URL', function () {
+    $wish = Wish::factory()->create(['url' => 'https://example.com?code=CHANGE_ME']);
+
+    expect($wish->url)->toBe('https://example.com?code=TEST');
 });
 
 test('removes parameters from a URL', function () {
