@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Guest;
 
+use App\Http\Controllers\Controller;
 use App\Models\Wish;
 use App\Models\Wishlist;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 
 class GuestWishController extends Controller
 {
@@ -26,17 +26,11 @@ class GuestWishController extends Controller
     {
         $wishlist = session('wishlist');
 
-        $newWishId = 1;
-        if (count($wishlist['wishes']) > 0) {
-            $newWishId = max(array_values(array_column(session('wishlist')['wishes'], 'id'))) + 1;
-        }
-
         $wishlist['wishes'][] = array_merge($request->validate([
             'name' => ['required', 'string', 'max:255'],
             'url' => ['nullable', 'url:http,https', 'max:2000'],
             'description' => ['nullable', 'string', 'max:2000'],
-        ]), [ 'id' => $newWishId ]);
-        $wishlist['wishes'] = array_values($wishlist['wishes']);
+        ]), ['id' => count($wishlist['wishes'])]);
 
         session(['wishlist' => $wishlist]);
 
@@ -92,10 +86,8 @@ class GuestWishController extends Controller
 
         $wishlist = session('wishlist');
         unset($wishlist['wishes'][$foundWishKey]);
-        $wishlist['wishes'] = array_values($wishlist['wishes']);
         session(['wishlist' => $wishlist]);
-        
+
         return to_route('guest.wishlists.show');
     }
 }
-
