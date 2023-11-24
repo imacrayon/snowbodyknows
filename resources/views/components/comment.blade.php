@@ -13,7 +13,7 @@
                 <span class="font-medium text-gray-900">{{ $comment->user->name }}</span> {{ __('commented') }} <x-time :datetime="$comment->created_at" class="flex-none py-0.5 text-xs leading-5 text-gray-500" />
             @endif
         </div>
-        <p class="text-sm leading-6 text-gray-500">{!! Str::markdown($comment->content, ['html_input' => 'strip']) !!}</p>
+        <div class="prose prose-sm">{!! Str::markdown($comment->content, ['html_input' => 'strip']) !!}</p>
         @can('delete', $comment)
             <div class="mt-2 flex items-center justify-end gap-x-5">
                 <x-form method="delete" action="{{ route('wishlists.comments.destroy', [$comment->commentable_id, $comment->id]) }}" x-target="comment_{{ $comment->id }}" x-on:ajax:before="confirm('{{ __('This comment will be permanently deleted.') }}') || $event.preventDefault()">
