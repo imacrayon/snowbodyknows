@@ -8,13 +8,13 @@ const DEFAULT_WISHLIST = [
 
 test('guest add a wish', function() {
     $response = $this->withSession(['wishlist' => DEFAULT_WISHLIST])
-                        ->post(route('guest.wishes.create'), [
+                        ->post(route('guests.wishes.create'), [
         'name' => 'New Wish',
         'url' => 'https://imacrayon.com',
         'description' => 'Test description.',
     ]);
      
-    $response->assertRedirectToRoute('guest.wishlists.show');
+    $response->assertRedirectToRoute('guests.wishlists.show');
 
     $response->assertSessionHas('wishlist', function(array $wishlist){
         return 
@@ -39,9 +39,9 @@ test('guest update a wish', function() {
         'description' => 'Test description updated.',
     ];
     $response = $this->withSession(['wishlist' => $defaultSession])
-                        ->patch(route('guest.wishes.update', 1), $newValues);
+                        ->patch(route('guests.wishes.update', 1), $newValues);
 
-    $response->assertRedirectToRoute('guest.wishlists.show');
+    $response->assertRedirectToRoute('guests.wishlists.show');
 
     $this->assertGuest();
     $newValues['id'] = 1;
@@ -61,9 +61,9 @@ test('guest delete a wish', function() {
        ]
     ]]);
     $response = $this->withSession(['wishlist' => $defaultSession])
-                        ->delete(route('guest.wishes.destroy', 1));
+                        ->delete(route('guests.wishes.destroy', 1));
 
-    $response->assertRedirectToRoute('guest.wishlists.show');
+    $response->assertRedirectToRoute('guests.wishlists.show');
 
     $this->assertGuest();
 

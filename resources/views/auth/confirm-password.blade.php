@@ -1,4 +1,4 @@
-<x-guest-layout>
+<x-layout.auth title="{{ __('Confirm password') }}">
     <div class="mb-4 text-sm text-gray-600">
         {{ __('This is a secure area of the application. Please confirm your password before continuing.') }}
     </div>
@@ -16,4 +16,4 @@
             </x-button-primary>
         </div>
     </x-form>
-</x-guest-layout>
+</x-layout.auth>

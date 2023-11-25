@@ -13,10 +13,10 @@ class GuestWishController extends Controller
     {
         if (session('wishlist') === null) {
 
-            return to_route('guest.wishlists.show');
+            return to_route('guests.wishlists.show');
         }
 
-        return view('guest.wishes.create', [
+        return view('guests.wishes.create', [
             'wishlist' => new Wishlist(session('wishlist')),
             'wish' => new Wish,
         ]);
@@ -34,23 +34,23 @@ class GuestWishController extends Controller
 
         session(['wishlist' => $wishlist]);
 
-        return to_route('guest.wishlists.show');
+        return to_route('guests.wishlists.show');
     }
 
     public function edit(int $wishId)
     {
         if (session('wishlist') === null) {
 
-            return to_route('guest.wishlists.show');
+            return to_route('guests.wishlists.show');
         }
 
         $foundWishKey = array_search($wishId, array_column(session('wishlist')['wishes'], 'id'));
         if ($foundWishKey === false) {
 
-            return to_route('guest.wishlists.show');
+            return to_route('guests.wishlists.show');
         }
 
-        return view('guest.wishes.edit', [
+        return view('guests.wishes.edit', [
             'wishlist' => new Wishlist(session()->get('wishlist')),
             'wish' => new Wish(session('wishlist')['wishes'][$foundWishKey]),
         ]);
@@ -62,7 +62,7 @@ class GuestWishController extends Controller
         $foundWishKey = array_search($wishId, array_column(session('wishlist')['wishes'], 'id'));
         if ($foundWishKey === false) {
 
-            return to_route('guest.wishlists.show');
+            return to_route('guests.wishlists.show');
         }
         $wishlist = session('wishlist');
         $wishlist['wishes'][$foundWishKey] = array_merge($wishlist['wishes'][$foundWishKey], $request->validate([
@@ -73,7 +73,7 @@ class GuestWishController extends Controller
 
         session(['wishlist' => $wishlist]);
 
-        return to_route('guest.wishlists.show');
+        return to_route('guests.wishlists.show');
     }
 
     public function destroy(int $wishId)
@@ -81,13 +81,13 @@ class GuestWishController extends Controller
         $foundWishKey = array_search($wishId, array_column(session('wishlist')['wishes'], 'id'));
         if ($foundWishKey === false) {
 
-            return to_route('guest.wishlists.show');
+            return to_route('guests.wishlists.show');
         }
 
         $wishlist = session('wishlist');
         unset($wishlist['wishes'][$foundWishKey]);
         session(['wishlist' => $wishlist]);
 
-        return to_route('guest.wishlists.show');
+        return to_route('guests.wishlists.show');
     }
 }

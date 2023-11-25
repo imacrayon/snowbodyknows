@@ -1,13 +1,10 @@
-<x-app-layout>
-<x-slot name="title">
-    {{ __('Wishlists') }}
-</x-slot>
+<x-layout.app title="{{ __('Wishlists') }}">
 <x-slot name="header">
     <h1 class="font-semibold text-xl text-gray-800 leading-tight">
         {{ __('Wishlists') }}
     </h1>
 </x-slot>
-<div class="max-w-7xl mx-auto px-4 space-y-6 sm:px-6 lg:px-8">
+<div class="max-w-5xl mx-auto px-4 space-y-6 sm:px-6 lg:px-8">
     <x-section>
         <x-slot:title>
             {{ __('Your Wishlists') }}
@@ -70,4 +67,4 @@
         </x-section>
     @endif
 </div>
-</x-app-layout>
+</x-layout.app>

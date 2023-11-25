@@ -1,7 +1,4 @@
-<x-app-layout>
-<x-slot name="title">
-    {{ $wishlist->name }}
-</x-slot>
+<x-layout.app title="{{ $wishlist->name }}">
 <x-slot name="header">
     <x-back href="{{ route('wishlists.index') }}">{{ __('Wishlists') }}</x-back>
     <h1 class="flex items-center gap-2 font-semibold text-xl text-gray-800 leading-tight">
@@ -12,7 +9,7 @@
         </a>
     </h1>
 </x-slot>
-<div class="max-w-7xl mx-auto px-4 space-y-6 sm:px-6 lg:px-8">
+<div class="max-w-5xl mx-auto px-4 space-y-6 sm:px-6 lg:px-8">
     <div class="bg-white divide-y shadow overflow-hidden rounded-lg">
         @if($wishes->isNotEmpty())
             <div>
@@ -162,4 +159,4 @@
         </x-section>
     @endif
 </div>
-</x-app-layout>
+</x-layout.app>

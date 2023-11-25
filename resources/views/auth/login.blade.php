@@ -1,6 +1,6 @@
-<x-guest-layout>
+<x-layout.auth title="{{ __('Login') }}">
     <header>
-        <h1 class="text-lg font-medium text-gray-90">Log in</h1>
+        <h1 class="text-lg font-medium text-gray-90">{{ __('Login') }}</h1>
         <p class="mt-1 text-sm text-gray-600">
             <strong>{{ __('New here?') }}</strong>
             <a class="underline" href="{{ route('register', ['wishlist' => $wishlist]) }}">{{ __('Create an account') }}</a>.
@@ -39,4 +39,4 @@
             </x-button-primary>
         </div>
     </x-form>
-</x-guest-layout>
+</x-layout.auth>

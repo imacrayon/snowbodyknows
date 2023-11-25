@@ -7,7 +7,7 @@ const DEFAULT_WISHLIST = [
 ];
 
 test('guest see the default wishlist', function() {
-    $response = $this->get(route('guest.wishlists.show'));
+    $response = $this->get(route('guests.wishlists.show'));
 
     $response->assertOk();
 

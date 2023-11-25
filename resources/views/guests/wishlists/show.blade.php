@@ -1,20 +1,17 @@
-<x-guest-wishes-layout>
-<x-slot name="title">
-    {{ $wishlist->name }}
-</x-slot>
+<x-layout.guest title="{{ $wishlist->name }}">
 <x-slot name="header">
     <x-back href="{{ route('welcome') }}">{{ __('Homepage') }}</x-back>
     <h1 class="flex items-center gap-2 font-semibold text-xl text-gray-800 leading-tight">
         {{ $wishlist->name }}
     </h1>
 </x-slot>
-<div class="max-w-7xl mx-auto px-4 space-y-6 sm:px-6 lg:px-8">
+<div class="max-w-5xl mx-auto px-4 space-y-6 sm:px-6 lg:px-8">
     <div class="bg-white divide-y shadow overflow-hidden rounded-lg">
         @if($wishes->isNotEmpty())
             <div>
                 <div id="announcer" aria-live="assertive" class="sr-only"></div>
                 <div id="sortable_description" class="sr-only">Press spacebar to grab and re-order</div>
-                <ul x-data="sortable('{{ route('guest.wishlists.sort') }}')" role="list" class="bg-white">
+                <ul x-data="sortable('{{ route('guests.wishlists.sort') }}')" role="list" class="bg-white">
                     @foreach($wishes as $wish)
                         <li data-id="{{ $wish->id }}" class="group bg-white flex">
                             <div class="p-1">
@@ -55,10 +52,10 @@
                                         <span class="sr-only">Actions</span>
                                     </x-slot>
                                     <x-slot name="content">
-                                        <x-dropdown-link href="{{ route('guest.wishes.edit', ['wishId' => $wish->id]) }}">
+                                        <x-dropdown-link href="{{ route('guests.wishes.edit', ['wishId' => $wish->id]) }}">
                                             {{ __('Edit') }}
                                         </x-dropdown-link>
-                                        <x-form method="delete" action="{{ route('guest.wishes.destroy', [$wish->id]) }}" class="text-gray-600 text-sm" onsubmit="return confirm('This wish will be removed from your wishlist.')">
+                                        <x-form method="delete" action="{{ route('guests.wishes.destroy', [$wish->id]) }}" class="text-gray-600 text-sm" onsubmit="return confirm('This wish will be removed from your wishlist.')">
                                             <button class="block w-full px-4 py-2 text-left text-sm leading-5 text-gray-700 hover:bg-sky-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out" aria-describedby="wish_{{ $wish->id }}_name">Delete</button>
                                         </x-form>
                                     </x-slot>
@@ -72,9 +69,9 @@
             <p class="px-4 py-3 text-center text-gray-600 sm:py-4">{{ __('Start by adding your first wish to this wishlist.') }}
         @endif
         <div class="bg-white px-4 py-5 sm:py-6 border-t">
-            <x-button-primary class="w-full" href="{{ route('guest.wishes.create') }}">Add a wish</x-button-primary>
+            <x-button-primary class="w-full" href="{{ route('guests.wishes.create') }}">Add a wish</x-button-primary>
         </div>
     </div>
 
 </div>
-</x-guest-wishes-layout>
+</x-layout.guest>
