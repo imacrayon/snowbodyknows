@@ -13,22 +13,23 @@ use App\Http\Controllers\Guest\GuestWishlistController;
 use App\Http\Controllers\Guest\GuestSortWishlistController;
 use App\Models\Wishlist;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Str;
 
 Route::get('/', function () {
     return view('welcome');
 })->name('welcome');
 
-Route::view('/affiliates', 'affiliates');
+Route::view('/affiliates', 'markdown', ['slot' => Str::markdown(file_get_contents(resource_path('markdown/affiliates.md')))]);
 
 Route::get('/wishlists/{wishlist:invite_code}/join', [WishlistViewerController::class, 'create'])->name('wishlists.viewers.create');
 Route::post('/wishlists/{wishlist:invite_code}/join', [WishlistViewerController::class, 'store'])->name('wishlists.viewers.store')->middleware('auth');
-Route::get('/guest/wishlists/', [GuestWishlistController::class, 'show'])->name('guest.wishlists.show');
-Route::get('/guest/wishlists/wish', [GuestWishController::class, 'create'])->name('guest.wishes.create');
-Route::post('/guest/wishlists/wish', [GuestWishController::class, 'store'])->name('guest.wishes.store');
-Route::get('/guest/wishlists/wishes/{wishId}/edit', [GuestWishController::class, 'edit'])->name('guest.wishes.edit');
-Route::patch('/guest/wishlists/wishes/{wishId}', [GuestWishController::class, 'update'])->name('guest.wishes.update');
-Route::delete('/guest/wishlists/wishes/{wishId}', [GuestWishController::class, 'destroy'])->name('guest.wishes.destroy');
-Route::post('/guest/wishlists/sort', GuestSortWishlistController::class)->name('guest.wishlists.sort');
+Route::get('/guest/wishlists/', [GuestWishlistController::class, 'show'])->name('guests.wishlists.show');
+Route::get('/guest/wishlists/wish', [GuestWishController::class, 'create'])->name('guests.wishes.create');
+Route::post('/guest/wishlists/wish', [GuestWishController::class, 'store'])->name('guests.wishes.store');
+Route::get('/guest/wishlists/wishes/{wishId}/edit', [GuestWishController::class, 'edit'])->name('guests.wishes.edit');
+Route::patch('/guest/wishlists/wishes/{wishId}', [GuestWishController::class, 'update'])->name('guests.wishes.update');
+Route::delete('/guest/wishlists/wishes/{wishId}', [GuestWishController::class, 'destroy'])->name('guests.wishes.destroy');
+Route::post('/guest/wishlists/sort', GuestSortWishlistController::class)->name('guests.wishlists.sort');
 
 Route::middleware('auth')->prefix('/app')->group(function () {
     Route::get('/', AppController::class)->name('app');

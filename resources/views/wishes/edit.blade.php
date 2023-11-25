@@ -1,14 +1,11 @@
-<x-app-layout>
-<x-slot name="title">
-    {{ __('Edit wish') }}
-</x-slot>
+<x-layout.app title="{{ __('Edit wish') }}">
 <x-slot name="header">
     <x-back href="{{ route('wishlists.show', $wish->wishlist) }}">{{ $wishlist->name }}</x-back>
     <h1 class="font-semibold text-xl text-gray-800 leading-tight inline-flex items-center">
         {{ __('Edit wish') }}
     </h1>
 </x-slot>
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="p-4 sm:p-8 bg-white shadow rounded-lg">
         <div class="max-w-xl">
             <x-form method="patch" action="{{ route('wishes.update', [$wishlist, $wish]) }}">
@@ -18,4 +15,4 @@
         </div>
     </div>
 </div>
-</x-app-layout>
+</x-layout.app>

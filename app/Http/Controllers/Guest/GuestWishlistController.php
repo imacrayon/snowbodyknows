@@ -24,7 +24,7 @@ class GuestWishlistController extends Controller
             session(['wishlist' => $wishlist->toArray()]);
         }
 
-        return view('guest.wishlists.show', [
+        return view('guests.wishlists.show', [
             'wishlist' => $wishlist,
             'wishes' => $wishes
         ]);

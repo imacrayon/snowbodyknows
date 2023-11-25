@@ -11,7 +11,7 @@ class GuestSortWishlistController extends Controller
     {
         if (session('wishlist') === null) {
 
-            return to_route('guest.wishlists.show');
+            return to_route('guests.wishlists.show');
         }
 
         $wishlist = session('wishlist');
