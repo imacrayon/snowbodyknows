@@ -32,6 +32,27 @@ test('viewer can create comments', function () {
     expect($wishlist->comments()->first())->content->toBe('Test comment.');
 });
 
+test('users can edit their own comments', function () {
+    $wishlist = Wishlist::factory()->create();
+    $viewerA = User::factory()->create();
+    $viewerB = User::factory()->create();
+    $wishlist->viewers()->attach($viewerA);
+    $wishlist->viewers()->attach($viewerB);
+    $commentA = $wishlist->addComment('Test comment', $viewerA);
+    $commentB = $wishlist->addComment('Another Test comment', $viewerB);
+
+    $this->actingAs($viewerA);
+    $response = $this->patch(route('wishlists.comments.update', [$wishlist, $commentA]), [
+        'comment' => 'Test comment modified.',
+    ]);
+
+    $response->assertRedirectToRoute('wishlists.show', $wishlist);
+    expect($wishlist->comments()->first())->content->toBe('Test comment modified.');
+
+    $this->actingAs($viewerA);
+    $this->patch(route('wishlists.comments.update', [$wishlist, $commentB]))->assertForbidden();
+});
+
 test('wishlist viewer comments are anonymous', function () {
     $wishlist = Wishlist::factory()->create();
     $viewer = User::factory()->create();
