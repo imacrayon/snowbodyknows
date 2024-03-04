@@ -11,6 +11,7 @@ use App\Http\Controllers\WishlistViewerController;
 use App\Http\Controllers\Guest\GuestWishController;
 use App\Http\Controllers\Guest\GuestWishlistController;
 use App\Http\Controllers\Guest\GuestSortWishlistController;
+use App\Http\Controllers\SettingsController;
 use App\Models\Wishlist;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;
@@ -36,6 +37,7 @@ Route::middleware('auth')->prefix('/app')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::put('/settings', [SettingsController::class, 'update'])->name('settings.update');
 
     Route::get('/wishlists', [WishlistController::class, 'index'])->name('wishlists.index');
     Route::get('/wishlists/create', [WishlistController::class, 'create'])->name('wishlists.create')->can('create', Wishlist::class);
@@ -49,9 +51,13 @@ Route::middleware('auth')->prefix('/app')->group(function () {
 
     Route::post('/wishlists/{wishlist}/sort', SortWishlistController::class)->name('wishlists.sort')->can('update', 'wishlist');
 
+    // comments
+    Route::get('/wishlists/{wishlist}/comments/{comment}', [WishlistCommentController::class, 'show'])->name('wishlists.comments.show');
+    Route::get('/wishlists/{wishlist}/comments/{comment}/edit', [WishlistCommentController::class, 'edit'])->name('wishlists.comments.edit')->can('update', 'comment');
     Route::post('/wishlists/{wishlist}/comments', [WishlistCommentController::class, 'store'])->name('wishlists.comments.store')->can('view', 'wishlist');
     Route::patch('/wishlists/{wishlist}/comments/{comment}', [WishlistCommentController::class, 'update'])->name('wishlists.comments.update')->can('update', 'comment');
     Route::delete('/wishlists/{wishlist}/comments/{comment}', [WishlistCommentController::class, 'destroy'])->name('wishlists.comments.destroy')->can('delete', 'comment');
+    // comments
 
     Route::get('/wishlists/{wishlist}/wish', [WishController::class, 'create'])->name('wishes.create')->can('update', 'wishlist');
     Route::post('/wishlists/{wishlist}/wish', [WishController::class, 'store'])->name('wishes.store')->can('update', 'wishlist');

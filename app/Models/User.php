@@ -16,6 +16,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'settings'
     ];
 
     protected $hidden = [
@@ -26,6 +27,11 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
+        'settings' => 'array'
+    ];
+
+    protected $attributes = [
+        'settings' => '{"notification":{"wishlist-comment-created":true,"wish-created":true}}'
     ];
 
     public function wishlists()
@@ -41,7 +47,7 @@ class User extends Authenticatable
     protected function avatarUrl(): Attribute
     {
         return Attribute::make(
-            get: fn ($value, $attributes) => "https://unavatar.io/{$attributes['email']}?".http_build_query([
+            get: fn ($value, $attributes) => "https://unavatar.io/{$attributes['email']}?" . http_build_query([
                 'fallback' => "https://ui-avatars.com/api/{$attributes['name']}/32/bae6fd/0c4a6e",
             ])
         )->shouldCache();

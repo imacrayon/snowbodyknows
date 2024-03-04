@@ -1,11 +1,5 @@
 <?php
 
-const DEFAULT_WISHLIST = [
-    'name' => 'My wishlist',
-    'id' => 0,
-    'wishes' => []
-];
-
 test('guest see the default wishlist', function() {
     $response = $this->get(route('guests.wishlists.show'));
 

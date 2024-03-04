@@ -123,9 +123,11 @@
         <div class="p-4" x-init id="comments">
             @if ($comments->isNotEmpty())
                 <ul role="list" x-init>
-                    @foreach($comments as $comment)
-                        <x-comment :comment="$comment->setRelation('commentable', $wishlist)" :anonymous="$comment->user->isNot($wishlist->user)" />
-                    @endforeach
+                    <li class="mb-2">
+                        @foreach($comments as $comment)
+                            <x-comment :comment="$comment->setRelation('commentable', $wishlist)" :anonymous="$comment->user->isNot($wishlist->user)"/>
+                        @endforeach
+                    </li>
                 </ul>
             @endif
             <x-comment-form action="{{ route('wishlists.comments.store', $wishlist) }}" :anonymous="false" x-target="comments" x-focus="comment" />
