@@ -83,3 +83,23 @@ test('correct password must be provided to delete account', function () {
 
     $this->assertNotNull($user->fresh());
 });
+
+test('settings can be updated', function () {
+    $user = User::factory()->create();
+
+    $response = $this
+        ->actingAs($user)
+        ->put(route('settings.update'), [
+            'notification-wishlist-comment-created' => 'notification-wishlist-comment-created',
+            'notification-wish-created' => null,
+        ]);
+
+    $response
+        ->assertSessionHasNoErrors()
+        ->assertRedirect(route('profile.edit'));
+
+    $user->refresh();
+
+    $this->assertSame(true, $user->settings['notification']['wishlist-comment-created']);
+    $this->assertSame(false, $user->settings['notification']['wish-created']);
+});

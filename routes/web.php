@@ -11,6 +11,7 @@ use App\Http\Controllers\WishlistViewerController;
 use App\Http\Controllers\Guest\GuestWishController;
 use App\Http\Controllers\Guest\GuestWishlistController;
 use App\Http\Controllers\Guest\GuestSortWishlistController;
+use App\Http\Controllers\SettingsController;
 use App\Models\Wishlist;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;
@@ -36,6 +37,7 @@ Route::middleware('auth')->prefix('/app')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::put('/settings', [SettingsController::class, 'update'])->name('settings.update');
 
     Route::get('/wishlists', [WishlistController::class, 'index'])->name('wishlists.index');
     Route::get('/wishlists/create', [WishlistController::class, 'create'])->name('wishlists.create')->can('create', Wishlist::class);

@@ -36,7 +36,7 @@ class WishlistCommentController extends Controller
 
         $comment = $wishlist->addComment($request->comment, $request->user());
 
-        $watchers = $wishlist->viewers->push($wishlist->user)->reject(fn ($user) => $user->is($request->user()));
+        $watchers = $wishlist->viewers->push($wishlist->user)->reject(fn ($user) => $user->is($request->user()) || !$user->settings['notification']['wishlist-comment-created']);
 
         Notification::send($watchers, new WishlistCommentCreatedNotification($comment));
 
