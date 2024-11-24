@@ -3,9 +3,8 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Group;
 use App\Models\User;
-use App\Models\Wishlist;
-use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -17,26 +16,18 @@ use Illuminate\View\View;
 
 class RegisteredUserController extends Controller
 {
-    /**
-     * Display the registration view.
-     */
     public function create(Request $request): View
     {
         return view('auth.register', [
-            'wishlist' => $request->query('wishlist'),
+            'group' => $request->query('group'),
         ]);
     }
 
-    /**
-     * Handle an incoming registration request.
-     *
-     * @throws \Illuminate\Validation\ValidationException
-     */
     public function store(Request $request): RedirectResponse
     {
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:'.User::class],
+            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
@@ -46,16 +37,16 @@ class RegisteredUserController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
-        $newWishlist = $user->wishlists()->create([
+        $wishlist = $user->wishlists()->create([
             'name' => __(':user’s Wishlist', ['user' => Str::before($user->name, ' ')]),
         ]);
 
         if (session('wishlist')) {
             foreach (session('wishlist')['wishes'] as $wish) {
-                $newWishlist->wishes()->create([
+                $wishlist->wishes()->create([
                     'name' => $wish['name'],
                     'description' => $wish['description'],
-                    'url' => $wish['url']
+                    'url' => $wish['url'],
                 ]);
             }
             session()->remove('wishlist');
@@ -65,12 +56,14 @@ class RegisteredUserController extends Controller
 
         Auth::login($user);
 
-        $invitecode = $request->query('wishlist');
-        if($wishlist = Wishlist::findByInviteCode($invitecode)){  
-            $wishlist->viewers()->syncWithoutDetaching($user);   
-            return to_route('wishlists.show', $wishlist);
+        if ($code = $request->query('group')) {
+            if ($group = Group::findByInviteCode($code)) {
+                $group->join($user, $wishlist->id);
+
+                return to_route('groups.show', $group);
+            }
         }
 
-        return redirect(RouteServiceProvider::HOME);
+        return redirect()->intended(route('app', absolute: false));
     }
 }

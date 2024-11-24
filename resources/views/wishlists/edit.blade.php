@@ -9,7 +9,10 @@
             <div class="max-w-xl">
                 <x-form method="patch" action="{{ route('wishlists.update', $wishlist) }}">
                     @include('wishlists._fields')
-                    <x-button-primary class="mt-8">Save changes</x-button-primary>
+                    <div class="mt-8 flex items-center gap-4">
+                        <x-button-primary>{{ __('Save Changes') }}</x-button-primary>
+                        <x-button-secondary href="{{ route('wishlists.show', $wishlist) }}">{{ __('Cancel') }}</x-button-secondary>
+                    </div>
                 </x-form>
             </div>
         </div>

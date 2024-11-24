@@ -1,6 +1,5 @@
 <x-layout.app title="{{ __('Edit wish') }}">
 <x-slot name="header">
-    <x-back href="{{ route('wishlists.show', $wish->wishlist) }}">{{ $wishlist->name }}</x-back>
     <h1 class="font-semibold text-xl text-gray-800 leading-tight inline-flex items-center">
         {{ __('Edit wish') }}
     </h1>
@@ -10,7 +9,10 @@
         <div class="max-w-xl">
             <x-form method="patch" action="{{ route('wishes.update', [$wishlist, $wish]) }}">
                 @include('wishes._fields')
-                <x-button-primary class="mt-8">Save changes</x-button-primary>
+                <div class="mt-8 flex items-center gap-4">
+                    <x-button-primary>{{ __('Save Changes') }}</x-button-primary>
+                    <x-button-secondary href="{{ route('wishlists.show', $wish->wishlist) }}">{{ __('Cancel') }}</x-button-secondary>
+                </div>
             </x-form>
         </div>
     </div>

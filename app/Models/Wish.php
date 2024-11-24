@@ -12,15 +12,6 @@ class Wish extends Model
 
     protected static $unguarded = true;
 
-    protected static function booted()
-    {
-        static::saving(function ($model) {
-            if ($params = config('affiliates')[$model->urlDomain()] ?? null) {
-                $model->url = $model->mergeIntoUrl($params);
-            }
-        });
-    }
-
     public function wishlist()
     {
         return $this->belongsTo(Wishlist::class);
@@ -53,28 +44,5 @@ class Wish extends Model
         $parts = explode('.', parse_url($this->url, PHP_URL_HOST) ?? '');
 
         return implode('.', array_slice($parts, -2));
-    }
-
-    public function mergeIntoUrl($params = [])
-    {
-        $parts = parse_url($this->url);
-
-        $existing = [];
-        if (isset($parts['query'])) {
-            parse_str($parts['query'], $existing);
-        }
-
-        $path = $parts['path'] ?? '';
-        $url = "{$parts['scheme']}://{$parts['host']}{$path}";
-
-        if ($query = http_build_query(array_merge($existing, $params))) {
-            $url .= '?'.$query;
-        }
-
-        if (isset($parts['fragment'])) {
-            $url .= '#'.$parts['fragment'];
-        }
-
-        return $url;
     }
 }

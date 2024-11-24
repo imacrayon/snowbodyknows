@@ -20,7 +20,7 @@
                 {{ __('Are you sure you want to delete your wishlist?') }}
             </h2>
             <p class="mt-1 text-sm text-gray-600">
-                {{ __('Once your wishlist is deleted, all of its resources and data will be permanently deleted. Please enter the wishlist\'s name to confirm you would like to permanently delete your wishlist.') }}
+                {!! __('Once your wishlist is deleted, all of its resources and data will be permanently deleted. Please enter :wishlist to confirm you would like to permanently delete your wishlist.', ['wishlist' => sprintf('<strong>%s</strong>', e($wishlist->name))]) !!}
             </p>
 
             <input type="hidden" name="original_name" value="{{ $wishlist->name }}">
@@ -42,4 +42,3 @@
         </x-form>
     </x-modal>
 </section>
-

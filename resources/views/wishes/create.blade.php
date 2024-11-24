@@ -1,6 +1,5 @@
 <x-layout.app title="{{ __('Add to :wishlist', ['wishlist' => $wishlist->name]) }}">
 <x-slot name="header">
-    <x-back href="{{ route('wishlists.show', $wishlist) }}">{{ $wishlist->name }}</x-back>
     <h1 class="font-semibold text-xl text-gray-800 leading-tight">
         {{ __('Add to :wishlist', ['wishlist' => $wishlist->name]) }}
     </h1>
@@ -10,7 +9,10 @@
         <div class="max-w-xl">
             <x-form method="post" action="{{ route('wishes.store', $wishlist) }}">
                 @include('wishes._fields')
-                <x-button-primary class="mt-8">{{ __('Add wish') }}</x-button-primary>
+                <div class="mt-8 flex items-center gap-4">
+                    <x-button-primary>{{ __('Add Wish') }}</x-button-primary>
+                    <x-button-secondary href="{{ route('wishlists.show', $wishlist) }}">{{ __('Cancel') }}</x-button-secondary>
+                </div>
             </x-form>
         </div>
     </div>

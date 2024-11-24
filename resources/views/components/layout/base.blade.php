@@ -29,8 +29,6 @@
             </main>
             @if(isset($header))
                 {{ $header ?? '' }}
-            @else
-                @include('layouts.footer')
             @endif
         </div>
     </body>

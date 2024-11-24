@@ -3,11 +3,11 @@
         <h1 class="text-lg font-medium text-gray-90">{{ __('Create an account') }}</h1>
         <p class="mt-1 text-sm text-gray-600">
             <strong>{{ __('Already have an account?') }}</strong>
-            <a class="underline" href="{{ route('login',  ['wishlist' => $wishlist]) }}">{{ __('Log in') }}</a>.
+            <a class="underline" href="{{ route('login',  ['group' => $group]) }}">{{ __('Log in') }}</a>.
         </p>
     </header>
 
-    <x-form class="mt-6" method="post" action="{{ route('register', ['wishlist' => $wishlist]) }}">
+    <x-form class="mt-6" method="post" action="{{ route('register', ['group' => $group]) }}">
         <div class="space-y-6">
             <x-field>
                 <x-label for="name" :value="__('Name')" />
