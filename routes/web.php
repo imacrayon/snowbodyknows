@@ -45,9 +45,13 @@ Route::middleware('auth')->prefix('/app')->group(function () {
 
     Route::post('/wishlists/{wishlist}/sort', SortWishlistController::class)->name('wishlists.sort')->can('update', 'wishlist');
 
+    // comments
+    Route::get('/wishlists/{wishlist}/comments/{comment}', [WishlistCommentController::class, 'show'])->name('wishlists.comments.show');
+    Route::get('/wishlists/{wishlist}/comments/{comment}/edit', [WishlistCommentController::class, 'edit'])->name('wishlists.comments.edit')->can('update', 'comment');
     Route::post('/wishlists/{wishlist}/comments', [WishlistCommentController::class, 'store'])->name('wishlists.comments.store')->can('view', 'wishlist');
     Route::patch('/wishlists/{wishlist}/comments/{comment}', [WishlistCommentController::class, 'update'])->name('wishlists.comments.update')->can('update', 'comment');
     Route::delete('/wishlists/{wishlist}/comments/{comment}', [WishlistCommentController::class, 'destroy'])->name('wishlists.comments.destroy')->can('delete', 'comment');
+    // comments
 
     Route::get('/wishlists/{wishlist}/share', [GroupController::class, 'create'])->name('groups.create')->can('update', 'wishlist');
     Route::post('/wishlists/{wishlist}/share', [GroupController::class, 'store'])->name('groups.store')->can('update', 'wishlist');
