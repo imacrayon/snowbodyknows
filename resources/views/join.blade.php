@@ -1,4 +1,4 @@
-<x-layout.base title="{{ __('Join :group', ['wishlist' => $group->name]) }}">
+<x-layout.base title="{{ __('Join :group', ['group' => $group->name]) }}">
     @include('layouts.snow')
     <div class="mt-6 max-w-lg mx-auto px-4">
         <h1 class="text-lg font-medium text-gray-900">{{ __("You've been invited to a gift exchange!") }}</h1>
