@@ -21,7 +21,7 @@
                     <div class="mt-2 -space-y-px rounded-md bg-white">
                         @foreach($wishlists as $wishlist)
                             <label class="group relative flex cursor-pointer border border-gray-200 px-4 py-3 focus:outline-none has-[:checked]:z-10 has-[:checked]:border-sky-200 has-[:checked]:bg-sky-50 {{ $loop->first ? 'rounded-t-md' : '' }}">
-                                <input type="radio" name="privacy-setting" value="Public access" class="mt-0.5 size-4 shrink-0 cursor-pointer border-gray-300 text-sky-600 focus:ring-sky-600 active:ring-2 active:ring-sky-600 active:ring-offset-2">
+                                <input type="radio" name="wishlist_id" value="{{ $wishlist->id }}" class="mt-0.5 size-4 shrink-0 cursor-pointer border-gray-300 text-sky-600 focus:ring-sky-600 active:ring-2 active:ring-sky-600 active:ring-offset-2">
                                 <span class="ml-3 flex flex-col">
                                     <span class="block text-sm font-medium text-gray-900 group-has-[:checked]:text-sky-900">{{ $wishlist->name }}</span>
                                     <span class="block text-sm text-gray-500 group-has-[:checked]:text-sky-700">
@@ -33,7 +33,7 @@
                             </label>
                         @endforeach
                         <label class="group relative flex cursor-pointer rounded-b-md border px-4 py-3 focus:outline-none has-[:checked]:z-10 has-[:checked]:border-sky-200 has-[:checked]:bg-sky-50 ">
-                            <input type="radio" name="privacy-setting" value="Public access" class="mt-0.5 size-4 shrink-0 cursor-pointer border-gray-300 text-sky-600 focus:ring-sky-600 active:ring-2 active:ring-sky-600 active:ring-offset-2">
+                            <input type="radio" name="wishlist_id" value="" class="mt-0.5 size-4 shrink-0 cursor-pointer border-gray-300 text-sky-600 focus:ring-sky-600 active:ring-2 active:ring-sky-600 active:ring-offset-2">
                             <span class="ml-3 flex flex-col">
                                 <span class="block text-sm font-medium text-gray-900 group-has-[:checked]:text-sky-900">{{ __('A new wishlist') }}</span>
                                 <span class="block text-sm text-gray-500 group-has-[:checked]:text-sky-700">
