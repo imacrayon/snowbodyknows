@@ -103,9 +103,7 @@
         @endif
         <div class="bg-white px-4 py-5 sm:py-6 border-t">
             <x-form method="post" action="{{ route('groups.store', $wishlist) }}">
-                <x-button-secondary class="w-full">
-                    Share
-                </x-button-secondary>
+                <x-button-secondary class="w-full">{{ __('Share with a new group') }}</x-button-secondary>
             </x-form>
         </div>
     </x-section>
