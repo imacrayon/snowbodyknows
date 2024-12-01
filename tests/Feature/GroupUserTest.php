@@ -123,19 +123,6 @@ test('users can join multiple wishlists', function () {
     expect($wishlistB->viewers()->contains($user))->toBeTrue();
 });
 
-test('users can leave wishlists', function () {
-    $user = User::factory()->create();
-    $wishlist = Wishlist::factory()->create();
-    $group = Group::factory()->withWishlist($wishlist)->withUser($user)->create();
-
-    $this->actingAs($user);
-
-    $response = $this->delete(route('groups.users.destroy', [$group, $user]));
-
-    $response->assertRedirect(route('app'));
-    expect($wishlist->viewers()->contains($user))->toBeFalse();
-});
-
 test('group viewers can leave group', function () {
     $viewer = User::factory()->create();
     $wishlist = Wishlist::factory()->create();
@@ -147,6 +134,27 @@ test('group viewers can leave group', function () {
 
     $response->assertRedirect(route('app'));
     expect($wishlist->viewers()->contains($viewer))->toBeFalse();
+});
+
+test('wishlists are purged when user leaves group', function () {
+    $wishlistA = Wishlist::factory()->create();
+    $wishlistB = Wishlist::factory()->for($wishlistA->user)->create();
+    $group = Group::factory()
+        ->withWishlist(Wishlist::factory()->create())
+        ->withWishlist($wishlistA)
+        ->hasAttached($wishlistB)
+        ->create();
+
+    expect($group->wishlists)->toHaveCount(3);
+
+    $this->actingAs($wishlistA->user);
+    $this->delete(route('groups.users.destroy', [$group, $wishlistA->user]));
+
+    $group->refresh();
+    expect($group->users->contains($wishlistA->user))->toBeFalse();
+    expect($group->wishlists->contains($wishlistA))->toBeFalse();
+    expect($group->wishlists->contains($wishlistB))->toBeFalse();
+    expect($group->wishlists)->toHaveCount(1);
 });
 
 test('group viewers cannot remove another member from group', function () {
