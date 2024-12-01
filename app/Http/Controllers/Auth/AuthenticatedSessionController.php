@@ -27,7 +27,7 @@ class AuthenticatedSessionController extends Controller
 
         if ($code = $request->query('group')) {
             if ($group = Group::findByInviteCode($code)) {
-                return to_route('groups.users.create', $group);
+                return to_route('groups.wishlists.store', $group);
             }
         }
 

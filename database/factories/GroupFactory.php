@@ -22,19 +22,15 @@ class GroupFactory extends Factory
         ];
     }
 
-    public function forWishlist($wishlist)
+    public function withWishlist($wishlist)
     {
-        return $this->hasAttached(
-            $wishlist,
-            ['user_id' => $wishlist->user->getKey()],
-        );
+        return $this->hasAttached($wishlist)
+            ->hasAttached($wishlist->user);
     }
 
     public function withUser($user)
     {
-        return $this->hasAttached(
-            Wishlist::factory()->for($user)->create(),
-            ['user_id' => $user->getKey()],
-        );
+        return $this->hasAttached(Wishlist::factory()->for($user)->create())
+            ->hasAttached($user);
     }
 }

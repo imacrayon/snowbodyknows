@@ -25,10 +25,10 @@ class Wishlist extends Model
 
     public function groups()
     {
-        return $this->belongsToMany(Group::class, 'group_user');
+        return $this->belongsToMany(Group::class, 'group_wishlist')->orderBy('name');
     }
 
-    public function members()
+    public function viewers()
     {
         // Use reduce instead of flatMap so that we can return an Eloquent\Collection
         return $this->loadMissing('groups.users')->groups->reduce(function ($members, $group) {

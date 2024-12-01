@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Group;
 use App\Models\Wishlist;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class GroupController extends Controller
 {
@@ -15,12 +16,15 @@ class GroupController extends Controller
             'description' => ['nullable', 'string', 'max:2000'],
         ]);
 
-        $group = $wishlist->groups()->create([
-            'name' => $request->name ?? __('Untitled Group'),
-            'description' => $request->description,
-        ], [
-            'user_id' => $request->user()->getKey(),
-        ]);
+        $group = DB::transaction(function () use ($request, $wishlist) {
+            $group = $wishlist->groups()->create([
+                'name' => $request->name ?? __('Untitled Group'),
+                'description' => $request->description,
+            ]);
+            $group->users()->syncWithoutDetaching($request->user());
+
+            return $group;
+        });
 
         return to_route('groups.show', $group);
     }

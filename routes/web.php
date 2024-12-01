@@ -4,6 +4,7 @@ use App\Http\Controllers\AppController;
 use App\Http\Controllers\GrantedWishController;
 use App\Http\Controllers\GroupController;
 use App\Http\Controllers\GroupUserController;
+use App\Http\Controllers\GroupWishlistController;
 use App\Http\Controllers\Guest\GuestSortWishlistController;
 use App\Http\Controllers\Guest\GuestWishController;
 use App\Http\Controllers\Guest\GuestWishlistController;
@@ -57,8 +58,11 @@ Route::middleware('auth')->prefix('/app')->group(function () {
     Route::get('/groups/{group}/edit', [GroupController::class, 'edit'])->name('groups.edit')->can('update', 'group');
     Route::patch('/groups/{group}', [GroupController::class, 'update'])->name('groups.update')->can('update', 'group');
 
-    Route::get('/groups/{group}/users', [GroupUserController::class, 'create'])->name('groups.users.create');
-    Route::post('/groups/{group}/users', [GroupUserController::class, 'store'])->name('groups.users.store');
+    Route::get('/groups/{group}/wishlists', [GroupWishlistController::class, 'create'])->name('groups.wishlists.create');
+    Route::post('/groups/{group}/wishlists', [GroupWishlistController::class, 'store'])->name('groups.wishlists.store');
+    Route::get('/groups/{group}/wishlists/edit', [GroupWishlistController::class, 'edit'])->name('groups.wishlists.edit')->can('update', 'group');
+    Route::patch('/groups/{group}/wishlists', [GroupWishlistController::class, 'update'])->name('groups.wishlists.update')->can('update', 'group');
+
     Route::delete('/groups/{group}/users/{user}', [GroupUserController::class, 'destroy'])->name('groups.users.destroy')->can('update', 'user');
 
     Route::get('/wishlists/{wishlist}/wish', [WishController::class, 'create'])->name('wishes.create')->can('update', 'wishlist');

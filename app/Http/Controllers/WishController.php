@@ -26,7 +26,7 @@ class WishController extends Controller
             'description' => ['nullable', 'string', 'max:2000'],
         ]));
 
-        $watchers = $wishlist->members()->reject(fn ($user) => $user->is($wishlist->user));
+        $watchers = $wishlist->viewers()->reject(fn ($user) => $user->is($wishlist->user));
 
         Notification::send($watchers, new WishCreatedNotification($wish));
 

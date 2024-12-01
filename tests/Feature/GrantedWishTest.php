@@ -23,7 +23,7 @@ test('wishlist owner cannot ungrant wishes', function () {
 test('wishlist viewer can grant wishes', function () {
     $wish = Wish::factory()->create();
     $viewer = User::factory()->create();
-    Group::factory()->forWishlist($wish->wishlist)->withUser($viewer)->create();
+    Group::factory()->withWishlist($wish->wishlist)->withUser($viewer)->create();
 
     $this->actingAs($viewer);
 
@@ -36,7 +36,7 @@ test('wishlist viewer can grant wishes', function () {
 test('wishlist viewer can ungrant their granted wishes', function () {
     $viewer = User::factory()->create();
     $wish = Wish::factory()->for($viewer, 'granter')->create();
-    Group::factory()->forWishlist($wish->wishlist)->withUser($viewer)->create();
+    Group::factory()->withWishlist($wish->wishlist)->withUser($viewer)->create();
 
     expect($wish->granted())->toBeTrue();
 
@@ -51,7 +51,7 @@ test('wishlist viewer can ungrant their granted wishes', function () {
 test('wishlist viewer cannot grant others’ granted wishes', function () {
     $wish = Wish::factory()->granted()->create();
     $viewer = User::factory()->create();
-    Group::factory()->forWishlist($wish->wishlist)->withUser($viewer)->create();
+    Group::factory()->withWishlist($wish->wishlist)->withUser($viewer)->create();
 
     $this->actingAs($viewer);
 
@@ -62,7 +62,7 @@ test('wishlist viewer cannot ungrant others’ granted wishes', function () {
     $viewerA = User::factory()->create();
     $viewerB = User::factory()->create();
     $wish = Wish::factory()->for($viewerB, 'granter')->create();
-    Group::factory()->forWishlist($wish->wishlist)->withUser($viewerA)->create();
+    Group::factory()->withWishlist($wish->wishlist)->withUser($viewerA)->create();
 
     expect($wish->granted())->toBeTrue();
 

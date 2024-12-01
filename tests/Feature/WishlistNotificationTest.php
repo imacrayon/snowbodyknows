@@ -12,7 +12,7 @@ test('members are notified when a wish is added to a wishlist', function () {
 
     $wishlist = Wishlist::factory()->create();
     $viewer = User::factory()->create();
-    Group::factory()->forWishlist($wishlist)->withUser($viewer)->create();
+    Group::factory()->withWishlist($wishlist)->withUser($viewer)->create();
 
     $this->actingAs($wishlist->user);
     $this->post(route('wishes.create', $wishlist), [
@@ -36,8 +36,8 @@ test('members in multiple groups are notified only once', function () {
 
     $wishlist = Wishlist::factory()->create();
     $viewer = User::factory()->create();
-    Group::factory()->forWishlist($wishlist)->withUser($viewer)->create();
-    Group::factory()->forWishlist($wishlist)->withUser($viewer)->create();
+    Group::factory()->withWishlist($wishlist)->withUser($viewer)->create();
+    Group::factory()->withWishlist($wishlist)->withUser($viewer)->create();
 
     $this->actingAs($wishlist->user);
     $this->post(route('wishes.create', $wishlist), [

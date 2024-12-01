@@ -4,63 +4,155 @@ use App\Models\Group;
 use App\Models\User;
 use App\Models\Wishlist;
 
+test('guest can join a group', function () {
+    $wishlist = Wishlist::factory()->create();
+    $group = Group::factory()->withWishlist($wishlist)->create();
+
+    $response = $this->get(route('join', $group));
+
+    $response->assertSee(route('login', ['group' => $group->invite_code]));
+    $response->assertSee(route('register', ['group' => $group->invite_code]));
+
+    $response = $this->get(route('login', ['group' => $group->invite_code]));
+    $response->assertSee(route('login', ['group' => $group->invite_code]));
+
+    $response = $this->get(route('register', ['group' => $group->invite_code]));
+    $response->assertSee(route('register', ['group' => $group->invite_code]));
+});
+
+test('new user is added to group after registration', function () {
+    $wishlist = Wishlist::factory()->create();
+    $group = Group::factory()->withWishlist($wishlist)->create();
+
+    $response = $this->followingRedirects()->post(route('register', ['group' => (string) $group->invite_code]), [
+        'name' => 'Test User',
+        'email' => 'test@example.com',
+        'password' => 'password',
+        'password_confirmation' => 'password',
+    ]);
+
+    $response->assertOk();
+    $response->assertViewIs('groups.show');
+    $response->assertViewHas(['group' => $group]);
+});
+
+test('existing user is prompted to share wishlist with group after login', function () {
+    $wishlist = Wishlist::factory()->create();
+    $group = Group::factory()->withWishlist($wishlist)->create();
+    $user = Wishlist::factory()->create()->user;
+
+    $response = $this->followingRedirects()->post(route('login', ['group' => (string) $group->invite_code]), [
+        'email' => $user->email,
+        'password' => 'password',
+    ]);
+
+    $response->assertOk();
+    $response->assertViewIs('groups.wishlists.create');
+    $response->assertViewHas(['group' => $group]);
+});
+
+test('existing user can share an existing wishlist with a group', function () {
+    $group = Group::factory()->withWishlist(Wishlist::factory()->create())->create();
+    $wishlist = Wishlist::factory()->create();
+
+    $this->actingAs($wishlist->user);
+    $response = $this->post(route('groups.wishlists.store', $group), [
+        'wishlists' => [$wishlist->id],
+    ]);
+
+    $response->assertRedirect(route('groups.show', $group));
+    expect($group->wishlists->contains($wishlist))->toBeTrue();
+});
+
+test('existing user can share a new wishlist with a group', function () {
+    $group = Group::factory()->withWishlist(Wishlist::factory()->create())->create();
+    $wishlist = Wishlist::factory()->create();
+
+    $this->actingAs($wishlist->user);
+    $response = $this->post(route('groups.wishlists.store', $group), [
+        'wishlists' => [App\Http\Controllers\GroupWishlistController::NEW_WISHLIST],
+    ]);
+
+    $response->assertRedirect(route('groups.show', $group));
+    expect($group->fresh()->wishlists)->toHaveCount(2);
+    expect($wishlist->user->fresh()->wishlists)->toHaveCount(2);
+});
+
+test('user cannot share wishlist they do not own with a group', function () {
+    $group = Group::factory()->withWishlist(Wishlist::factory()->create())->create();
+    $wishlist = Wishlist::factory()->create();
+
+    $this->actingAs(User::factory()->create());
+    $response = $this->post(route('groups.wishlists.store', $group), [
+        'wishlists' => [$wishlist->id],
+    ]);
+
+    $response->assertSessionHasErrors('wishlists.0');
+});
+
 test('users can join wishlists', function () {
     $wishlist = Wishlist::factory()->create();
-    $group = Group::factory()->forWishlist($wishlist)->create();
+    $group = Group::factory()->withWishlist($wishlist)->create();
 
     $this->actingAs($user = User::factory()->create());
 
-    $response = $this->post(route('groups.users.store', $group));
+    $response = $this->post(route('groups.wishlists.store', $group), [
+        'wishlists' => [App\Http\Controllers\GroupWishlistController::NEW_WISHLIST],
+    ]);
 
     $response->assertRedirect(route('groups.show', $wishlist));
-    expect($wishlist->members()->contains($user))->toBeTrue();
+    expect($wishlist->viewers()->contains($user))->toBeTrue();
 });
 
 test('users can join multiple wishlists', function () {
     $wishlistA = Wishlist::factory()->create();
-    $groupA = Group::factory()->forWishlist($wishlistA)->create();
+    $groupA = Group::factory()->withWishlist($wishlistA)->create();
     $wishlistB = Wishlist::factory()->create();
-    $groupB = Group::factory()->forWishlist($wishlistB)->create();
+    $groupB = Group::factory()->withWishlist($wishlistB)->create();
 
     $this->actingAs($user = User::factory()->create());
 
-    $this->post(route('groups.users.store', $groupA));
-    $this->post(route('groups.users.store', $groupB));
+    $this->post(route('groups.wishlists.store', $groupA), [
+        'wishlists' => [App\Http\Controllers\GroupWishlistController::NEW_WISHLIST],
+    ]);
+    $this->post(route('groups.wishlists.store', $groupB), [
+        'wishlists' => [App\Http\Controllers\GroupWishlistController::NEW_WISHLIST],
+    ]);
 
-    expect($wishlistA->members()->contains($user))->toBeTrue();
-    expect($wishlistB->members()->contains($user))->toBeTrue();
+    expect($wishlistA->viewers()->contains($user))->toBeTrue();
+    expect($wishlistB->viewers()->contains($user))->toBeTrue();
 });
 
 test('users can leave wishlists', function () {
     $user = User::factory()->create();
     $wishlist = Wishlist::factory()->create();
-    $group = Group::factory()->forWishlist($wishlist)->withUser($user)->create();
+    $group = Group::factory()->withWishlist($wishlist)->withUser($user)->create();
 
     $this->actingAs($user);
 
     $response = $this->delete(route('groups.users.destroy', [$group, $user]));
 
     $response->assertRedirect(route('app'));
-    expect($wishlist->members()->contains($user))->toBeFalse();
+    expect($wishlist->viewers()->contains($user))->toBeFalse();
 });
 
-test('group members can leave group', function () {
+test('group viewers can leave group', function () {
     $viewer = User::factory()->create();
     $wishlist = Wishlist::factory()->create();
-    $group = Group::factory()->forWishlist($wishlist)->withUser($viewer)->create();
+    $group = Group::factory()->withWishlist($wishlist)->withUser($viewer)->create();
 
     $this->actingAs($viewer);
 
     $response = $this->delete(route('groups.users.destroy', [$group, $viewer]));
 
     $response->assertRedirect(route('app'));
-    expect($wishlist->members()->contains($viewer))->toBeFalse();
+    expect($wishlist->viewers()->contains($viewer))->toBeFalse();
 });
 
-test('group members cannot remove another member from group', function () {
+test('group viewers cannot remove another member from group', function () {
     $viewer = User::factory()->create();
     $wishlist = Wishlist::factory()->create();
-    Group::factory()->forWishlist($wishlist)->withUser($viewer)->create();
+    Group::factory()->withWishlist($wishlist)->withUser($viewer)->create();
 
     $this->actingAs($wishlist->user);
 

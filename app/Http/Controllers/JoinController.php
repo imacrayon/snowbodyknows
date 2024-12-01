@@ -10,7 +10,7 @@ class JoinController extends Controller
     public function __invoke(Request $request, Group $group)
     {
         if ($request->user()) {
-            return to_route('groups.users.create', $group);
+            return to_route('groups.wishlists.store', $group);
         }
 
         return view('join', [

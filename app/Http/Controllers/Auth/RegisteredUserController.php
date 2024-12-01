@@ -9,6 +9,7 @@ use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rules;
@@ -58,7 +59,10 @@ class RegisteredUserController extends Controller
 
         if ($code = $request->query('group')) {
             if ($group = Group::findByInviteCode($code)) {
-                $group->join($user, $wishlist->id);
+                DB::transaction(function () use ($group, $user, $wishlist) {
+                    $group->users()->syncWithoutDetaching($user);
+                    $group->wishlists()->attach($wishlist);
+                });
 
                 return to_route('groups.show', $group);
             }

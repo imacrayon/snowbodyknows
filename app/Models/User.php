@@ -29,9 +29,7 @@ class User extends Authenticatable
 
     public function groups()
     {
-        return $this->belongsToMany(Group::class)
-            ->withPivot('wishlist_id')
-            ->withTimestamps();
+        return $this->belongsToMany(Group::class)->withTimestamps()->orderBy('name');
     }
 
     public function wishlists()
