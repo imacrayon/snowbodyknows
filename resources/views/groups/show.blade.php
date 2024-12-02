@@ -1,4 +1,5 @@
-<x-layout.app title="{{ $group->name }}">
+<x-layout.app>
+    <x-slot name="title">{{ $group->name }}</x-slot>
     <x-slot name="header">
         <h1 class="flex items-center gap-2 font-semibold text-xl text-gray-800 leading-tight">
             {{ $group->name }}

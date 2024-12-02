@@ -1,4 +1,5 @@
-<x-layout.auth title="{{ __('Password reset') }}">
+<x-layout.auth>
+    <x-slot name="title">{{ __('Password reset') }}</x-slot>
     <x-form method="post" action="{{ route('password.store') }}">
         <input type="hidden" name="token" value="{{ $request->route('token') }}">
         <div class="space-y-6">

@@ -1,7 +1,5 @@
 <x-layout.app>
-    <x-slot name="title">
-        {{ __('Edit Group') }}
-    </x-slot>
+    <x-slot name="title">{{ __('Edit Group') }}</x-slot>
     <x-slot name="header">
         <h1 class="font-semibold text-xl text-gray-800 leading-tight inline-flex items-center">
             {{ __('Edit :group', ['group' => $group->name]) }}

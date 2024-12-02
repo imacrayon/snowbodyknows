@@ -1,4 +1,5 @@
-<x-layout.base title="{{ $title ?? '' }}" class="bg-gray-100 pb-32">
+<x-layout.base class="bg-gray-100 pb-32">
+<x-slot name="title">{{ $title ?? '' }}</x-slot>
 <x-slot:header>
     <header class="fixed bottom-8 w-full flex justify-center">
         <div class="bg-white shadow-xl rounded-3xl ring-1 ring-black ring-opacity-5 mx-auto">

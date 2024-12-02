@@ -1,4 +1,5 @@
-<x-layout.app title="{{ __('Join :group', ['group' => $group->name]) }}">
+<x-layout.app>
+    <x-slot name="title">{{ __('Join :group', ['group' => $group->name]) }}</x-slot>
     <div class="mt-6 max-w-lg mx-auto px-4">
         <h1 class="text-lg font-medium text-gray-900">{{ __('Join :group', ['group' => $group->name]) }}</h1>
         <div class="mt-4 rounded-lg bg-gray-50 ring-1 ring-gray-200/50 p-1 pt-0.5 space-y-1">

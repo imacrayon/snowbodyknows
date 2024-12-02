@@ -1,4 +1,5 @@
-<x-layout.auth title="{{ __('Login') }}">
+<x-layout.auth>
+    <x-slot name="title">{{ __('Login') }}</x-slot>
     <header>
         <h1 class="text-lg font-medium text-gray-90">{{ __('Login') }}</h1>
         <p class="mt-1 text-sm text-gray-600">

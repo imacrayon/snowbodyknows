@@ -1,4 +1,5 @@
-<x-layout.app title="{{ __('New wishlist') }}">
+<x-layout.app>
+    <x-slot name="title">{{ __('New wishlist') }}</x-slot>
     <x-slot name="header">
         <h1 class="font-semibold text-xl text-gray-800 leading-tight inline-flex items-center">
             {{ __('New wishlist') }}
