@@ -1,7 +1,7 @@
 <x-layout.auth>
     <x-slot name="title">{{ __('Login') }}</x-slot>
     <header>
-        <h1 class="text-lg font-medium text-gray-90">{{ __('Login') }}</h1>
+        <h1 class="text-lg font-medium text-gray-900">{{ __('Login') }}</h1>
         <p class="mt-1 text-sm text-gray-600">
             <strong>{{ __('New here?') }}</strong>
             <a class="underline" href="{{ route('register', ['group' => $group]) }}">{{ __('Create an account') }}</a>.
