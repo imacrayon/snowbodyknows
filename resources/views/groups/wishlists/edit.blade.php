@@ -1,7 +1,7 @@
 <x-layout.app>
-    <x-slot name="title">{{ __('Edit Wishlists') }}</x-slot>
+    <x-slot name="title">{{ __('Change Wishlist') }}</x-slot>
     <div class="mt-6 max-w-lg mx-auto px-4">
-        <h1 class="text-lg font-medium text-gray-900">{{ __('Edit Wishlists') }}</h1>
+        <h1 class="text-lg font-medium text-gray-900">{{ __('Change Wishlist') }}</h1>
         <x-form method="patch" action="{{ route('groups.wishlists.update', $group) }}">
             <fieldset>
                 <legend class="text-sm font-medium text-gray-900">{{ __('Select wishlists you want to share with this group.') }}</legend>
