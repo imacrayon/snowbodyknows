@@ -16,7 +16,7 @@
             </ul>
         </div>
         <div class="mt-6">
-            <x-form method="patch" action="{{ route('groups.wishlists.store', $group) }}">
+            <x-form method="post" action="{{ route('groups.wishlists.store', $group) }}">
                 <fieldset>
                     <legend class="text-sm font-medium text-gray-900">{{ __('Select wishlists you want to share with this group.') }}</legend>
                     <x-error for="wishlists" />
