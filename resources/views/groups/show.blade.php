@@ -28,8 +28,8 @@
             </x-slot:description>
             <x-slot:actions>
             <a href="{{ route('groups.wishlists.edit', $group) }}" class="group inline-flex items-center text-sm text-gray-600 font-medium hover:text-sky-600">
-                <x-phosphor-pencil aria-hidden="true" width="16" height="16" class="mr-1.5 text-gray-400 group-hover:text-sky-400" />
-                {{ __('Edit') }}
+                <x-phosphor-swap aria-hidden="true" width="16" height="16" class="mr-1.5 text-gray-400 group-hover:text-sky-400" />
+                {{ __('Change list') }}
             </a>
             </x-slot:actions>
             <div>
