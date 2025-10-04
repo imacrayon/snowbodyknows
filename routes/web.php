@@ -17,7 +17,9 @@ use App\Http\Controllers\WishlistController;
 use App\Models\Wishlist;
 use Illuminate\Support\Facades\Route;
 
-Route::view('/', 'welcome')->name('welcome');
+Route::get('/', function () {
+    return auth()->check() ? redirect()->route('wishlists.index') : view('welcome');
+})->name('welcome');
 
 Route::get('/groups/{group:invite_code}/join', JoinController::class)->name('join');
 
