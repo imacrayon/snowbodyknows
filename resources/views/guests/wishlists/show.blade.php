@@ -6,7 +6,7 @@
         </h1>
     </x-slot>
     <div class="max-w-5xl mx-auto px-4 space-y-6 sm:px-6 lg:px-8">
-        <div class="bg-white divide-y shadow-sm overflow-hidden rounded-lg">
+        <div class="bg-white divide-y divide-gray-200 shadow-sm overflow-hidden rounded-lg">
             @if($wishes->isNotEmpty())
                 <div>
                     <div id="announcer" aria-live="assertive" class="sr-only"></div>
@@ -26,7 +26,7 @@
                                         <span class="sr-only">Re-order</span>
                                     </button>
                                 </div>
-                                <div class="flex-1 flex border-t group-first:border-t-0">
+                                <div class="flex-1 flex border-t border-gray-200 group-first:border-t-0">
                                     <div class="flex-1 py-3 sm:py-4">
                                         <div>
                                             @if($wish->url)
@@ -68,8 +68,12 @@
             @else
                 <p class="px-4 py-3 text-sm text-center text-gray-600 sm:py-4">{{ __('Start by adding your first wish to this wishlist.') }}
             @endif
-            <div class="bg-white px-4 py-5 sm:py-6 border-t">
-                <x-button-primary class="w-full" href="{{ route('guests.wishes.create') }}">Add a wish</x-button-primary>
+            <div class="bg-white px-4 py-5 sm:py-6 border-t border-gray-200">
+                @if(count($wishes) < 3)
+                    <x-button-primary class="w-full" href="{{ route('guests.wishes.create') }}">Add a wish</x-button-primary>
+                @else
+                    <p class="pl-6 text-sm"><strong>Whoa! Your wishlist is getting too hot to handle!</strong> <a class="underline text-sky-700" href="{{ route('register') }}">{{ __('Create an account') }}</a> now to keep your progress cool (and saved!) before your unsaved wishes melt away.</p>
+                @endif
             </div>
         </div>
     </div>

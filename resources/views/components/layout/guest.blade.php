@@ -13,4 +13,18 @@
     </div>
 @endif
 {{ $slot }}
-</x-layout>
+<footer class="py-12 px-4">
+        <div class="container mx-auto max-w-4xl">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-6">
+                <a href="/" class="flex items-center gap-3">
+                    <img src="/img/snowman.svg" alt="" width="24" height="24">
+                    <span class="text-sm font-semibold text-gray-600">Snowbody Knows</span>
+                </a>
+                <div class="flex gap-8 text-sm text-gray-600">
+                    <a href="/privacy" class="underline text-sky-800 hover:text-sky-500">Privacy Policy</a>
+                </div>
+                <p class="text-sm text-gray-600">© 2025 Snowbody Knows. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+</x-layout.base>

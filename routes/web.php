@@ -18,6 +18,7 @@ use App\Models\Wishlist;
 use Illuminate\Support\Facades\Route;
 
 Route::view('/', 'welcome')->name('welcome');
+Route::view('/privacy', 'privacy')->name('privacy');
 
 Route::get('/groups/{group:invite_code}/join', JoinController::class)->name('join');
 

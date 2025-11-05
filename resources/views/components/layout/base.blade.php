@@ -7,13 +7,15 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <title>{{ $title = $title ? $title.' | Snowbody Knows' : 'Snowbody Knows' }}</title>
+        <title>{{ $title = $title ? $title.' | Snowbody Knows' : 'Snowbody Knows - Simple, Social Wishlists' }}</title>
 
         @stack('js')
         @stack('css')
         <style>[x-cloak] { display: none; }</style>
         @vite(['resources/css/app.css', 'resources/js/app.js'])
 
+        <meta name="description" content="Stop guessing, start gifting! Create and share wishlists with family and friends. No account needed to get started." />
+        <meta name="author" content="Snowbody Knows" />
         <meta property="og:type" content="website">
         <meta property="og:site_name" content="Snowbody Knows">
         <meta property="og:title" content="{{ $title }}">
