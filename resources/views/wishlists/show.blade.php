@@ -72,7 +72,7 @@
             @else
                 <p class="px-4 py-3 text-sm text-center text-gray-600 sm:py-4">{{ __('Start by adding your first wish to this wishlist.') }}
             @endif
-            <div class="bg-white px-4 py-5 sm:py-6 border-t">
+            <div class="bg-white px-4 py-5 sm:py-6">
                 <x-button-primary class="w-full" href="{{ route('wishes.create', $wishlist) }}">Add a wish</x-button-primary>
             </div>
         </div>
@@ -102,7 +102,7 @@
                     @endforeach
                 </ul>
             @endif
-            <div class="bg-white px-4 py-5 sm:py-6 border-t">
+            <div class="bg-white px-4 py-5 sm:py-6">
                 <x-form method="post" action="{{ route('groups.store', $wishlist) }}">
                     <x-button-secondary class="w-full">{{ __('Share with a new group') }}</x-button-secondary>
                 </x-form>

@@ -176,64 +176,64 @@
 
 <section class="py-20 px-4 relative bg-linear-to-b from-white to-sky-50">
     <div class="container mx-auto max-w-6xl">
-    <div class="text-center mb-16 space-y-4 text-balance">
-        <h2 class="text-4xl md:text-5xl font-bold text-sky-900">Making your holiday <span class="text-sky-500">present</span> and accounted for</h2>
-        <p class="text-xl text-gray-500 max-w-2xl mx-auto">Everything you need to sleigh your gift exchange</p>
-    </div>
-    <div class="max-w-3xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
-        <div class="space-y-6">
-        <div class="border border-sky-900/10 shadow-sm rounded-2xl overflow-hidden">
-            <div class="p-2" style="background: repeating-linear-gradient(45deg, var(--color-red-200), var(--color-red-200) 10px, white 10px, white 20px);">
-                <div class="bg-white border border-gray-200 rounded-xl p-2 overflow-hidden">
-                    <img loading="lazy" src="/img/features/build.gif?v=2" alt="Build Your Wishlist in a Flurry" class="w-full h-auto rounded-lg">
+        <div class="text-center mb-12 space-y-4 text-balance">
+            <h2 class="text-4xl md:text-5xl font-bold text-sky-900">Making your holiday <span class="text-sky-500">present</span> and accounted for</h2>
+            <p class="text-xl text-gray-500 max-w-2xl mx-auto">Everything you need to sleigh your gift exchange</p>
+        </div>
+        <div class="max-w-3xl mx-auto grid grid-cols-1 gap-12 md:grid-cols-2">
+            <div class="space-y-4 max-w-xs mx-auto">
+                <div class="border border-sky-900/10 shadow-sm rounded-2xl overflow-hidden">
+                    <div class="p-2" style="background: repeating-linear-gradient(45deg, var(--color-red-200), var(--color-red-200) 10px, white 10px, white 20px);">
+                        <div class="bg-white border border-gray-200 rounded-xl p-2 overflow-hidden">
+                            <img loading="lazy" width="324" height="324" src="/img/features/build.gif?v=2" alt="" class="w-full h-auto rounded-lg">
+                        </div>
+                    </div>
+                </div>
+                <div class="text-center space-y-2 text-balance">
+                    <h3 class="text-2xl font-bold text-sky-900">Build Your Wishlist in a Flurry</h3>
+                    <p class="text-gray-600 text-lg text-pretty">Easily build a gift wishlist with all the items you'd love to receive.</p>
+                </div>
+            </div>
+            <div class="space-y-4 max-w-xs mx-auto">
+                <div class="border border-sky-900/10 shadow-sm rounded-2xl overflow-hidden">
+                    <div class="p-2" style="background: repeating-linear-gradient(45deg, var(--color-red-200), var(--color-red-200) 10px, white 10px, white 20px);">
+                        <div class="bg-white border border-gray-200 rounded-xl p-2 overflow-hidden">
+                            <img loading="lazy" width="324" height="324" src="/img/features/share.jpg" alt="" class="w-full h-auto rounded-lg">
+                        </div>
+                    </div>
+                </div>
+                <div class="text-center space-y-2 text-balance">
+                    <h3 class="text-2xl font-bold text-sky-900">Share with Your Sleigh-Team</h3>
+                    <p class="text-gray-600 text-lg text-pretty">Easily share your wishlist with a group using only a single, magic link.</p>
+                </div>
+            </div>
+            <div class="space-y-4 max-w-xs mx-auto">
+                <div class="border border-sky-900/10 shadow-sm rounded-2xl overflow-hidden">
+                    <div class="p-2" style="background: repeating-linear-gradient(45deg, var(--color-red-200), var(--color-red-200) 10px, white 10px, white 20px);">
+                        <div class="bg-white border border-gray-200 rounded-xl p-2 overflow-hidden">
+                            <img loading="lazy" width="324" height="324" src="/img/features/wishlists.jpg" alt="" class="w-full h-auto rounded-lg">
+                        </div>
+                    </div>
+                </div>
+                <div class="text-center space-y-2 text-balance">
+                    <h3 class="text-2xl font-bold text-sky-900">See Everyone's List, Yule Love It</h3>
+                    <p class="text-gray-600 text-lg text-pretty">Automatically see the wishlists of everyone in your group. No more duplicates!</p>
+                </div>
+            </div>
+            <div class="space-y-4 max-w-xs mx-auto">
+                <div class="border border-sky-900/10 shadow-sm rounded-2xl overflow-hidden">
+                    <div class="p-2" style="background: repeating-linear-gradient(45deg, var(--color-red-200), var(--color-red-200) 10px, white 10px, white 20px);">
+                        <div class="bg-white border border-gray-200 rounded-xl p-2 overflow-hidden">
+                            <img loading="lazy" width="324" height="324" src="/img/features/comment.jpg" alt="" class="w-full h-auto rounded-lg">
+                        </div>
+                    </div>
+                </div>
+                <div class="text-center space-y-2 text-balance">
+                    <h3 class="text-2xl font-bold text-sky-900">Keep Things Under Wraps</h3>
+                    <p class="text-gray-600 text-lg text-pretty">Leave anonymous comments to clarify gift details and keep everyone on the same page.</p>
                 </div>
             </div>
         </div>
-        <div class="text-center space-y-2 text-balance">
-            <h3 class="text-2xl font-bold text-sky-900">Build Your Wishlist in a Flurry</h3>
-            <p class="text-gray-600 text-lg text-pretty">Easily build a gift wishlist with all the items you'd love to receive.</p>
-        </div>
-        </div>
-        <div class="space-y-6">
-        <div class="border border-sky-900/10 shadow-sm rounded-2xl overflow-hidden">
-            <div class="p-2" style="background: repeating-linear-gradient(45deg, var(--color-red-200), var(--color-red-200) 10px, white 10px, white 20px);">
-                <div class="bg-white border border-gray-200 rounded-xl p-2 overflow-hidden">
-                    <img loading="lazy" src="/img/features/share.jpg" alt="Share with Your Sleigh-Team" class="w-full h-auto rounded-lg">
-                </div>
-            </div>
-        </div>
-        <div class="text-center space-y-2 text-balance">
-            <h3 class="text-2xl font-bold text-sky-900">Share with Your Sleigh-Team</h3>
-            <p class="text-gray-600 text-lg text-pretty">Easily share your wishlist with a group using only a single, magic link.</p>
-        </div>
-        </div>
-        <div class="space-y-6">
-        <div class="border border-sky-900/10 shadow-sm rounded-2xl overflow-hidden">
-            <div class="p-2" style="background: repeating-linear-gradient(45deg, var(--color-red-200), var(--color-red-200) 10px, white 10px, white 20px);">
-                <div class="bg-white border border-gray-200 rounded-xl p-2 overflow-hidden">
-                    <img loading="lazy" src="/img/features/wishlists.jpg" alt="See Everyone's List, Yule Love It" class="w-full h-auto rounded-lg">
-                </div>
-            </div>
-        </div>
-        <div class="text-center space-y-2 text-balance">
-            <h3 class="text-2xl font-bold text-sky-900">See Everyone's List, Yule Love It</h3>
-            <p class="text-gray-600 text-lg text-pretty">Automatically see the wishlists of everyone in your group. No more duplicates!</p>
-        </div>
-        </div>
-        <div class="space-y-6">
-        <div class="border border-sky-900/10 shadow-sm rounded-2xl overflow-hidden">
-            <div class="p-2" style="background: repeating-linear-gradient(45deg, var(--color-red-200), var(--color-red-200) 10px, white 10px, white 20px);">
-                <div class="bg-white border border-gray-200 rounded-xl p-2 overflow-hidden">
-                    <img loading="lazy" src="/img/features/comment.jpg" alt="" class="w-full h-auto rounded-lg">
-                </div>
-            </div>
-        </div>
-        <div class="text-center space-y-2 text-balance">
-            <h3 class="text-2xl font-bold text-sky-900">Keep Things Under Wraps</h3>
-            <p class="text-gray-600 text-lg text-pretty">Leave anonymous comments to clarify gift details and keep everyone on the same page.</p>
-        </div>
-        </div>
-    </div>
     </div>
 </section>
 

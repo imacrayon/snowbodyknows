@@ -1,10 +1,10 @@
-<nav class="flex divide-x">
+<nav class="flex divide-x divide-gray-200">
     <div class="py-1.5 p-2">
         <div class="relative w-16 h-full">
             <img src="/img/snowman.svg" width="64" height="auto" class="absolute left-0 bottom-0" alt="SnowbodyKnows">
         </div>
     </div>
-    <ul class="flex divide-x">
+    <ul class="flex divide-x divide-gray-200">
         <li>
             <x-nav-link :href="route('wishlists.index')" :active="request()->routeIs('wishlists.index')">
                 {{ __('Wishlists') }}
