@@ -184,7 +184,9 @@
         <div class="space-y-6">
         <div class="border border-sky-900/10 shadow-sm rounded-2xl overflow-hidden">
             <div class="p-2" style="background: repeating-linear-gradient(45deg, var(--color-red-200), var(--color-red-200) 10px, white 10px, white 20px);">
-                <div class="bg-white border border-gray-200 rounded-xl p-2 overflow-hidden"><img src="/img/features/build.gif" alt="Build Your Wishlist in a Flurry" class="w-full h-auto rounded-lg"></div>
+                <div class="bg-white border border-gray-200 rounded-xl p-2 overflow-hidden">
+                    <img loading="lazy" src="/img/features/build.gif?v=2" alt="Build Your Wishlist in a Flurry" class="w-full h-auto rounded-lg">
+                </div>
             </div>
         </div>
         <div class="text-center space-y-2 text-balance">
@@ -195,7 +197,9 @@
         <div class="space-y-6">
         <div class="border border-sky-900/10 shadow-sm rounded-2xl overflow-hidden">
             <div class="p-2" style="background: repeating-linear-gradient(45deg, var(--color-red-200), var(--color-red-200) 10px, white 10px, white 20px);">
-                <div class="bg-white border border-gray-200 rounded-xl p-2 overflow-hidden"><img src="/img/features/share.jpg" alt="Share with Your Sleigh-Team" class="w-full h-auto rounded-lg"></div>
+                <div class="bg-white border border-gray-200 rounded-xl p-2 overflow-hidden">
+                    <img loading="lazy" src="/img/features/share.jpg" alt="Share with Your Sleigh-Team" class="w-full h-auto rounded-lg">
+                </div>
             </div>
         </div>
         <div class="text-center space-y-2 text-balance">
@@ -206,7 +210,9 @@
         <div class="space-y-6">
         <div class="border border-sky-900/10 shadow-sm rounded-2xl overflow-hidden">
             <div class="p-2" style="background: repeating-linear-gradient(45deg, var(--color-red-200), var(--color-red-200) 10px, white 10px, white 20px);">
-                <div class="bg-white border border-gray-200 rounded-xl p-2 overflow-hidden"><img src="/img/features/wishlists.jpg" alt="See Everyone's List, Yule Love It" class="w-full h-auto rounded-lg"></div>
+                <div class="bg-white border border-gray-200 rounded-xl p-2 overflow-hidden">
+                    <img loading="lazy" src="/img/features/wishlists.jpg" alt="See Everyone's List, Yule Love It" class="w-full h-auto rounded-lg">
+                </div>
             </div>
         </div>
         <div class="text-center space-y-2 text-balance">
@@ -217,7 +223,9 @@
         <div class="space-y-6">
         <div class="border border-sky-900/10 shadow-sm rounded-2xl overflow-hidden">
             <div class="p-2" style="background: repeating-linear-gradient(45deg, var(--color-red-200), var(--color-red-200) 10px, white 10px, white 20px);">
-                <div class="bg-white border border-gray-200 rounded-xl p-2 overflow-hidden"><img src="/img/features/comment.jpg" alt="" class="w-full h-auto rounded-lg"></div>
+                <div class="bg-white border border-gray-200 rounded-xl p-2 overflow-hidden">
+                    <img loading="lazy" src="/img/features/comment.jpg" alt="" class="w-full h-auto rounded-lg">
+                </div>
             </div>
         </div>
         <div class="text-center space-y-2 text-balance">
