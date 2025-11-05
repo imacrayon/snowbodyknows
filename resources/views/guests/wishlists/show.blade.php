@@ -6,7 +6,7 @@
         </h1>
     </x-slot>
     <div class="max-w-5xl mx-auto px-4 space-y-6 sm:px-6 lg:px-8">
-        <div class="bg-white divide-y shadow overflow-hidden rounded-lg">
+        <div class="bg-white divide-y shadow-sm overflow-hidden rounded-lg">
             @if($wishes->isNotEmpty())
                 <div>
                     <div id="announcer" aria-live="assertive" class="sr-only"></div>
@@ -56,7 +56,7 @@
                                                 {{ __('Edit') }}
                                             </x-dropdown-link>
                                             <x-form method="delete" action="{{ route('guests.wishes.destroy', [$wish->id]) }}" class="text-gray-600 text-sm" onsubmit="return confirm('This wish will be removed from your wishlist.')">
-                                                <button class="block w-full px-4 py-2 text-left text-sm leading-5 text-gray-700 hover:bg-sky-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out" aria-describedby="wish_{{ $wish->id }}_name">Delete</button>
+                                                <button class="block w-full px-4 py-2 text-left text-sm leading-5 text-gray-700 hover:bg-sky-100 focus:outline-hidden focus:bg-gray-100 transition duration-150 ease-in-out" aria-describedby="wish_{{ $wish->id }}_name">Delete</button>
                                             </x-form>
                                         </x-slot>
                                     </x-dropdown>

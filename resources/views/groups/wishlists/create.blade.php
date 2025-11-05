@@ -6,7 +6,7 @@
             <div class="px-2">
                 <h2 class="font-medium text-gray-900 truncate">{{ __(':group Members', ['group' => $group->name]) }}
             </div>
-            <ul class="bg-white ring-gray-200/50 rounded-md shadow">
+            <ul class="bg-white ring-gray-200/50 rounded-md shadow-sm">
                 @foreach($users as $user)
                     <li class="flex items-center px-2 py-2 text-sm font-medium">
                         <img src="{{ $user->avatar_url }}" width="20" height="20" class="mr-2 rounded-full">
@@ -22,11 +22,11 @@
                     <x-error for="wishlists" />
                     <div class="mt-2 -space-y-px rounded-md bg-white">
                         @foreach($yourWishlists as $wishlist)
-                            <label class="group relative flex cursor-pointer border border-gray-200 px-4 py-3 first:rounded-t-md last:rounded-b-md focus:outline-none has-[:checked]:z-10 has-[:checked]:border-sky-200 has-[:checked]:bg-sky-50">
+                            <label class="group relative flex cursor-pointer border border-gray-200 px-4 py-3 first:rounded-t-md last:rounded-b-md focus:outline-hidden has-checked:z-10 has-checked:border-sky-200 has-checked:bg-sky-50">
                                 <x-checkbox name="wishlists[]" value="{{ $wishlist->id }}" />
                                 <span class="ml-3 flex flex-col">
-                                    <span class="block text-sm font-medium text-gray-900 group-has-[:checked]:text-sky-900">{{ $wishlist->name }}</span>
-                                    <span class="block text-sm text-gray-500 group-has-[:checked]:text-sky-700">
+                                    <span class="block text-sm font-medium text-gray-900 group-has-checked:text-sky-900">{{ $wishlist->name }}</span>
+                                    <span class="block text-sm text-gray-500 group-has-checked:text-sky-700">
                                         {{ $wishlist->wishes_count }} {{ trans_choice('wish|wishes', $wishlist->wishes_count) }}
                                         &middot;
                                         {{ $wishlist->groups_count }} {{ trans_choice('group|groups', $wishlist->groups_count) }}
@@ -34,11 +34,11 @@
                                 </span>
                             </label>
                         @endforeach
-                        <label class="group relative flex cursor-pointer border px-4 py-3 first:rounded-t-md last:rounded-b-md focus:outline-none has-[:checked]:z-10 has-[:checked]:border-sky-200 has-[:checked]:bg-sky-50 ">
+                        <label class="group relative flex cursor-pointer border px-4 py-3 first:rounded-t-md last:rounded-b-md focus:outline-hidden has-checked:z-10 has-checked:border-sky-200 has-checked:bg-sky-50 ">
                             <x-checkbox name="wishlists[]" :value="App\Http\Controllers\GroupWishlistController::NEW_WISHLIST" />
                             <span class="ml-3 flex flex-col">
-                                <span class="block text-sm font-medium text-gray-900 group-has-[:checked]:text-sky-900">{{ __('A new wishlist') }}</span>
-                                <span class="block text-sm text-gray-500 group-has-[:checked]:text-sky-700">
+                                <span class="block text-sm font-medium text-gray-900 group-has-checked:text-sky-900">{{ __('A new wishlist') }}</span>
+                                <span class="block text-sm text-gray-500 group-has-checked:text-sky-700">
                                     {{ __('Share a blank wishlist with this group.') }}
                                 </span>
                             </span>

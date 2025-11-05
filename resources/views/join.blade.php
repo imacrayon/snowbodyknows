@@ -7,7 +7,7 @@
             <div class="px-2">
                 <h2 class="font-medium text-gray-900 truncate">{{ __(':group Members', ['group' => $group->name]) }}
             </div>
-            <ul class="bg-white ring-gray-200/50 rounded-md shadow">
+            <ul class="bg-white ring-gray-200/50 rounded-md shadow-sm">
                 @foreach($users as $user)
                     <li class="flex items-center px-2 py-2 text-sm font-medium">
                         <img src="{{ $user->avatar_url }}" width="20" height="20" class="mr-2 rounded-full">

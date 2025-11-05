@@ -1,4 +1,4 @@
-<div class="relative overflow-hidden w-full pt-[20vh] bg-gradient-to-b from-sky-300 to-sky-100">
+<div class="relative overflow-hidden w-full pt-[20vh] bg-linear-to-b from-sky-300 to-sky-100">
     <img src="/img/snowman.svg" width="224" height="auto" class="relative block mx-auto w-56" alt="SnowbodyKnows">
     <div class="pile"></div>
     <canvas id="snow" class="absolute inset-0"></canvas>

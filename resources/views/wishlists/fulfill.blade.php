@@ -6,7 +6,7 @@
         </h1>
     </x-slot>
     <div class="max-w-5xl mx-auto px-4 space-y-6 sm:px-6 lg:px-8">
-        <div class="bg-white divide-y shadow overflow-hidden rounded-lg">
+        <div class="bg-white divide-y shadow-sm overflow-hidden rounded-lg">
             @if($wishes->isNotEmpty())
                 <ul role="list" x-init id="wishlist_{{ $wishlist->id }}" x-merge="morph" class="bg-white">
                     @foreach($wishes as $wish)
@@ -15,14 +15,14 @@
                                 @if($wish->granted())
                                     @can('ungrant', $wish)
                                         <x-form class="h-6 flex items-center" x-target="wishlist_{{ $wishlist->id }}" method="delete" action="{{ route('wishes.grants.destroy', $wish) }}">
-                                            <button class="w-5 h-5 flex items-center justify-center text-sky-900 bg-sky-200 rounded" aria-pressed="true" aria-describedby="wish_{{ $wish->id }}_name">
+                                            <button class="w-5 h-5 flex items-center justify-center text-sky-900 bg-sky-200 rounded-sm" aria-pressed="true" aria-describedby="wish_{{ $wish->id }}_name">
                                                 <x-phosphor-check-bold aria-hidden="true" width="16" height="16" />
                                                 <span class="sr-only">Un-grant</span>
                                             </button>
                                         </x-form>
                                     @else
                                         <div class="h-6 flex items-center">
-                                            <button class="w-5 h-5 flex items-center justify-center text-sky-900 bg-sky-200 rounded" aria-disabled="true" aria-pressed="true"  aria-describedby="wish_{{ $wish->id }}_name">
+                                            <button class="w-5 h-5 flex items-center justify-center text-sky-900 bg-sky-200 rounded-sm" aria-disabled="true" aria-pressed="true"  aria-describedby="wish_{{ $wish->id }}_name">
                                                 <x-phosphor-check-bold aria-hidden="true" width="16" height="16" />
                                                 <span class="sr-only">Un-grant</span>
                                             </button>
@@ -31,13 +31,13 @@
                                 @else
                                     @can('grant', $wish->setRelation('wishlist', $wishlist))
                                         <x-form class="h-6 flex items-center" x-target="wishlist_{{ $wishlist->id }}" method="post" action="{{ route('wishes.grants.store', $wish) }}">
-                                            <button class="w-5 h-5 bg-gray-200 rounded" aria-pressed="false" aria-describedby="wish_{{ $wish->id }}_name">
+                                            <button class="w-5 h-5 bg-gray-200 rounded-sm" aria-pressed="false" aria-describedby="wish_{{ $wish->id }}_name">
                                                 <span class="sr-only">Grant</span>
                                             </button>
                                         </x-form>
                                     @else
                                         <div class="h-6 flex items-center">
-                                            <button class="w-5 h-5 bg-gray-200 rounded" aria-disabled="true" aria-pressed="false" aria-describedby="wish_{{ $wish->id }}_name">
+                                            <button class="w-5 h-5 bg-gray-200 rounded-sm" aria-disabled="true" aria-pressed="false" aria-describedby="wish_{{ $wish->id }}_name">
                                                 <span class="sr-only">Grant</span>
                                             </button>
                                         </div>

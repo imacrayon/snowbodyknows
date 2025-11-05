@@ -6,7 +6,7 @@
         </h1>
     </x-slot>
     <div class="max-w-5xl mx-auto px-4 space-y-6 sm:px-6 lg:px-8">
-        <div class="p-4 sm:p-8 bg-white shadow rounded-lg">
+        <div class="p-4 sm:p-8 bg-white shadow-sm rounded-lg">
             <div class="max-w-xl">
                 <x-form method="patch" action="{{ route('wishlists.update', $wishlist) }}">
                     @include('wishlists._fields')
@@ -19,7 +19,7 @@
         </div>
     </div>
     <div class="max-w-5xl mx-auto px-4 space-y-6 mt-6 sm:px-6 lg:px-8">
-        <div class="p-4 sm:p-8 bg-white shadow rounded-lg">
+        <div class="p-4 sm:p-8 bg-white shadow-sm rounded-lg">
             <div class="max-w-xl">
                 @include('wishlists.partials.delete-wishlist-form')
             </div>

@@ -1,1 +1,1 @@
-<input type="checkbox" {{ $formControlAttributes() }}  value="{{ $value }}" {{ $checked ? 'checked' : '' }} {{ $attributes->merge(['class' => 'h-6 w-6 rounded border-gray-300 text-sky-700 focus:ring-blue-500']) }}>
+<input type="checkbox" {{ $formControlAttributes() }}  value="{{ $value }}" {{ $checked ? 'checked' : '' }} {{ $attributes->merge(['class' => 'h-6 w-6 rounded-sm border-gray-300 text-sky-700 focus:ring-blue-500']) }}>
