@@ -10,7 +10,7 @@
         </h1>
     </x-slot>
     <div class="max-w-5xl mx-auto px-4 space-y-6 sm:px-6 lg:px-8">
-        <div class="bg-white divide-y shadow-sm overflow-hidden rounded-lg">
+        <div class="bg-white divide-y divide-gray-200 shadow-sm overflow-hidden rounded-lg">
             @if($wishes->isNotEmpty())
                 <div>
                     <div id="announcer" aria-live="assertive" class="sr-only"></div>
@@ -30,7 +30,7 @@
                                         <span class="sr-only">Re-order</span>
                                     </button>
                                 </div>
-                                <div class="flex-1 flex border-t group-first:border-t-0">
+                                <div class="flex-1 flex border-t border-gray-200 group-first:border-t-0">
                                     <div class="flex-1 py-3 sm:py-4">
                                         <div>
                                             @if($wish->url)
@@ -85,7 +85,7 @@
                 {{ __('These are the groups of people that can view your wishlist.') }}
             </x-slot:description>
             @if ($groups->isNotEmpty())
-                <ul id="groups" x-init class="divide-y">
+                <ul id="groups" x-init class="divide-y divide-gray-200">
                     @foreach($groups as $group)
                         <li class="relative flex items-center justify-between text-sm gap-6 px-4 py-3">
                             <div>

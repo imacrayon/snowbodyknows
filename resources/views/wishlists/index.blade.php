@@ -19,7 +19,7 @@
             <x-slot:description>
                 {{ __('Wishlists that you own. You can add wishes and invite people to view these lists.') }}
             </x-slot:description>
-            <ul class="divide-y">
+            <ul class="divide-y divide-gray-200">
                 @foreach($wishlists as $wishlist)
                     <li class="relative flex items-center justify-between gap-6 px-4 py-3 sm:py-4">
                         <div>
@@ -50,7 +50,7 @@
                 <x-slot:description class="mt-2 text-xs text-gray-600">
                     {{ __('A group of shared wishlists. Everyone in a group can see each other’s wishlist.') }}
                 </x-slot:description>
-                <ul class="divide-y">
+                <ul class="divide-y divide-gray-200">
                     @foreach($groups as $group)
                         <li class="relative flex items-center justify-between gap-6 px-4 py-3 sm:py-4">
                             <div>

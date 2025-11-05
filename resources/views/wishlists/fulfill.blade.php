@@ -6,7 +6,7 @@
         </h1>
     </x-slot>
     <div class="max-w-5xl mx-auto px-4 space-y-6 sm:px-6 lg:px-8">
-        <div class="bg-white divide-y shadow-sm overflow-hidden rounded-lg">
+        <div class="bg-white divide-y divide-gray-200 shadow-sm overflow-hidden rounded-lg">
             @if($wishes->isNotEmpty())
                 <ul role="list" x-init id="wishlist_{{ $wishlist->id }}" x-merge="morph" class="bg-white">
                     @foreach($wishes as $wish)
@@ -44,7 +44,7 @@
                                     @endcan
                                 @endif
                             </div>
-                            <div class="flex-1 pr-4 py-3 sm:pr-8 sm:py-4 border-t group-first:border-t-0">
+                            <div class="flex-1 pr-4 py-3 sm:pr-8 sm:py-4 border-t border-gray-200 group-first:border-t-0">
                                 <div class="flex items-center justify-between gap-x-4">
                                     <span class="{{ $wish->granted() ? 'text-gray-600 line-through' : '' }}">
                                         @if($wish->url)

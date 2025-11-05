@@ -33,7 +33,7 @@
             </a>
             </x-slot:actions>
             <div>
-                <ul class="divide-y">
+                <ul class="divide-y divide-gray-200">
                     @foreach($yourWishlists as $wishlist)
                         <li class="relative flex items-center justify-between gap-6 px-4 py-3 sm:py-4">
                             <div>
@@ -61,7 +61,7 @@
                     {{ __('Everyone in this group can view these wishlists.') }}
                 </x-slot:description>
                 <div>
-                    <ul id="other_wishlists" class="divide-y">
+                    <ul id="other_wishlists" class="divide-y divide-gray-200">
                         @foreach($otherWishlists as $wishlist)
                             <li class="relative flex items-center justify-between gap-6 px-4 py-3 sm:py-4">
                                 <div>

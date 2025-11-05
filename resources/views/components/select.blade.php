@@ -12,7 +12,7 @@
     @endif
   </select>
 @else
-  <div id="{{ $id }}" {{ $formControlAttributes() }} {{ $attributes->merge(['class' => 'relative bg-gray-50 rounded-md border border-gray-300 overflow-x-hidden divide-y overflow-y-scroll h-36 focus:outline-hidden focus:border-blue-500 focus:ring-2 focus:ring-blue-500']) }}>
+  <div id="{{ $id }}" {{ $formControlAttributes() }} {{ $attributes->merge(['class' => 'relative bg-gray-50 rounded-md border border-gray-300 overflow-x-hidden divide-y divide-gray-200 overflow-y-scroll h-36 focus:outline-hidden focus:border-blue-500 focus:ring-2 focus:ring-blue-500']) }}>
     @if(! empty($options))
       @foreach($options as $v => $l)
         <x-label for="{{ $name }}_{{ $loop->iteration }}" class="flex items-center space-x-2 w-full py-2 px-3 bg-white font-normal hover:bg-gray-50">

@@ -2,7 +2,7 @@
 <x-slot name="title">{{ $title ?? '' }}</x-slot>
 <x-slot:header>
     <header class="fixed bottom-8 w-full flex justify-center">
-        <div class="bg-white shadow-xl rounded-3xl ring-1 ring-black ring-opacity-5 mx-auto">
+        <div class="bg-white shadow-xl rounded-3xl border-gray-900/5 mx-auto">
             @include('layouts.navigation')
         </div>
     </header>

@@ -34,7 +34,7 @@
                                 </span>
                             </label>
                         @endforeach
-                        <label class="group relative flex cursor-pointer border px-4 py-3 first:rounded-t-md last:rounded-b-md focus:outline-hidden has-checked:z-10 has-checked:border-sky-200 has-checked:bg-sky-50 ">
+                        <label class="group relative flex cursor-pointer border border-gray-200 px-4 py-3 first:rounded-t-md last:rounded-b-md focus:outline-hidden has-checked:z-10 has-checked:border-sky-200 has-checked:bg-sky-50 ">
                             <x-checkbox name="wishlists[]" :value="App\Http\Controllers\GroupWishlistController::NEW_WISHLIST" />
                             <span class="ml-3 flex flex-col">
                                 <span class="block text-sm font-medium text-gray-900 group-has-checked:text-sky-900">{{ __('A new wishlist') }}</span>

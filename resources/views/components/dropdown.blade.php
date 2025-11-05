@@ -36,7 +36,7 @@ switch ($width) {
             x-transition:leave-end="opacity-0 scale-95"
             class="absolute z-50  {{ $width }} rounded-md shadow-lg {{ $alignmentClasses }}"
             @click="open = false">
-        <div class="rounded-md ring-1 ring-black ring-opacity-5 {{ $contentClasses }}">
+        <div class="rounded-md ring-1 ring-gray-900/5 {{ $contentClasses }}">
             {{ $content }}
         </div>
     </div>
