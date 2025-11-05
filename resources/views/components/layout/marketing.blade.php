@@ -1,13 +1,13 @@
 <x-layout.base :title="$title ?? null">
-    <nav class="bg-sky-300 p-4">
-        <div class="max-w-6xl mx-auto flex items-center justify-between">
+    <nav class="bg-sky-200 p-4">
+        <div class="max-w-6xl mx-auto sm:flex items-center justify-between">
             <a href="/" class="flex items-center gap-3">
                 <img src="/img/snowman.svg" alt="Friendly snowman mascot" width="36" height="36">
                 <span class="font-semibold text-sky-700">Snowbody Knows</span>
             </a>
-            <div class="flex items-center gap-3">
-                <x-button-secondary href="{{ route('login') }}">Login</x-button-primary>
-                <x-button-danger href="{{ route('guests.wishlists.show') }}">Start Your Wishlist</x-button-danger>
+            <div class="mt-4 flex items-center gap-3 sm:mt-0">
+                <x-button-secondary href="{{ route('login') }}" class="shrink-0 grow">Login</x-button-primary>
+                <x-button-danger href="{{ route('guests.wishlists.show') }}" class="shrink-0 grow">Start Your Wishlist</x-button-danger>
             </div>
         </div>
     </nav>

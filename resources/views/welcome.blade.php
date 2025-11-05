@@ -1,12 +1,12 @@
 <x-layout.marketing>
 {{-- Start snow --}}
-<section class="px-4 relative overflow-hidden bg-linear-to-b from-sky-300 to-sky-100">
+<section class="px-4 relative overflow-hidden bg-linear-to-b from-sky-200 to-sky-100">
     <canvas id="snow" class="absolute inset-0"></canvas>
     <div class="pile"></div>
     <div class="relative container mx-auto max-w-6xl">
     <div class="grid lg:grid-cols-2 gap-12 items-center">
         <div class="text-center text-sky-900 lg:text-left space-y-6 pt-12 lg:pb-24">
-        <h1 class="text-5xl md:text-6xl lg:text-7xl font-bold leading-tight">Stop <span class="text-sky-700">guessing</span>,<br>start <span class="text-red-600">gifting</span></h1>
+        <h1 class="text-5xl md:text-6xl lg:text-7xl font-bold leading-tight">Stop <span class="text-sky-600">guessing</span>,<br>start <span class="text-red-600">gifting</span></h1>
         <p class="text-xl md:text-2xl text-sky-800 max-w-2xl mx-auto">The easiest way to create and share wishlists with your family and friends. No more stress, just perfect presents.</p>
         <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start pt-4">
             <x-button-danger href="{{ route('guests.wishlists.show') }}" class="py-3! px-4! text-base!">Start Your Wishlist</x-button-danger>
