@@ -102,7 +102,7 @@
                     @endforeach
                 </ul>
             @endif
-            <div class="bg-white px-4 py-5 sm:py-6">
+            <div class="bg-white border-t border-gray-200 px-4 py-5 sm:py-6">
                 <x-form method="post" action="{{ route('groups.store', $wishlist) }}">
                     <x-button-secondary class="w-full">{{ __('Share with a new group') }}</x-button-secondary>
                 </x-form>
