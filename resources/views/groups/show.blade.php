@@ -21,15 +21,15 @@
     <div class="max-w-5xl mx-auto px-4 space-y-6 sm:px-6 lg:px-8">
         <x-section>
             <x-slot:title>
-                {{ trans_choice('Your Wishlist|Your Wishlists', $yourWishlists->count()) }}
+                {{ __('Your Wishlists') }}
             </x-slot:title>
             <x-slot:description>
-                {{ __('The wishlist you are sharing with this group.') }}
+                {{ __('The wishlists you are sharing with this group.') }}
             </x-slot:description>
             <x-slot:actions>
             <a href="{{ route('groups.wishlists.edit', $group) }}" class="group inline-flex items-center text-sm text-gray-600 font-medium hover:text-sky-600">
                 <x-phosphor-swap aria-hidden="true" width="16" height="16" class="mr-1.5 text-gray-400 group-hover:text-sky-400" />
-                {{ __('Change list') }}
+                {{ __('Change lists') }}
             </a>
             </x-slot:actions>
             <div>
