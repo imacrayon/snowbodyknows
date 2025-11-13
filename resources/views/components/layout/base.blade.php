@@ -14,13 +14,13 @@
         <style>[x-cloak] { display: none; }</style>
         @vite(['resources/css/app.css', 'resources/js/app.js'])
 
-        <meta name="description" content="Stop guessing, start gifting! Create and share wishlists with family and friends. No account needed to get started." />
+        <meta name="description" content="Stop guessing, start gifting! Share wishlists with loved ones. No account needed to get started." />
         <meta name="author" content="Snowbody Knows" />
         <meta property="og:type" content="website">
         <meta property="og:site_name" content="Snowbody Knows">
         <meta property="og:title" content="{{ $title }}">
+        <meta property="og:description" content="Stop guessing, start gifting! Share wishlists with loved ones. No account needed to get started." />
         <meta property="og:url" content="{{ request()->url() }}" />
-        <meta property="og:locale" content="{{ $locale }}">
         <meta property="og:image" content="{{ url('/img/social.png') }}" />
         <meta name="twitter:card" content="summary_large_image">
     </head>
