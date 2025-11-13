@@ -23,6 +23,7 @@
                 </a>
                 <div class="flex gap-8 text-sm text-gray-600">
                     <a href="/privacy" class="underline text-sky-800 hover:text-sky-500">Privacy Policy</a>
+                    <a href="https://github.com/imacrayon/snowbodyknows" class="underline text-sky-800 hover:text-sky-500">Open Source</a>
                 </div>
                 <p class="text-sm text-gray-600">© 2025 Snowbody Knows. All rights reserved.</p>
             </div>
