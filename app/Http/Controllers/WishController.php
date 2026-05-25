@@ -5,12 +5,14 @@ namespace App\Http\Controllers;
 use App\Models\Wish;
 use App\Models\Wishlist;
 use App\Notifications\WishCreatedNotification;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Notification;
+use Illuminate\View\View;
 
 class WishController extends Controller
 {
-    public function create(Wishlist $wishlist)
+    public function create(Wishlist $wishlist): View
     {
         return view('wishes.create', [
             'wishlist' => $wishlist,
@@ -18,7 +20,7 @@ class WishController extends Controller
         ]);
     }
 
-    public function store(Request $request, Wishlist $wishlist)
+    public function store(Request $request, Wishlist $wishlist): RedirectResponse
     {
         $wish = $wishlist->wishes()->create($request->validate([
             'name' => ['required', 'string', 'max:255'],
@@ -33,16 +35,15 @@ class WishController extends Controller
         return to_route('wishlists.show', $wishlist);
     }
 
-    public function edit(Wishlist $wishlist, Wish $wish)
+    public function edit(Wishlist $wishlist, Wish $wish): View
     {
         return view('wishes.edit', [
             'wishlist' => $wishlist,
             'wish' => $wish,
         ]);
-
     }
 
-    public function update(Request $request, Wishlist $wishlist, Wish $wish)
+    public function update(Request $request, Wishlist $wishlist, Wish $wish): RedirectResponse
     {
         $wish->update($request->validate([
             'name' => ['required', 'string', 'max:255'],
@@ -53,7 +54,7 @@ class WishController extends Controller
         return to_route('wishlists.show', $wishlist);
     }
 
-    public function destroy(Wishlist $wishlist, Wish $wish)
+    public function destroy(Wishlist $wishlist, Wish $wish): RedirectResponse
     {
         $wish->delete();
 

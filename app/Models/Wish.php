@@ -2,44 +2,47 @@
 
 namespace App\Models;
 
+use Database\Factories\WishFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Wish extends Model
 {
+    /** @use HasFactory<WishFactory> */
     use HasFactory, SoftDeletes;
 
-    protected static $unguarded = true;
-
-    public function wishlist()
+    public function wishlist(): BelongsTo
     {
         return $this->belongsTo(Wishlist::class);
     }
 
-    public function granter()
+    public function granter(): BelongsTo
     {
         return $this->belongsTo(User::class, 'granter_id')->withDefault();
     }
 
-    public function granted()
+    public function granted(): bool
     {
         return ! is_null($this->granter_id);
     }
 
-    public function grant($user)
+    public function grant(User $user): static
     {
         $this->granter()->associate($user);
 
         return $this;
     }
 
-    public function ungrant()
+    public function ungrant(): static
     {
-        return $this->granter()->dissociate();
+        $this->granter()->dissociate();
+
+        return $this;
     }
 
-    public function urlDomain()
+    public function urlDomain(): string
     {
         $parts = explode('.', parse_url($this->url, PHP_URL_HOST) ?? '');
 

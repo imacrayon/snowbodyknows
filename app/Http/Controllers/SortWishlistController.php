@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 
 class SortWishlistController extends Controller
 {
-    public function __invoke(Request $request, Wishlist $wishlist)
+    public function __invoke(Request $request, Wishlist $wishlist): void
     {
         $request->validate(['sort' => ['required', 'array']]);
 

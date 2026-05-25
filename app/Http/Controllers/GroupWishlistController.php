@@ -3,15 +3,17 @@
 namespace App\Http\Controllers;
 
 use App\Models\Group;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
+use Illuminate\View\View;
 
 class GroupWishlistController extends Controller
 {
     const NEW_WISHLIST = 'NEW_WISHLIST';
 
-    public function create(Request $request, Group $group)
+    public function create(Request $request, Group $group): View
     {
         return view('groups.wishlists.create', [
             'group' => $group,
@@ -20,7 +22,7 @@ class GroupWishlistController extends Controller
         ]);
     }
 
-    public function store(Request $request, Group $group)
+    public function store(Request $request, Group $group): RedirectResponse
     {
         $request->validate([
             'wishlists' => ['nullable', 'array'],
@@ -47,7 +49,7 @@ class GroupWishlistController extends Controller
         return to_route('groups.show', $group);
     }
 
-    public function edit(Request $request, Group $group)
+    public function edit(Request $request, Group $group): View
     {
         return view('groups.wishlists.edit', [
             'group' => $group,
@@ -56,7 +58,7 @@ class GroupWishlistController extends Controller
         ]);
     }
 
-    public function update(Request $request, Group $group)
+    public function update(Request $request, Group $group): RedirectResponse
     {
         $request->validate([
             'wishlists' => ['nullable', 'array'],

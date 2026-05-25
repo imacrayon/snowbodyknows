@@ -4,11 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Models\Group;
 use App\Models\User;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\DB;
 
 class GroupUserController extends Controller
 {
-    public function destroy(Group $group, User $user)
+    public function destroy(Group $group, User $user): RedirectResponse
     {
         DB::transaction(function () use ($group, $user) {
             $wishlists = $group->wishlists()->whereRelation(

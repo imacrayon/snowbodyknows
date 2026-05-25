@@ -4,12 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Models\Group;
 use App\Models\Wishlist;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\View\View;
 
 class GroupController extends Controller
 {
-    public function store(Request $request, Wishlist $wishlist)
+    public function store(Request $request, Wishlist $wishlist): RedirectResponse
     {
         $request->validate([
             'name' => ['nullable', 'string', 'max:255'],
@@ -29,7 +31,7 @@ class GroupController extends Controller
         return to_route('groups.show', $group);
     }
 
-    public function show(Request $request, Group $group)
+    public function show(Request $request, Group $group): View
     {
         [$yourWishlists, $otherWishlists] = $group->wishlists()->withCount('wishes', 'user')->with('user')->get()->partition(
             fn ($wishlist) => $wishlist->user->is($request->user())
@@ -43,15 +45,14 @@ class GroupController extends Controller
         ]);
     }
 
-    public function edit(Group $group)
+    public function edit(Group $group): View
     {
         return view('groups.edit', [
             'group' => $group,
         ]);
-
     }
 
-    public function update(Request $request, Group $group)
+    public function update(Request $request, Group $group): RedirectResponse
     {
         $group->update($request->validate([
             'name' => ['required', 'string', 'max:255'],

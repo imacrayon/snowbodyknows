@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\Group;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\View\View;
 
 class JoinController extends Controller
 {
-    public function __invoke(Request $request, Group $group)
+    public function __invoke(Request $request, Group $group): View|RedirectResponse
     {
         if ($request->user()) {
             return to_route('groups.wishlists.store', $group);

@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\Wishlist;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\View\View;
 
 class WishlistController extends Controller
 {
-    public function index(Request $request)
+    public function index(Request $request): View
     {
         return view('wishlists.index', [
             'wishlists' => $request->user()->wishlists()->withCount('wishes', 'groups')->get(),
@@ -15,14 +17,14 @@ class WishlistController extends Controller
         ]);
     }
 
-    public function create()
+    public function create(): View
     {
         return view('wishlists.create', [
             'wishlist' => new Wishlist,
         ]);
     }
 
-    public function store(Request $request)
+    public function store(Request $request): RedirectResponse
     {
         $wishlist = $request->user()->wishlists()->create($request->validate([
             'name' => ['required', 'string', 'max:255'],
@@ -31,7 +33,7 @@ class WishlistController extends Controller
         return to_route('wishlists.show', $wishlist);
     }
 
-    public function show(Request $request, Wishlist $wishlist)
+    public function show(Request $request, Wishlist $wishlist): View
     {
         if ($request->user()->can('fulfill', $wishlist)) {
             return view('wishlists.fulfill', [
@@ -49,15 +51,14 @@ class WishlistController extends Controller
         ]);
     }
 
-    public function edit(Wishlist $wishlist)
+    public function edit(Wishlist $wishlist): View
     {
         return view('wishlists.edit', [
             'wishlist' => $wishlist,
         ]);
-
     }
 
-    public function update(Request $request, Wishlist $wishlist)
+    public function update(Request $request, Wishlist $wishlist): RedirectResponse
     {
         $wishlist->update($request->validate([
             'name' => ['required', 'string', 'max:255'],
@@ -66,7 +67,7 @@ class WishlistController extends Controller
         return to_route('wishlists.show', $wishlist);
     }
 
-    public function destroy(Request $request, Wishlist $wishlist)
+    public function destroy(Request $request, Wishlist $wishlist): RedirectResponse
     {
         $request->validateWithBag('wishlistDeletion', [
             'wishlist_name' => ['required', 'string', 'max:255', 'same:original_name'],

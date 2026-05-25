@@ -5,14 +5,15 @@ namespace App\Http\Controllers\Guest;
 use App\Http\Controllers\Controller;
 use App\Models\Wish;
 use App\Models\Wishlist;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\View\View;
 
 class GuestWishController extends Controller
 {
-    public function create()
+    public function create(): View|RedirectResponse
     {
         if (session('wishlist') === null) {
-
             return to_route('guests.wishlists.show');
         }
 
@@ -22,7 +23,7 @@ class GuestWishController extends Controller
         ]);
     }
 
-    public function store(Request $request, Wishlist $wishlist)
+    public function store(Request $request, Wishlist $wishlist): RedirectResponse
     {
         $wishlist = session('wishlist');
 
@@ -37,16 +38,14 @@ class GuestWishController extends Controller
         return to_route('guests.wishlists.show');
     }
 
-    public function edit(int $wishId)
+    public function edit(int $wishId): View|RedirectResponse
     {
         if (session('wishlist') === null) {
-
             return to_route('guests.wishlists.show');
         }
 
         $foundWishKey = array_search($wishId, array_column(session('wishlist')['wishes'], 'id'));
         if ($foundWishKey === false) {
-
             return to_route('guests.wishlists.show');
         }
 
@@ -54,14 +53,12 @@ class GuestWishController extends Controller
             'wishlist' => new Wishlist(session()->get('wishlist')),
             'wish' => new Wish(session('wishlist')['wishes'][$foundWishKey]),
         ]);
-
     }
 
-    public function update(Request $request, int $wishId)
+    public function update(Request $request, int $wishId): RedirectResponse
     {
         $foundWishKey = array_search($wishId, array_column(session('wishlist')['wishes'], 'id'));
         if ($foundWishKey === false) {
-
             return to_route('guests.wishlists.show');
         }
         $wishlist = session('wishlist');
@@ -76,11 +73,10 @@ class GuestWishController extends Controller
         return to_route('guests.wishlists.show');
     }
 
-    public function destroy(int $wishId)
+    public function destroy(int $wishId): RedirectResponse
     {
         $foundWishKey = array_search($wishId, array_column(session('wishlist')['wishes'], 'id'));
         if ($foundWishKey === false) {
-
             return to_route('guests.wishlists.show');
         }
 

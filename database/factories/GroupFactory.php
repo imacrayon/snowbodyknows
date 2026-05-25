@@ -2,33 +2,33 @@
 
 namespace Database\Factories;
 
+use App\Models\Group;
+use App\Models\User;
 use App\Models\Wishlist;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Group>
+ * @extends Factory<Group>
  */
 class GroupFactory extends Factory
 {
     /**
-     * Define the model's default state.
-     *
      * @return array<string, mixed>
      */
     public function definition(): array
     {
         return [
-            'name' => $this->faker->name(),
+            'name' => fake()->name(),
         ];
     }
 
-    public function withWishlist($wishlist)
+    public function withWishlist(Wishlist $wishlist): static
     {
         return $this->hasAttached($wishlist)
             ->hasAttached($wishlist->user);
     }
 
-    public function withUser($user)
+    public function withUser(User $user): static
     {
         return $this->hasAttached(Wishlist::factory()->for($user)->create())
             ->hasAttached($user);

@@ -5,12 +5,13 @@ namespace App\Http\Controllers;
 use App\Models\Comment;
 use App\Models\Wishlist;
 use App\Notifications\WishlistCommentCreatedNotification;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Notification;
 
 class WishlistCommentController extends Controller
 {
-    public function store(Request $request, Wishlist $wishlist)
+    public function store(Request $request, Wishlist $wishlist): RedirectResponse
     {
         $request->validate(['comment' => ['required', 'string', 'max:5000']]);
 
@@ -23,7 +24,7 @@ class WishlistCommentController extends Controller
         return to_route('wishlists.show', $wishlist);
     }
 
-    public function update(Request $request, Wishlist $wishlist, Comment $comment)
+    public function update(Request $request, Wishlist $wishlist, Comment $comment): RedirectResponse
     {
         $request->validate(['content' => ['required', 'string', 'max:5000']]);
 
@@ -32,7 +33,7 @@ class WishlistCommentController extends Controller
         return to_route('wishlists.show', $wishlist);
     }
 
-    public function destroy(Wishlist $wishlist, Comment $comment)
+    public function destroy(Wishlist $wishlist, Comment $comment): RedirectResponse
     {
         $comment->delete();
 
