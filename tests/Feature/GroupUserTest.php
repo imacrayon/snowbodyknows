@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\GroupWishlistController;
 use App\Models\Group;
 use App\Models\User;
 use App\Models\Wishlist;
@@ -24,16 +25,17 @@ test('new user is added to group after registration', function () {
     $wishlist = Wishlist::factory()->create();
     $group = Group::factory()->withWishlist($wishlist)->create();
 
-    $response = $this->followingRedirects()->post(route('register', ['group' => (string) $group->invite_code]), [
+    $response = $this->post(route('register', ['group' => (string) $group->invite_code]), [
         'name' => 'Test User',
         'email' => 'test@example.com',
         'password' => 'password',
         'password_confirmation' => 'password',
     ]);
 
-    $response->assertOk();
-    $response->assertViewIs('groups.show');
-    $response->assertViewHas(['group' => $group]);
+    $response->assertRedirect(route('groups.show', $group));
+
+    $user = User::firstWhere('email', 'test@example.com');
+    expect($group->fresh()->users->contains($user))->toBeTrue();
 });
 
 test('existing user is prompted to share wishlist with group after login', function () {
@@ -70,7 +72,7 @@ test('existing user can share a new wishlist with a group', function () {
 
     $this->actingAs($wishlist->user);
     $response = $this->post(route('groups.wishlists.store', $group), [
-        'wishlists' => [App\Http\Controllers\GroupWishlistController::NEW_WISHLIST],
+        'wishlists' => [GroupWishlistController::NEW_WISHLIST],
     ]);
 
     $response->assertRedirect(route('groups.show', $group));
@@ -97,7 +99,7 @@ test('users can join wishlists', function () {
     $this->actingAs($user = User::factory()->create());
 
     $response = $this->post(route('groups.wishlists.store', $group), [
-        'wishlists' => [App\Http\Controllers\GroupWishlistController::NEW_WISHLIST],
+        'wishlists' => [GroupWishlistController::NEW_WISHLIST],
     ]);
 
     $response->assertRedirect(route('groups.show', $wishlist));
@@ -113,10 +115,10 @@ test('users can join multiple wishlists', function () {
     $this->actingAs($user = User::factory()->create());
 
     $this->post(route('groups.wishlists.store', $groupA), [
-        'wishlists' => [App\Http\Controllers\GroupWishlistController::NEW_WISHLIST],
+        'wishlists' => [GroupWishlistController::NEW_WISHLIST],
     ]);
     $this->post(route('groups.wishlists.store', $groupB), [
-        'wishlists' => [App\Http\Controllers\GroupWishlistController::NEW_WISHLIST],
+        'wishlists' => [GroupWishlistController::NEW_WISHLIST],
     ]);
 
     expect($wishlistA->viewers()->contains($user))->toBeTrue();
