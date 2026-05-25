@@ -14,8 +14,7 @@ class WishCreatedNotification extends Notification implements ShouldQueue
 
     public function __construct(
         public Wish $wish
-    ) {
-    }
+    ) {}
 
     public function via(object $notifiable): array
     {

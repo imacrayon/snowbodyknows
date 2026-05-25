@@ -14,8 +14,7 @@ class WishlistCommentCreatedNotification extends Notification implements ShouldQ
 
     public function __construct(
         public Comment $comment
-    ) {
-    }
+    ) {}
 
     public function via(object $notifiable): array
     {
