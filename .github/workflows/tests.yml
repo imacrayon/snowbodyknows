@@ -1,0 +1,59 @@
+name: tests
+
+on:
+  push:
+    branches:
+      - production
+      - staging
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    environment: Testing
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Cache dependencies
+        id: composer-cache
+        run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
+      - uses: actions/cache@v4
+        with:
+          path: ${{ steps.composer-cache.outputs.dir }}
+          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+          restore-keys: ${{ runner.os }}-composer-
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 8.5
+
+      - name: Install Dependencies
+        run: composer install --no-interaction --prefer-dist --optimize-autoloader
+
+      - name: Copy Environment File
+        run: cp .env.example .env
+
+      - name: Generate Application Key
+        run: php artisan key:generate
+
+      - name: Run Tests
+        run: php artisan test --parallel --verbose
+
+      - name: Set Deployment Key
+        run: |
+          branch="${{ github.ref_name }}"
+          echo "FORGE_KEY=FORGE_${branch^^}" >> $GITHUB_ENV
+
+      - name: Set Deployment URL
+        run: echo "DEPLOY_URL=${{ secrets[env.FORGE_KEY] }}" >> $GITHUB_ENV
+
+      - name: Deploy
+        if: env.DEPLOY_URL
+        run: |
+          curl -X POST "${{ env.DEPLOY_URL }}" \
+          --data-urlencode "forge_deploy_commit=${{ github.sha }}" \
+          --data-urlencode "forge_deploy_branch=${{ github.ref_name }}" \
+          --data-urlencode "forge_deploy_author=${{ github.event.head_commit.author.name }}" \
+          --data-urlencode "forge_deploy_message=${{ github.event.head_commit.message }}"
