@@ -15,7 +15,7 @@
         </x-button-primary>
     </x-form>
     <div class="mt-3 flex items-center justify-center gap-x-4 gap-y-3">
-        <a href="{{ route('profile.edit') }}" class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-hidden focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+        <a href="{{ route('profile.edit') }}#email" class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-hidden focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
             {{ __('Update Email') }}
         </a>
 
