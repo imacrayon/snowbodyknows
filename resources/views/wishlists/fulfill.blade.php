@@ -90,7 +90,7 @@
                 @if ($comments->isNotEmpty())
                     <ul role="list" x-init>
                         @foreach($comments as $comment)
-                            <x-comment :comment="$comment->setRelation('commentable', $wishlist)" :anonymous="$comment->user->isNot($wishlist->user)" />
+                            <x-comment :comment="$comment->setRelation('commentable', $wishlist)" />
                         @endforeach
                     </ul>
                 @endif

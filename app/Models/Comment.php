@@ -23,6 +23,11 @@ class Comment extends Model
         return $this->belongsTo(User::class)->withDefault();
     }
 
+    public function isAnonymous(): bool
+    {
+        return $this->user->isNot($this->commentable->user);
+    }
+
     public function isEdited(): bool
     {
         return $this->updated_at->gt($this->created_at);

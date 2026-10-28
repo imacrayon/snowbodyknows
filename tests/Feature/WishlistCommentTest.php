@@ -90,6 +90,45 @@ test('users cannot edit other users comments', function () {
     expect($commentB->refresh())->content->toBe('Test');
 });
 
+test('users cannot edit their comments on wishlists they cannot view', function () {
+    $wishlist = Wishlist::factory()->create();
+    $formerViewer = User::factory()->create();
+    $comment = $wishlist->addComment('Test', $formerViewer);
+
+    $this->actingAs($formerViewer);
+    $this->get(route('wishlists.comments.edit', [$wishlist, $comment]))->assertForbidden();
+    $this->patch(route('wishlists.comments.update', [$wishlist, $comment]), ['comment' => 'Edited'])->assertForbidden();
+
+    expect($comment->refresh())->content->toBe('Test');
+});
+
+test('comments cannot be edited through another wishlist', function () {
+    $wishlistA = Wishlist::factory()->create();
+    $wishlistB = Wishlist::factory()->create();
+    Group::factory()->withWishlist($wishlistA)->withUser($wishlistB->user)->create();
+    $comment = $wishlistA->addComment('Test', $wishlistB->user);
+
+    $this->actingAs($wishlistB->user);
+    $this->get(route('wishlists.comments.edit', [$wishlistB, $comment]))->assertNotFound();
+    $this->patch(route('wishlists.comments.update', [$wishlistB, $comment]), ['comment' => 'Edited'])->assertNotFound();
+
+    expect($comment->refresh())->content->toBe('Test');
+});
+
+test('comment edits show validation errors', function () {
+    $wishlist = Wishlist::factory()->create();
+    $comment = $wishlist->addComment('Test', $wishlist->user);
+
+    $this->actingAs($wishlist->user)
+        ->from(route('wishlists.comments.edit', [$wishlist, $comment]))
+        ->followingRedirects()
+        ->patch(route('wishlists.comments.update', [$wishlist, $comment]), ['comment' => ' '])
+        ->assertOk()
+        ->assertSeeText('The comment field is required.');
+
+    expect($comment->refresh())->content->toBe('Test');
+});
+
 test('wishlist viewer comments are anonymous', function () {
     $wishlist = Wishlist::factory()->create();
     $viewer = User::factory()->create();

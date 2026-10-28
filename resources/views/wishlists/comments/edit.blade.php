@@ -9,7 +9,7 @@
         <div class="p-4 bg-white shadow-sm rounded-lg">
             <ul role="list">
                 <li id="comment_{{ $comment->id }}" class="pb-6">
-                    <x-comment-form method="patch" action="{{ route('wishlists.comments.update', [$wishlist, $comment]) }}" :comment="$comment" :anonymous="$comment->user->isNot($wishlist->user)" x-target="comment_{{ $comment->id }}" />
+                    <x-comment-form method="patch" action="{{ route('wishlists.comments.update', [$wishlist, $comment]) }}" :comment="$comment" :anonymous="$comment->isAnonymous()" x-target="comment_{{ $comment->id }}" />
                 </li>
             </ul>
         </div>
