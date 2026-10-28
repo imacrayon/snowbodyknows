@@ -14,6 +14,8 @@
         <style>[x-cloak] { display: none; }</style>
         @vite(['resources/css/app.css', 'resources/js/app.js'])
 
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        <link rel="shortcut icon" href="/favicon.ico" />
         <meta name="description" content="Stop guessing, start gifting! Share wishlists with loved ones. No account needed to get started." />
         <meta name="author" content="Snowbody Knows" />
         <meta property="og:type" content="website">
