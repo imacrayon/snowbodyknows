@@ -25,6 +25,13 @@ class WishFactory extends Factory
         ];
     }
 
+    public function notifyViewers(): static
+    {
+        return $this->state([
+            'notify_viewers' => true,
+        ]);
+    }
+
     public function granted(): static
     {
         return $this->state([

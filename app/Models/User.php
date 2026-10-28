@@ -19,6 +19,14 @@ class User extends Authenticatable implements MustVerifyEmail
     use HasFactory, Notifiable;
 
     /**
+     * @var array<string, mixed>
+     */
+    protected $attributes = [
+        'receives_wish_emails' => true,
+        'receives_comment_emails' => true,
+    ];
+
+    /**
      * @return array<string, string>
      */
     protected function casts(): array
@@ -27,6 +35,8 @@ class User extends Authenticatable implements MustVerifyEmail
             'email_verified_at' => 'datetime',
             'last_login_at' => 'datetime',
             'password' => 'hashed',
+            'receives_wish_emails' => 'boolean',
+            'receives_comment_emails' => 'boolean',
         ];
     }
 

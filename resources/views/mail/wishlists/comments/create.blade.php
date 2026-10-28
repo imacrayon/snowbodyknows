@@ -15,6 +15,7 @@
 
 <x-slot:subcopy>
 {{ __('You are receiving this because you have joined :wishlist.', ['wishlist' => $comment->commentable->name]) }}
+@include('mail.partials.unsubscribe')
 
 @lang(
     "If you're having trouble clicking the \":actionText\" button, copy and paste the URL below\n".

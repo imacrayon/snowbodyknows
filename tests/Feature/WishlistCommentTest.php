@@ -173,6 +173,20 @@ test('wishlist members comments notify owner and other members', function () {
     );
 });
 
+test('members who turned off comment emails are not notified', function () {
+    Notification::fake();
+
+    $wishlist = Wishlist::factory()->create();
+    $viewer = User::factory()->create(['receives_comment_emails' => false]);
+    Group::factory()->withWishlist($wishlist)->withUser($viewer)->create();
+
+    $this->actingAs($wishlist->user)->post(route('wishlists.comments.store', $wishlist), [
+        'comment' => 'Test comment.',
+    ]);
+
+    Notification::assertNotSentTo($viewer, WishlistCommentCreatedNotification::class);
+});
+
 test('wishlist comments notify members in multiple groups only once', function () {
     Notification::fake();
 

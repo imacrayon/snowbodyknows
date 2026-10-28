@@ -13,6 +13,16 @@ class Wish extends Model
     /** @use HasFactory<WishFactory> */
     use HasFactory, SoftDeletes;
 
+    /**
+     * @return array<string, string>
+     */
+    protected function casts(): array
+    {
+        return [
+            'notify_viewers' => 'boolean',
+        ];
+    }
+
     public function wishlist(): BelongsTo
     {
         return $this->belongsTo(Wishlist::class);

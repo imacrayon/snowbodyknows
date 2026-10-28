@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AppController;
+use App\Http\Controllers\EmailPreferenceController;
 use App\Http\Controllers\GrantedWishController;
 use App\Http\Controllers\GroupController;
 use App\Http\Controllers\GroupUserController;
@@ -11,16 +12,23 @@ use App\Http\Controllers\Guest\GuestWishlistController;
 use App\Http\Controllers\JoinController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SortWishlistController;
+use App\Http\Controllers\UnsubscribeController;
 use App\Http\Controllers\WishController;
 use App\Http\Controllers\WishlistCommentController;
 use App\Http\Controllers\WishlistController;
 use App\Models\Wishlist;
+use Illuminate\Foundation\Http\Middleware\PreventRequestForgery;
 use Illuminate\Support\Facades\Route;
 
 Route::view('/', 'welcome')->name('welcome');
 Route::view('/privacy', 'privacy')->name('privacy');
 
 Route::get('/groups/{group:invite_code}/join', JoinController::class)->name('join');
+
+Route::middleware(['signed'])->group(function () {
+    Route::get('/users/{user}/unsubscribe/{topic}', [UnsubscribeController::class, 'show'])->name('unsubscribe.show');
+    Route::post('/users/{user}/unsubscribe/{topic}', [UnsubscribeController::class, 'store'])->name('unsubscribe.store')->withoutMiddleware(PreventRequestForgery::class);
+});
 
 Route::get('/guest/wishlists/', [GuestWishlistController::class, 'show'])->name('guests.wishlists.show');
 Route::get('/guest/wishlists/wish', [GuestWishController::class, 'create'])->name('guests.wishes.create');
@@ -34,6 +42,7 @@ Route::middleware(['auth'])->prefix('/app')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::patch('/profile/email-preferences', [EmailPreferenceController::class, 'update'])->name('profile.email-preferences.update');
 
     Route::middleware(['verified'])->group(function () {
         Route::get('/', AppController::class)->name('app');
