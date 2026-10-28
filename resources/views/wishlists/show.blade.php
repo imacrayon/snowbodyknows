@@ -85,7 +85,7 @@
                 {{ __('These are the groups of people that can view your wishlist.') }}
             </x-slot:description>
             @if ($groups->isNotEmpty())
-                <ul id="groups" x-init class="divide-y divide-gray-200">
+                <ul id="groups" class="divide-y divide-gray-200">
                     @foreach($groups as $group)
                         <li class="relative flex items-center justify-between text-sm gap-6 px-4 py-3">
                             <div>
@@ -116,15 +116,15 @@
             <x-slot:description>
                 {{ __('Communicate with your wishlist groups. Leave notes or respond to questions that others might leave here.') }}
             </x-slot:description>
-            <div class="p-4" x-init id="comments">
+            <div class="p-4" id="comments">
                 @if ($comments->isNotEmpty())
-                    <ul role="list" x-init>
+                    <ul role="list">
                         @foreach($comments as $comment)
                             <x-comment :comment="$comment->setRelation('commentable', $wishlist)" />
                         @endforeach
                     </ul>
                 @endif
-                <x-comment-form action="{{ route('wishlists.comments.store', $wishlist) }}" :anonymous="false" x-target="comments" x-focus="comment" />
+                <x-comment-form action="{{ route('wishlists.comments.store', $wishlist) }}" :anonymous="false" x-target="comments" />
             </div>
         </x-section>
     </div>

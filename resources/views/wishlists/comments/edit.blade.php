@@ -1,7 +1,9 @@
 <x-layout.app>
-    <x-slot name="title">{{ __('Edit comment') }}</x-slot>
+    <x-slot name="title">{{ __('Edit comment | :wishlist', ['wishlist' => $wishlist->name]) }}</x-slot>
     <x-slot name="header">
         <h1 class="font-semibold text-xl text-gray-800 leading-tight">
+            <a href="{{ route('wishlists.show', $wishlist) }}" class="underline">{{ $wishlist->name }}</a>
+            <span aria-hidden="true">/</span>
             {{ __('Edit comment') }}
         </h1>
     </x-slot>

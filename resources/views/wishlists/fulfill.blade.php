@@ -8,30 +8,30 @@
     <div class="max-w-5xl mx-auto px-4 space-y-6 sm:px-6 lg:px-8">
         <div class="bg-white divide-y divide-gray-200 shadow-sm overflow-hidden rounded-lg">
             @if($wishes->isNotEmpty())
-                <ul role="list" x-init id="wishlist_{{ $wishlist->id }}" x-merge="morph" class="bg-white">
+                <ul role="list" class="bg-white">
                     @foreach($wishes as $wish)
-                        <li class="group bg-white flex items-start">
+                        <li id="wish_{{ $wish->id }}" class="group bg-white flex items-start">
                             <div class="flex px-3 py-3 sm:py-4">
                                 @if($wish->granted())
                                     @can('ungrant', $wish)
-                                        <x-form class="h-6 flex items-center" x-target="wishlist_{{ $wishlist->id }}" method="delete" action="{{ route('wishes.grants.destroy', $wish) }}">
-                                            <button class="w-5 h-5 flex items-center justify-center text-sky-900 bg-sky-200 rounded-sm" aria-pressed="true" aria-describedby="wish_{{ $wish->id }}_name">
+                                        <x-form class="h-6 flex items-center" x-target="wish_{{ $wish->id }}" method="delete" action="{{ route('wishes.grants.destroy', $wish) }}">
+                                            <button x-autofocus class="w-5 h-5 flex items-center justify-center text-sky-900 bg-sky-200 rounded-sm" aria-pressed="true" aria-describedby="wish_{{ $wish->id }}_name">
                                                 <x-phosphor-check-bold aria-hidden="true" width="16" height="16" />
-                                                <span class="sr-only">Un-grant</span>
+                                                <span class="sr-only">Grant</span>
                                             </button>
                                         </x-form>
                                     @else
                                         <div class="h-6 flex items-center">
                                             <button class="w-5 h-5 flex items-center justify-center text-sky-900 bg-sky-200 rounded-sm" aria-disabled="true" aria-pressed="true"  aria-describedby="wish_{{ $wish->id }}_name">
                                                 <x-phosphor-check-bold aria-hidden="true" width="16" height="16" />
-                                                <span class="sr-only">Un-grant</span>
+                                                <span class="sr-only">Grant</span>
                                             </button>
                                         </div>
                                     @endcan
                                 @else
                                     @can('grant', $wish->setRelation('wishlist', $wishlist))
-                                        <x-form class="h-6 flex items-center" x-target="wishlist_{{ $wishlist->id }}" method="post" action="{{ route('wishes.grants.store', $wish) }}">
-                                            <button class="w-5 h-5 bg-gray-200 rounded-sm" aria-pressed="false" aria-describedby="wish_{{ $wish->id }}_name">
+                                        <x-form class="h-6 flex items-center" x-target="wish_{{ $wish->id }}" method="post" action="{{ route('wishes.grants.store', $wish) }}">
+                                            <button x-autofocus class="w-5 h-5 bg-gray-200 rounded-sm" aria-pressed="false" aria-describedby="wish_{{ $wish->id }}_name">
                                                 <span class="sr-only">Grant</span>
                                             </button>
                                         </x-form>
@@ -86,15 +86,15 @@
             <x-slot:description>
                 {{ __('Leave an anonymous note or ask a question about a wish.', ['user' => $wishlist->user->name]) }}
             </x-slot:description>
-            <div class="p-4" x-init id="comments">
+            <div class="p-4" id="comments">
                 @if ($comments->isNotEmpty())
-                    <ul role="list" x-init>
+                    <ul role="list">
                         @foreach($comments as $comment)
                             <x-comment :comment="$comment->setRelation('commentable', $wishlist)" />
                         @endforeach
                     </ul>
                 @endif
-                <x-comment-form action="{{ route('wishlists.comments.store', $wishlist) }}" :anonymous="true" x-target="comments" x-focus="comment" />
+                <x-comment-form action="{{ route('wishlists.comments.store', $wishlist) }}" :anonymous="true" x-target="comments" />
             </div>
         </x-section>
     </div>

@@ -20,7 +20,7 @@
         @can('delete', $comment)
             <div class="mt-2 flex items-center justify-end gap-x-5">
                 @can('update', $comment)
-                    <a href="{{ route('wishlists.comments.edit', [$comment->commentable_id, $comment->id]) }}" x-target="comment_{{ $comment->id }}" x-focus="comment_{{ $comment->id }}_content" class="text-xs text-gray-500 underline">{{ __('Edit') }}</a>
+                    <a href="{{ route('wishlists.comments.edit', [$comment->commentable_id, $comment->id]) }}" x-target="comment_{{ $comment->id }}" class="text-xs text-gray-500 underline">{{ __('Edit') }}</a>
                 @endcan
                 <x-form method="delete" action="{{ route('wishlists.comments.destroy', [$comment->commentable_id, $comment->id]) }}" x-target="comment_{{ $comment->id }}" x-on:ajax:before="confirm('{{ __('This comment will be permanently deleted.') }}') || $event.preventDefault()">
                     <button class="text-xs text-gray-500 underline">Delete</button>
