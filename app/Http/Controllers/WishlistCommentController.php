@@ -8,14 +8,15 @@ use App\Notifications\WishlistCommentCreatedNotification;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Notification;
+use Illuminate\View\View;
 
 class WishlistCommentController extends Controller
 {
     public function store(Request $request, Wishlist $wishlist): RedirectResponse
     {
-        $request->validate(['comment' => ['required', 'string', 'max:5000']]);
+        $validated = $request->validate(['comment' => ['required', 'string', 'max:5000']]);
 
-        $comment = $wishlist->addComment($request->comment, $request->user());
+        $comment = $wishlist->addComment($validated['comment'], $request->user());
 
         $watchers = $wishlist->viewers()->reject(fn ($user) => $user->is($request->user()));
 
@@ -24,11 +25,19 @@ class WishlistCommentController extends Controller
         return to_route('wishlists.show', $wishlist);
     }
 
+    public function edit(Wishlist $wishlist, Comment $comment): View
+    {
+        return view('wishlists.comments.edit', [
+            'wishlist' => $wishlist,
+            'comment' => $comment,
+        ]);
+    }
+
     public function update(Request $request, Wishlist $wishlist, Comment $comment): RedirectResponse
     {
-        $request->validate(['content' => ['required', 'string', 'max:5000']]);
+        $validated = $request->validate(['comment' => ['required', 'string', 'max:5000']]);
 
-        $comment->update(['content' => $request->comment]);
+        $comment->update(['content' => $validated['comment']]);
 
         return to_route('wishlists.show', $wishlist);
     }

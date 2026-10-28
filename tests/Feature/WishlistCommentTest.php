@@ -33,6 +33,102 @@ test('viewer can create comments', function () {
     expect($wishlist->comments()->first())->content->toBe('Test comment.');
 });
 
+test('users can edit their own comments', function () {
+    $wishlist = Wishlist::factory()->create();
+    $viewer = User::factory()->create();
+    Group::factory()->withWishlist($wishlist)->withUser($viewer)->create();
+    $comment = $wishlist->addComment('Test comment.', $viewer);
+
+    $this->actingAs($viewer);
+
+    $this->get(route('wishlists.comments.edit', [$wishlist, $comment]))
+        ->assertOk()
+        ->assertSeeText('Test comment.');
+
+    $this->patch(route('wishlists.comments.update', [$wishlist, $comment]), [
+        'comment' => 'Edited comment.',
+    ])->assertRedirectToRoute('wishlists.show', $wishlist);
+
+    expect($comment->refresh())->content->toBe('Edited comment.');
+});
+
+test('edited comments are marked as edited', function () {
+    $wishlist = Wishlist::factory()->create();
+    $wishlist->addComment('Unedited comment.', $wishlist->user);
+    $comment = $wishlist->addComment('Original comment.', $wishlist->user);
+
+    $this->travel(1)->minute();
+    $this->actingAs($wishlist->user)->patch(route('wishlists.comments.update', [$wishlist, $comment]), [
+        'comment' => 'Edited comment.',
+    ]);
+
+    $response = $this->get(route('wishlists.show', $wishlist));
+
+    $response->assertSeeTextInOrder(['Unedited comment.', '(edited)', 'Edited comment.']);
+    expect(substr_count($response->getContent(), '(edited)'))->toBe(1);
+});
+
+test('users cannot edit other users comments', function () {
+    $wishlist = Wishlist::factory()->create();
+    $viewerA = User::factory()->create();
+    $viewerB = User::factory()->create();
+    Group::factory()->withWishlist($wishlist)
+        ->withUser($viewerA)
+        ->withUser($viewerB)
+        ->create();
+    $ownerComment = $wishlist->addComment('Test', $wishlist->user);
+    $commentB = $wishlist->addComment('Test', $viewerB);
+
+    $this->actingAs($viewerA);
+    $this->get(route('wishlists.comments.edit', [$wishlist, $ownerComment]))->assertForbidden();
+    $this->patch(route('wishlists.comments.update', [$wishlist, $commentB]), ['comment' => 'Edited'])->assertForbidden();
+
+    $this->actingAs($wishlist->user);
+    $this->get(route('wishlists.comments.edit', [$wishlist, $commentB]))->assertForbidden();
+    $this->patch(route('wishlists.comments.update', [$wishlist, $commentB]), ['comment' => 'Edited'])->assertForbidden();
+
+    expect($commentB->refresh())->content->toBe('Test');
+});
+
+test('users cannot edit their comments on wishlists they cannot view', function () {
+    $wishlist = Wishlist::factory()->create();
+    $formerViewer = User::factory()->create();
+    $comment = $wishlist->addComment('Test', $formerViewer);
+
+    $this->actingAs($formerViewer);
+    $this->get(route('wishlists.comments.edit', [$wishlist, $comment]))->assertForbidden();
+    $this->patch(route('wishlists.comments.update', [$wishlist, $comment]), ['comment' => 'Edited'])->assertForbidden();
+
+    expect($comment->refresh())->content->toBe('Test');
+});
+
+test('comments cannot be edited through another wishlist', function () {
+    $wishlistA = Wishlist::factory()->create();
+    $wishlistB = Wishlist::factory()->create();
+    Group::factory()->withWishlist($wishlistA)->withUser($wishlistB->user)->create();
+    $comment = $wishlistA->addComment('Test', $wishlistB->user);
+
+    $this->actingAs($wishlistB->user);
+    $this->get(route('wishlists.comments.edit', [$wishlistB, $comment]))->assertNotFound();
+    $this->patch(route('wishlists.comments.update', [$wishlistB, $comment]), ['comment' => 'Edited'])->assertNotFound();
+
+    expect($comment->refresh())->content->toBe('Test');
+});
+
+test('comment edits show validation errors', function () {
+    $wishlist = Wishlist::factory()->create();
+    $comment = $wishlist->addComment('Test', $wishlist->user);
+
+    $this->actingAs($wishlist->user)
+        ->from(route('wishlists.comments.edit', [$wishlist, $comment]))
+        ->followingRedirects()
+        ->patch(route('wishlists.comments.update', [$wishlist, $comment]), ['comment' => ' '])
+        ->assertOk()
+        ->assertSeeText('The comment field is required.');
+
+    expect($comment->refresh())->content->toBe('Test');
+});
+
 test('wishlist viewer comments are anonymous', function () {
     $wishlist = Wishlist::factory()->create();
     $viewer = User::factory()->create();
