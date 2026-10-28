@@ -8,29 +8,10 @@ use App\Notifications\WishlistCommentCreatedNotification;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Notification;
+use Illuminate\View\View;
 
 class WishlistCommentController extends Controller
 {
-    public function show(Wishlist $wishlist, Comment $comment)
-    {
-        return view('components.comment', ['wishlist' => $wishlist, 'comment' => $comment ]);
-    }
-
-    public function edit(Wishlist $wishlist, Comment $comment)
-    {
-
-        return view('components.comment-form', [
-            'comment' => $comment,
-            'wishlist' => $wishlist,
-            'action' => route('wishlists.comments.update', [
-                'wishlist' => $wishlist->id,
-                'comment' => $comment->id,
-            ]),
-            'method' => 'patch',
-            'anonymous' => false
-        ]);
-    }
-
     public function store(Request $request, Wishlist $wishlist): RedirectResponse
     {
         $request->validate(['comment' => ['required', 'string', 'max:5000']]);
@@ -42,6 +23,14 @@ class WishlistCommentController extends Controller
         Notification::send($watchers, new WishlistCommentCreatedNotification($comment));
 
         return to_route('wishlists.show', $wishlist);
+    }
+
+    public function edit(Wishlist $wishlist, Comment $comment): View
+    {
+        return view('wishlists.comments.edit', [
+            'wishlist' => $wishlist,
+            'comment' => $comment,
+        ]);
     }
 
     public function update(Request $request, Wishlist $wishlist, Comment $comment): RedirectResponse
