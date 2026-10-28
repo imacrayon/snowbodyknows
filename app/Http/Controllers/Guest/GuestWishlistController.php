@@ -3,18 +3,18 @@
 namespace App\Http\Controllers\Guest;
 
 use App\Http\Controllers\Controller;
-use App\Models\Wishlist;
 use App\Models\Wish;
+use App\Models\Wishlist;
+use Illuminate\View\View;
 
 class GuestWishlistController extends Controller
 {
-
-    public function show()
+    public function show(): View
     {
         $wishlist = new Wishlist(session('wishlist') ?? [
             'name' => 'My wishlist',
             'id' => 0,
-            'wishes' => []
+            'wishes' => [],
         ]);
         $wishes = $wishlist->wishes()->get();
         foreach ($wishlist->toArray()['wishes'] as $wish) {
@@ -26,9 +26,7 @@ class GuestWishlistController extends Controller
 
         return view('guests.wishlists.show', [
             'wishlist' => $wishlist,
-            'wishes' => $wishes
+            'wishes' => $wishes,
         ]);
     }
-
 }
-

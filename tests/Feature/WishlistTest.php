@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Group;
 use App\Models\User;
 use App\Models\Wishlist;
 
@@ -29,6 +30,26 @@ test('users can view their wishlists', function () {
 
 test('users cannot view others’ wishlists', function () {
     $wishlist = Wishlist::factory()->create();
+
+    $this->actingAs(User::factory()->create());
+    $this->get(route('wishlists.show', $wishlist))->assertForbidden();
+});
+
+test('users can view wishlists shared with them', function () {
+    $wishlist = Wishlist::factory()->create();
+    $viewer = User::factory()->create();
+    Group::factory()->withWishlist($wishlist)->withUser($viewer)->create();
+
+    $this->actingAs($viewer);
+    $response = $this->get(route('wishlists.show', $wishlist));
+
+    $response->assertOk();
+    $response->assertSee($wishlist->name);
+});
+
+test('users cannot view wishlists shared with other groups', function () {
+    $wishlist = Wishlist::factory()->create();
+    Group::factory()->withWishlist($wishlist)->withUser(User::factory()->create())->create();
 
     $this->actingAs(User::factory()->create());
     $this->get(route('wishlists.show', $wishlist))->assertForbidden();

@@ -1,4 +1,5 @@
-<x-layout.base title="{{ $title ?? '' }}" class="bg-gray-100">
+<x-layout.base class="bg-gray-100">
+<x-slot name="title">{{ $title ?? '' }}</x-slot>
 <div class="relative max-w-4xl mx-auto pt-6 mb-2 px-8">
     <div class="ribbon text-sm text-center">
         <p class="bg-red-300 text-red-900 p-3 sm:px-6 ">
@@ -12,4 +13,18 @@
     </div>
 @endif
 {{ $slot }}
-</x-layout>
+<footer class="py-12 px-4">
+        <div class="container mx-auto max-w-4xl">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-6">
+                <a href="/" class="flex items-center gap-3">
+                    <img src="/img/snowman.svg" alt="" width="24" height="24">
+                    <span class="text-sm font-semibold text-gray-600">Snowbody Knows</span>
+                </a>
+                <div class="flex gap-8 text-sm text-gray-600">
+                    <a href="/privacy" class="underline text-sky-800 hover:text-sky-500">Privacy Policy</a>
+                </div>
+                <p class="text-sm text-gray-600">© 2025 Snowbody Knows. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+</x-layout.base>

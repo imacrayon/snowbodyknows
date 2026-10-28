@@ -2,16 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
 class AppController extends Controller
 {
-    public function __invoke(Request $request)
+    public function __invoke(Request $request): RedirectResponse
     {
-        if ($request->user()->joinedWishlists->isNotEmpty() || $request->user()->wishlists->count() > 1) {
-            return to_route('wishlists.index');
+        if ($request->user()->groups->count() === 1) {
+            return to_route('groups.show', $request->user()->groups->first());
         }
 
-        return to_route('wishlists.show', $request->user()->wishlists->first());
+        return to_route('wishlists.index');
     }
 }

@@ -3,7 +3,7 @@
 <div class="relative flex items-start gap-x-2 w-full" id="comment_{{ $comment?->id }}" x-init x-target>
     <img src="{{ $anonymous ? '/img/face.svg' : Auth::user()->avatar_url }}" alt="" width="24" height="24" class="flex-none rounded-full bg-gray-50">
     <x-form method="{{ $method }}" action="{{ $action }}" class="relative flex-auto min-w-min" {{ $attributes }}>
-        <div class="overflow-hidden rounded-lg pb-12 shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-blue-600">
+        <div class="overflow-hidden rounded-lg pb-12 shadow-xs ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-blue-600">
             <label for="comment" class="sr-only">Add your comment</label>
             <textarea {{ $anonymous ? 'aria-describedby="comment_description"' : '' }} rows="3" name="comment" id="comment" value="{{ old('comment') }}" class="block w-full resize-none border-0 bg-transparent py-1.5 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6" placeholder="Add your comment...">{{ old('comment') ?? $comment?->content }}</textarea>
         </div>

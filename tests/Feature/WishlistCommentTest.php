@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Comment;
+use App\Models\Group;
 use App\Models\User;
 use App\Models\Wishlist;
 use App\Notifications\WishlistCommentCreatedNotification;
@@ -21,7 +22,7 @@ test('wishlist owner can create comments', function () {
 test('viewer can create comments', function () {
     $wishlist = Wishlist::factory()->create();
     $viewer = User::factory()->create();
-    $wishlist->viewers()->attach($viewer);
+    Group::factory()->withWishlist($wishlist)->withUser($viewer)->create();
 
     $this->actingAs($viewer);
     $response = $this->post(route('wishlists.comments.store', $wishlist), [
@@ -56,7 +57,7 @@ test('users can edit their own comments', function () {
 test('wishlist viewer comments are anonymous', function () {
     $wishlist = Wishlist::factory()->create();
     $viewer = User::factory()->create();
-    $wishlist->viewers()->attach($viewer);
+    Group::factory()->withWishlist($wishlist)->withUser($viewer)->create();
     $wishlist->addComment('Test', $viewer);
 
     $this->actingAs($wishlist->user)
@@ -75,7 +76,7 @@ test('wishlist viewer comments are anonymous', function () {
 test('wishlist owner comments are not anonymous', function () {
     $wishlist = Wishlist::factory()->create();
     $viewer = User::factory()->create();
-    $wishlist->viewers()->attach($viewer);
+    Group::factory()->withWishlist($wishlist)->withUser($viewer)->create();
     $wishlist->addComment('Test', $wishlist->user);
 
     $this->actingAs($wishlist->user)
@@ -94,8 +95,10 @@ test('wishlist owners can delete any comment', function () {
     $wishlist = Wishlist::factory()->create();
     $viewerA = User::factory()->create();
     $viewerB = User::factory()->create();
-    $wishlist->viewers()->attach($viewerA);
-    $wishlist->viewers()->attach($viewerB);
+    Group::factory()->withWishlist($wishlist)
+        ->withUser($viewerA)
+        ->withUser($viewerB)
+        ->create();
     $ownerComment = $wishlist->addComment('Test', $wishlist->user);
     $commentA = $wishlist->addComment('Test', $viewerA);
     $commentB = $wishlist->addComment('Test', $viewerB);
@@ -112,12 +115,14 @@ test('wishlist owners can delete any comment', function () {
     $this->assertDatabaseCount('comments', 0);
 });
 
-test('wishlist viewers can only delete their own comments', function () {
+test('wishlist members can only delete their own comments', function () {
     $wishlist = Wishlist::factory()->create();
     $viewerA = User::factory()->create();
     $viewerB = User::factory()->create();
-    $wishlist->viewers()->attach($viewerA);
-    $wishlist->viewers()->attach($viewerB);
+    Group::factory()->withWishlist($wishlist)
+        ->withUser($viewerA)
+        ->withUser($viewerB)
+        ->create();
     $ownerComment = $wishlist->addComment('Test', $wishlist->user);
     $commentA = $wishlist->addComment('Test', $viewerA);
     $commentB = $wishlist->addComment('Test', $viewerB);
@@ -133,14 +138,16 @@ test('wishlist viewers can only delete their own comments', function () {
     expect(Comment::count())->toBe(2);
 });
 
-test('wishlist owner comments notify only viewers', function () {
+test('wishlist owner comments notify only members', function () {
     Notification::fake();
 
     $wishlist = Wishlist::factory()->create();
     $viewerA = User::factory()->create();
     $viewerB = User::factory()->create();
-    $wishlist->viewers()->attach($viewerA);
-    $wishlist->viewers()->attach($viewerB);
+    Group::factory()->withWishlist($wishlist)
+        ->withUser($viewerA)
+        ->withUser($viewerB)
+        ->create();
 
     $this->actingAs($wishlist->user)->post(route('wishlists.comments.store', $wishlist), [
         'comment' => 'Test comment.',
@@ -159,14 +166,16 @@ test('wishlist owner comments notify only viewers', function () {
     );
 });
 
-test('wishlist viewer comments notify owner and other viewers', function () {
+test('wishlist members comments notify owner and other members', function () {
     Notification::fake();
 
     $wishlist = Wishlist::factory()->create();
     $viewerA = User::factory()->create();
     $viewerB = User::factory()->create();
-    $wishlist->viewers()->attach($viewerA);
-    $wishlist->viewers()->attach($viewerB);
+    Group::factory()->withWishlist($wishlist)
+        ->withUser($viewerA)
+        ->withUser($viewerB)
+        ->create();
 
     $this->actingAs($viewerA)->post(route('wishlists.comments.store', $wishlist), [
         'comment' => 'Test comment.',
@@ -183,4 +192,33 @@ test('wishlist viewer comments notify owner and other viewers', function () {
         [$viewerA],
         WishlistCommentCreatedNotification::class
     );
+});
+
+test('members who turned off comment emails are not notified', function () {
+    Notification::fake();
+
+    $wishlist = Wishlist::factory()->create();
+    $viewer = User::factory()->create(['receives_comment_emails' => false]);
+    Group::factory()->withWishlist($wishlist)->withUser($viewer)->create();
+
+    $this->actingAs($wishlist->user)->post(route('wishlists.comments.store', $wishlist), [
+        'comment' => 'Test comment.',
+    ]);
+
+    Notification::assertNotSentTo($viewer, WishlistCommentCreatedNotification::class);
+});
+
+test('wishlist comments notify members in multiple groups only once', function () {
+    Notification::fake();
+
+    $wishlist = Wishlist::factory()->create();
+    $viewer = User::factory()->create();
+    Group::factory()->withWishlist($wishlist)->withUser($viewer)->create();
+    Group::factory()->withWishlist($wishlist)->withUser($viewer)->create();
+
+    $this->actingAs($wishlist->user)->post(route('wishlists.comments.store', $wishlist), [
+        'comment' => 'Test comment.',
+    ]);
+
+    Notification::assertSentTimes(WishlistCommentCreatedNotification::class, 1);
 });

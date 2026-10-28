@@ -2,79 +2,60 @@
 
 namespace App\Models;
 
+use Database\Factories\WishFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Wish extends Model
 {
+    /** @use HasFactory<WishFactory> */
     use HasFactory, SoftDeletes;
 
-    protected static $unguarded = true;
-
-    protected static function booted()
+    /**
+     * @return array<string, string>
+     */
+    protected function casts(): array
     {
-        static::saving(function ($model) {
-            if ($params = config('affiliates')[$model->urlDomain()] ?? null) {
-                $model->url = $model->mergeIntoUrl($params);
-            }
-        });
+        return [
+            'notify_viewers' => 'boolean',
+        ];
     }
 
-    public function wishlist()
+    public function wishlist(): BelongsTo
     {
         return $this->belongsTo(Wishlist::class);
     }
 
-    public function granter()
+    public function granter(): BelongsTo
     {
         return $this->belongsTo(User::class, 'granter_id')->withDefault();
     }
 
-    public function granted()
+    public function granted(): bool
     {
         return ! is_null($this->granter_id);
     }
 
-    public function grant($user)
+    public function grant(User $user): static
     {
         $this->granter()->associate($user);
 
         return $this;
     }
 
-    public function ungrant()
+    public function ungrant(): static
     {
-        return $this->granter()->dissociate();
+        $this->granter()->dissociate();
+
+        return $this;
     }
 
-    public function urlDomain()
+    public function urlDomain(): string
     {
         $parts = explode('.', parse_url($this->url, PHP_URL_HOST) ?? '');
 
         return implode('.', array_slice($parts, -2));
-    }
-
-    public function mergeIntoUrl($params = [])
-    {
-        $parts = parse_url($this->url);
-
-        $existing = [];
-        if (isset($parts['query'])) {
-            parse_str($parts['query'], $existing);
-        }
-
-        $path = $parts['path'] ?? '';
-        $url = "{$parts['scheme']}://{$parts['host']}{$path}";
-
-        if ($query = http_build_query(array_merge($existing, $params))) {
-            $url .= '?'.$query;
-        }
-
-        if (isset($parts['fragment'])) {
-            $url .= '#'.$parts['fragment'];
-        }
-
-        return $url;
     }
 }

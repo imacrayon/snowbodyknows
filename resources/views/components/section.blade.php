@@ -5,7 +5,7 @@
         </h2>
         {{ $actions ?? '' }}
     </div>
-    <div class="mt-2 bg-white shadow overflow-hidden rounded-lg">
+    <div class="mt-2 bg-white shadow-sm overflow-hidden rounded-lg">
         {{ $slot }}
     </div>
     @if($description)

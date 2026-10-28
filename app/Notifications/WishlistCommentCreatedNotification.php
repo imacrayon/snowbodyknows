@@ -2,7 +2,9 @@
 
 namespace App\Notifications;
 
+use App\EmailTopic;
 use App\Models\Comment;
+use App\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
@@ -14,18 +16,22 @@ class WishlistCommentCreatedNotification extends Notification implements ShouldQ
 
     public function __construct(
         public Comment $comment
-    ) {
-    }
+    ) {}
 
     public function via(object $notifiable): array
     {
         return ['mail'];
     }
 
-    public function toMail(object $notifiable): MailMessage
+    public function shouldSend(User $notifiable): bool
     {
-        return (new MailMessage)
-            ->subject("{$this->comment->commentable->name} Comment")
-            ->markdown('mail.wishlists.comments.create', ['comment' => $this->comment]);
+        return EmailTopic::Comments->isSubscribed($notifiable);
+    }
+
+    public function toMail(User $notifiable): MailMessage
+    {
+        return EmailTopic::Comments->mailMessage($notifiable, 'mail.wishlists.comments.create', [
+            'comment' => $this->comment,
+        ])->subject("{$this->comment->commentable->name} Comment");
     }
 }
