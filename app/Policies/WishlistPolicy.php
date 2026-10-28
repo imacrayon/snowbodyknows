@@ -15,7 +15,7 @@ class WishlistPolicy
     public function view(User $user, Wishlist $wishlist): bool
     {
         return $wishlist->user->is($user) ||
-             $wishlist->viewers()->contains(fn ($user) => $user->is($user));
+             $wishlist->viewers()->contains(fn (User $viewer) => $viewer->is($user));
     }
 
     public function fulfill(User $user, Wishlist $wishlist): bool
