@@ -11,4 +11,8 @@ return [
         ],
     ],
 
+    'reply_to' => [
+        'address' => env('MAIL_REPLY_TO_ADDRESS'),
+    ],
+
 ];
