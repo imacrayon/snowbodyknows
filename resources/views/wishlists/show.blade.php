@@ -1,13 +1,13 @@
 <x-layout.app>
     <x-slot name="title">{{ $wishlist->name }}</x-slot>
     <x-slot name="header">
-        <h1 class="flex items-center gap-2 font-semibold text-xl text-gray-800 leading-tight">
-            {{ $wishlist->name }}
+        <div class="flex items-center gap-2">
+            <h1 class="font-semibold text-xl text-gray-800 leading-tight">{{ $wishlist->name }}</h1>
             <a class="pl-2" href="{{ route('wishlists.edit', $wishlist) }}">
                 <x-phosphor-pencil aria-hidden="true" width="24" height="24"  class="text-gray-400 hover:text-gray-500" />
-                <span class="sr-only">Edit</span>
+                <span class="sr-only">{{ __('Edit wishlist') }}</span>
             </a>
-        </h1>
+        </div>
     </x-slot>
     <div class="max-w-5xl mx-auto px-4 space-y-6 sm:px-6 lg:px-8">
         <div class="bg-white divide-y divide-gray-200 shadow-sm overflow-hidden rounded-lg">

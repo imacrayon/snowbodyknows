@@ -1,13 +1,13 @@
 <x-layout.app>
     <x-slot name="title">{{ $group->name }}</x-slot>
     <x-slot name="header">
-        <h1 class="flex items-center gap-2 font-semibold text-xl text-gray-800 leading-tight">
-            {{ $group->name }}
+        <div class="flex items-center gap-2">
+            <h1 class="font-semibold text-xl text-gray-800 leading-tight">{{ $group->name }}</h1>
             <a class="pl-2" href="{{ route('groups.edit', $group) }}">
                 <x-phosphor-pencil aria-hidden="true" width="24" height="24"  class="text-gray-400 hover:text-gray-500" />
-                <span class="sr-only">Edit</span>
+                <span class="sr-only">{{ __('Edit group') }}</span>
             </a>
-        </h1>
+        </div>
         @if($group->description)
         <p class="text-gray-700 leading-tight pt-3">
             {{ $group->description }}
