@@ -7,28 +7,51 @@ use App\Models\Wishlist;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\Rule;
 use Illuminate\View\View;
 
 class GroupController extends Controller
 {
+    const NEW_GROUP = 'NEW_GROUP';
+
+    public function create(Request $request, Wishlist $wishlist): View
+    {
+        return view('groups.create', [
+            'wishlist' => $wishlist,
+            'yourGroups' => $request->user()->groups()->withCount('users')->get(),
+        ]);
+    }
+
+    /**
+     * Share the wishlist with exactly the selected groups, creating a new group when requested.
+     */
     public function store(Request $request, Wishlist $wishlist): RedirectResponse
     {
         $request->validate([
-            'name' => ['nullable', 'string', 'max:255'],
-            'description' => ['nullable', 'string', 'max:2000'],
+            'groups' => ['nullable', 'array'],
+            'groups.*' => [Rule::in($request->user()->groups->pluck('id')->push(self::NEW_GROUP))],
         ]);
 
-        $group = DB::transaction(function () use ($request, $wishlist) {
-            $group = $wishlist->groups()->create([
-                'name' => $request->name ?? __('Untitled Group'),
-                'description' => $request->description,
-            ]);
-            $group->users()->syncWithoutDetaching($request->user());
+        $selected = $request->collect('groups');
+
+        $newGroup = DB::transaction(function () use ($request, $wishlist, $selected) {
+            $wishlist->groups()->sync($selected->reject(self::NEW_GROUP));
+
+            if (! $selected->contains(self::NEW_GROUP)) {
+                return null;
+            }
+
+            $group = $wishlist->groups()->create(['name' => __('Untitled Group')]);
+            $group->users()->attach($request->user());
 
             return $group;
         });
 
-        return to_route('groups.show', $group);
+        if ($newGroup) {
+            return to_route('groups.show', $newGroup);
+        }
+
+        return to_route('wishlists.show', $wishlist);
     }
 
     public function show(Request $request, Group $group): View
