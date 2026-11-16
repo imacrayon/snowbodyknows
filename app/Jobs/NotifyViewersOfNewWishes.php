@@ -12,7 +12,7 @@ use Illuminate\Queue\Attributes\DeleteWhenMissingModels;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Notification;
 
-#[DebounceFor(600, maxWait: 3600)]
+#[DebounceFor(1800, maxWait: 3600)]
 #[DeleteWhenMissingModels]
 class NotifyViewersOfNewWishes implements ShouldQueue
 {
