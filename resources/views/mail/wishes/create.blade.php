@@ -5,16 +5,15 @@
     'wishlist' => $wishlist->name
 ]) }}
 
-<x-mail::panel>
 @foreach ($wishes as $wish)
+<x-mail::panel>
 **{{ $wish->name }}**
 
 @if($wish->description)
 {{ $wish->description }}
-
 @endif
-@endforeach
 </x-mail::panel>
+@endforeach
 
 <x-mail::button url="{{ $url = route('wishlists.show', $wishlist) }}">
 {{ __('View wishlist') }}
