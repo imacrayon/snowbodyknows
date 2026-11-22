@@ -21,6 +21,32 @@ test('users can add to their wishlists', function () {
         ->description->toBe('Test description.');
 });
 
+test('users can add wishes with URLs containing symbols', function () {
+    $wishlist = Wishlist::factory()->create();
+
+    $this->actingAs($wishlist->user);
+    $response = $this->post(route('wishes.create', $wishlist), [
+        'name' => 'New Wish',
+        'url' => 'https://www.amazon.com/Proofing-Box50-130°F-foldable/dp/B0FH16MBWT',
+    ]);
+
+    $response->assertRedirectToRoute('wishlists.show', $wishlist);
+    expect(Wish::first())->url->toBe('https://www.amazon.com/Proofing-Box50-130°F-foldable/dp/B0FH16MBWT');
+});
+
+test('users cannot add wishes with non-web URLs', function () {
+    $wishlist = Wishlist::factory()->create();
+
+    $this->actingAs($wishlist->user);
+    $response = $this->post(route('wishes.create', $wishlist), [
+        'name' => 'New Wish',
+        'url' => 'javascript:alert(1)',
+    ]);
+
+    $response->assertInvalid(['url' => 'The url field must start with one of the following: http://, https://.']);
+    expect(Wish::count())->toBe(0);
+});
+
 test('users cannot add to others’ wishlists', function () {
     $wishlist = Wishlist::factory()->create();
 

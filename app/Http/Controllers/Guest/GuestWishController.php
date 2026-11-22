@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\Guest;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\WishRequest;
 use App\Models\Wish;
 use App\Models\Wishlist;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 class GuestWishController extends Controller
@@ -23,15 +23,11 @@ class GuestWishController extends Controller
         ]);
     }
 
-    public function store(Request $request, Wishlist $wishlist): RedirectResponse
+    public function store(WishRequest $request, Wishlist $wishlist): RedirectResponse
     {
         $wishlist = session('wishlist');
 
-        $wishlist['wishes'][] = array_merge($request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'url' => ['nullable', 'url:http,https', 'max:2000'],
-            'description' => ['nullable', 'string', 'max:2000'],
-        ]), ['id' => count($wishlist['wishes'])]);
+        $wishlist['wishes'][] = array_merge($request->validated(), ['id' => count($wishlist['wishes'])]);
 
         session(['wishlist' => $wishlist]);
 
@@ -55,18 +51,14 @@ class GuestWishController extends Controller
         ]);
     }
 
-    public function update(Request $request, int $wishId): RedirectResponse
+    public function update(WishRequest $request, int $wishId): RedirectResponse
     {
         $foundWishKey = array_search($wishId, array_column(session('wishlist')['wishes'], 'id'));
         if ($foundWishKey === false) {
             return to_route('guests.wishlists.show');
         }
         $wishlist = session('wishlist');
-        $wishlist['wishes'][$foundWishKey] = array_merge($wishlist['wishes'][$foundWishKey], $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'url' => ['nullable', 'url:http,https', 'max:2000'],
-            'description' => ['nullable', 'string', 'max:2000'],
-        ]));
+        $wishlist['wishes'][$foundWishKey] = array_merge($wishlist['wishes'][$foundWishKey], $request->validated());
 
         session(['wishlist' => $wishlist]);
 

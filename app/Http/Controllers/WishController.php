@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\WishRequest;
 use App\Jobs\NotifyViewersOfNewWishes;
 use App\Models\Wish;
 use App\Models\Wishlist;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 class WishController extends Controller
@@ -19,13 +19,9 @@ class WishController extends Controller
         ]);
     }
 
-    public function store(Request $request, Wishlist $wishlist): RedirectResponse
+    public function store(WishRequest $request, Wishlist $wishlist): RedirectResponse
     {
-        $wishlist->wishes()->create($request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'url' => ['nullable', 'url:http,https', 'max:2000'],
-            'description' => ['nullable', 'string', 'max:2000'],
-        ]) + ['notify_viewers' => true]);
+        $wishlist->wishes()->create($request->validated() + ['notify_viewers' => true]);
 
         NotifyViewersOfNewWishes::dispatch($wishlist);
 
@@ -40,13 +36,9 @@ class WishController extends Controller
         ]);
     }
 
-    public function update(Request $request, Wishlist $wishlist, Wish $wish): RedirectResponse
+    public function update(WishRequest $request, Wishlist $wishlist, Wish $wish): RedirectResponse
     {
-        $wish->update($request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'url' => ['nullable', 'url:http,https', 'max:2000'],
-            'description' => ['nullable', 'string', 'max:2000'],
-        ]));
+        $wish->update($request->validated());
 
         return to_route('wishlists.show', $wishlist);
     }
